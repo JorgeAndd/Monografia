@@ -1,6 +1,40 @@
 \chapter{Introdução}
 
-Introdução ao trabalho de Banco de Dados não relacionais\cite{carpenter91}
+Podemos definir bancos de dados relacional como um conjunto de dados que se relacionam entre si, armazenados de uma forma persistente, ou seja, que possam ser recuperados quando necessários. Devido às suas características de persistência, concorrência, integração e padronização, tem sido o modelo padrão a pelo menos vinte anos na computação\cite{pramod}.
+
+\section{NoSQL}
+Nos últimos anos, devido a novas necessidades tem surgido um movimento em direção a um novo paradigma chamado NoSQL. O termo da forma que é utilizado atualmente tem suas bases em uma reunião realizada em 2009 em São Franscisco, Estados Unidos. Organizada por Johan Oskarsdon, criador do Last.fm, nela foi discutida formas mais eficientes e baratas de organização dos dados, como as já sugeridas pelo Google Bigtable e Amazon's Dynamo em publicações anteriores.
+
+O termo não tem uma definição precisa e universalmente aceita, mas é geral descrito como "Not Only SQL". Bancos NoSQL em geral são caracterizados, mas não definidos, como sendo não relacionais, sem esquema bem definido e distribuidos, favorecendo a execução em clusters, apesar de existirem excessões, como os bancos de dados de grafos.
+
+Bancos de dados NoSQL possuem padrões de modelos de dados, que compartilham certas características em comum e servem a determinadas aplicações específicos, podendo alguns bancos serem classificados em mais de uma categoria. A tabela \ref{tab:modelosnosql} lista esses modelos e alguns bancos de dados que se enquadram em cada um deles.
+
+\begin{table}[]
+\centering
+\caption{Modelos de Bancos NoSQL}
+\label{tab:modelosnosql}
+\begin{tabular}{ll}
+\textbf{Modelo de Dados}     & \textbf{Exemplo de bancos de dados}      \\ \hline
+Chave-valor         & Project Voldemort               \\
+                    & Riak                            \\
+                    & BerkeleyDB                      \\ \hline
+Documentos          & CouchDB                         \\
+                    & MongoDB                         \\
+                    & OrientDB                        \\ \hline
+Famílias de colunas & Cassandra                       \\
+                    & HBase                           \\ \hline
+Grafos              & Neo4j, OrientDB, Infinite Graph \\
+                    & OrientDB                        \\
+                    & Infinite Graph                 
+\end{tabular}
+\end{table}
+
+\section{Dados Abertos}
+A Open Definition define um dado como aberto "[...] se qualquer pessoa esta livre para acessá-lo, utilizá-lo, modificá-lo, e compartilhá-lo — restrito, no máximo, a medidas que preservam a proveniência e abertura."\cite{opendefinition}
+
+
+
+
 
 
 

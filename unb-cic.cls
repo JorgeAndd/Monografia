@@ -1061,7 +1061,7 @@
             pdfkeywords=\@palavraschave}
 		\@ifpackageloaded{natbib}{
 			%compatibilidade entre natbib e hyperref
-    		\RequirePackage{hypernat}
+    		%\RequirePackage{hypernat}
 		}{}
 		%posiciona melhor os links para captions
         \RequirePackage[all]{hypcap}
