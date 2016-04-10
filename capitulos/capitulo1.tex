@@ -1,15 +1,15 @@
 \chapter{Introdução}
 
-Podemos definir bancos de dados relacional como um conjunto de dados que se relacionam entre si, armazenados de uma forma persistente, ou seja, que possam ser recuperados quando necessários. Devido às suas características de persistência, concorrência, integração e padronização, tem sido o modelo padrão a pelo menos vinte anos na computação\cite{pramod}.
+Podemos definir um banco de dados relacional como um conjunto de dados que se relacionam entre si, armazenados de uma forma persistente, ou seja, que possam ser recuperados quando necessários. Devido às suas características de persistência, concorrência, integração e padronização, tem sido o modelo padrão de armazenamento, principalmente em ambientes empresariais, a pelo menos vinte anos na computação\cite{pramod}. Uma questão importante em bancos de dados computacionais atuais é a não necessidade que o usuário tem de conhecer como esses dados são armazenados. Isso é possível graças aos chamados Sistemas Gerenciadores de Bancos de Dados(SGBDs)\cite{jan}.
 
 \section{NoSQL}
-Nos últimos anos, devido a novas necessidades tem surgido um movimento em direção a um novo paradigma chamado NoSQL. O termo da forma que é utilizado atualmente tem suas bases em uma reunião realizada em 2009 em São Franscisco, Estados Unidos. Organizada por Johan Oskarsdon, criador do Last.fm, foram discutidas formas mais eficientes e baratas de organização dos dados, como as já sugeridas pelo Google Bigtable e Amazon's Dynamo em publicações anteriores\cite{chrisnosql}.
+Nos últimos anos, devido a novas necessidades, tem surgido um movimento em direção a um novo paradigma denominado NoSQL. O termo foi utilizado pela primeira vez em 1998 para denominar um banco de dados que omitia o uso de SQL. A definição atual, porém, tem suas bases em uma reunião realizada em 2009 em São Franscisco, Estados Unidos. Organizada por Johan Oskarsdon, criador do Last.fm, nela foram discutidas formas mais eficientes e baratas de organização dos dados, como as já sugeridas pelo Google Bigtable e Amazon's Dynamo em publicações anteriores\cite{chrisnosql}.
 
-O termo não tem uma definição precisa e universalmente aceita, mas é geral descrito como "Not Only SQL". Bancos NoSQL em geral são caracterizados, mas não definidos, como sendo não relacionais, sem esquema bem definido e distribuidos, favorecendo a execução em clusters, apesar de existirem excessões, como os bancos de dados de grafos.
+O termo não tem uma definição precisa e universalmente aceita, mas é geral descrito como "Not Only SQL". Bancos NoSQL em geral são caracterizados, mas não definidos, como sendo não relacionais, sem esquema bem definido e distribuidos, favorecendo a execução em clusters, apesar de existirem excessões, como os bancos de dados de grafos, que são executados geralmente em um único servidor.
 
-Bancos de dados NoSQL possuem padrões de modelos de dados, que compartilham certas características em comum e servem a determinadas aplicações específicos, podendo alguns bancos serem classificados em mais de uma categoria. A tabela \ref{tab:modelosnosql} lista esses modelos e alguns bancos de dados que se enquadram em cada um deles.
+Bancos de dados NoSQL possuem padrões de modelos de dados, que compartilham certas características em comum e servem a determinadas aplicações específicas, podendo alguns bancos serem classificados em mais de uma categoria. A tabela \ref{tab:modelosnosql} lista os quatro modelos atuais e alguns bancos de dados que se enquadram em cada um deles.
 
-\begin{table}[]
+~\begin{table}[]
 \centering
 \caption{Modelos de Bancos NoSQL}
 \label{tab:modelosnosql}
@@ -30,10 +30,9 @@ Grafos              & Neo4j, OrientDB, Infinite Graph \\
 \end{table}
 
 \section{Dados Abertos}
-A Open Definition define um dado como aberto "[...] se qualquer pessoa esta livre para acessá-lo, utilizá-lo, modificá-lo, e compartilhá-lo — restrito, no máximo, a medidas que preservam a proveniência e abertura."\cite{opendefinition}.
+A Open Definition define um dado como aberto "se qualquer pessoa esta livre para acessá-lo, utilizá-lo, modificá-lo, e compartilhá-lo — restrito, no máximo, a medidas que preservam a proveniência e abertura."\cite{opendefinition}.
 
-O poder público vem nos últimos anos realizando ações que promovem a abertura de dados governamenais. Essas ações visam benefícios como melhoria da gestão pública, transparência, controle a participação social, geração de emprego e renda e estímulo à inovação tecnológica. \cite{tcu}
-
+O poder público brasileiro vem nos últimos anos realizando ações que promovem a abertura de dados governamenais. Essas ações visam benefícios como melhoria da gestão pública, transparência, controle a participação social, geração de emprego e renda e estímulo à inovação tecnológica. \cite{tcu}. Para atingir esse fim, no ano de 2012 foi definido, em instrução normativa, a implantação da INDA, Infraestrutura Nacional de Dados Abertos, "um conjunto de padrões, tecnologias, procedimentos e mecanismos de controle necessários para atender às condições de disseminação e compartilhamento de dados e informações públicas no modelo de Dados Abertos"\cite{inda}.  
 
 
 
