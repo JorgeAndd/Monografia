@@ -1,38 +1,27 @@
-\chapter{Introdução}
+\chapter{Dados Abertos}
 
-Podemos definir um banco de dados relacional como um conjunto de dados que se relacionam entre si, armazenados de uma forma persistente, ou seja, que possam ser recuperados quando necessários. Devido às suas características de persistência, concorrência, integração e padronização, tem sido o modelo padrão de armazenamento, principalmente em ambientes empresariais, a pelo menos vinte anos na computação\cite{pramod}. Uma questão importante em bancos de dados computacionais atuais é a não necessidade que o usuário tem de conhecer como esses dados são armazenados. Isso é possível graças aos chamados Sistemas Gerenciadores de Bancos de Dados(SGBDs)\cite{jan}.
+A \emph{Open Definition} define um dado como aberto \enquote{se qualquer pessoa esta livre para acessá-lo, utilizá-lo, modificá-lo, e compartilhá-lo — restrito, no máximo, a medidas que preservam a proveniência e abertura.}~\cite{opendefinition}. A abertura dos dados evita mecanismos de controle e restrições sobre esses dados, o que permite seu uso de forma livre~\cite{seijiconectados}.
 
-\section{NoSQL}
-Nos últimos anos, devido a novas necessidades, tem surgido um movimento em direção a um novo paradigma denominado NoSQL. O termo foi utilizado pela primeira vez em 1998 para denominar um banco de dados que omitia o uso de SQL. A definição atual, porém, tem suas bases em uma reunião realizada em 2009 em São Franscisco, Estados Unidos. Organizada por Johan Oskarsdon, criador do Last.fm, nela foram discutidas formas mais eficientes e baratas de organização dos dados, como as já sugeridas pelo Google Bigtable e Amazon's Dynamo em publicações anteriores\cite{chrisnosql}.
+A Open Knowledge Foundation, organização mundial que promove a abertura de dados~\cite{openknowledge}, resume esses pontos como:
 
-O termo não tem uma definição precisa e universalmente aceita, mas é geral descrito como "Not Only SQL". Bancos NoSQL em geral são caracterizados, mas não definidos, como sendo não relacionais, sem esquema bem definido e distribuidos, favorecendo a execução em clusters, apesar de existirem excessões, como os bancos de dados de grafos, que são executados geralmente em um único servidor.
+\begin{itemize}
+\item \textbf{Disponibilidade e Acesso}: os dados devem estar disponíveis como um todo e sob custo não maior que um custo razoável de reprodução, preferencialmente possíveis de serem baixados pela internet. Os dados devem também estar disponíveis de uma forma conveniente e modificável.
 
-Bancos de dados NoSQL possuem padrões de modelos de dados, que compartilham certas características em comum e servem a determinadas aplicações específicas, podendo alguns bancos serem classificados em mais de uma categoria. A tabela \ref{tab:modelosnosql} lista os quatro modelos atuais e alguns bancos de dados que se enquadram em cada um deles.
+\item \textbf{Reutilização e Redistribuição}: os dados devem ser fornecidos sob termos que permitam a reutilização e a redistribuição, inclusive a combinação com outros conjuntos de dados.
 
-~\begin{table}[]
-\centering
-\caption{Modelos de Bancos NoSQL}
-\label{tab:modelosnosql}
-\begin{tabular}{ll}
-\textbf{Modelo de Dados}     & \textbf{Exemplo de bancos de dados}      \\ \hline
-Chave-valor         & Project Voldemort               \\
-                    & Riak                            \\
-                    & BerkeleyDB                      \\ \hline
-Documentos          & CouchDB                         \\
-                    & MongoDB                         \\
-                    & OrientDB                        \\ \hline
-Famílias de colunas & Cassandra                       \\
-                    & HBase                           \\ \hline
-Grafos              & Neo4j, OrientDB, Infinite Graph \\
-                    & OrientDB                        \\
-                    & Infinite Graph                 
-\end{tabular}
-\end{table}
+\item \textbf{Participação Universal}: todos devem ser capazes de usar, reutilizar e redistribuir - não deve haver discriminação contra áreas de atuação ou contra pessoas ou grupos. Por exemplo, restrições de uso 'não-comercial' que impediriam o uso 'comercial', ou restrições de uso para certos fins (ex.: somente educativos) excluem determinados dados do conceito de 'aberto'.
+\end{itemize}
 
-\section{Dados Abertos}
-A Open Definition define um dado como aberto "se qualquer pessoa esta livre para acessá-lo, utilizá-lo, modificá-lo, e compartilhá-lo — restrito, no máximo, a medidas que preservam a proveniência e abertura."\cite{opendefinition}.
+O termo \enquote{Dados abertos} surgiu em 1995 em um documento de uma agência científica americana, e esse conceito vem sendo ampliado e estimulado nos últimos anos por diversos movimentos~\cite{seijiconectados}. 
 
-O poder público brasileiro vem nos últimos anos realizando ações que promovem a abertura de dados governamenais. Essas ações visam benefícios como melhoria da gestão pública, transparência, controle a participação social, geração de emprego e renda e estímulo à inovação tecnológica. \cite{tcu}. Para atingir esse fim, no ano de 2012 foi definido, em instrução normativa, a implantação da INDA, Infraestrutura Nacional de Dados Abertos, "um conjunto de padrões, tecnologias, procedimentos e mecanismos de controle necessários para atender às condições de disseminação e compartilhamento de dados e informações públicas no modelo de Dados Abertos"\cite{inda}.  
+A participação brasileira tem um marco em 2011 com a criação da \emph{Open Government Partnership}, contando inicialmente com a participação de 65 países. Também foi criado o portal dados.gov.br, que disponibiliza dados governamentais de forma aberta~\cite{seijiconectados}.
+
+
+O poder público brasileiro vem nos últimos anos realizando outras ações que promovem a abertura de dados governamenais. Essas ações visam benefícios como melhoria da gestão pública, transparência, controle a participação social, geração de emprego e renda e estímulo à inovação tecnológica~\cite{tcu}. Para atingir esse fim, no ano de 2012 foi definido, em instrução normativa, a implantação da INDA, Infraestrutura Nacional de Dados Abertos, \enquote{um conjunto de padrões, tecnologias, procedimentos e mecanismos de controle necessários para atender às condições de disseminação e compartilhamento de dados e informações públicas no modelo de Dados Abertos}~\cite{inda}.  
+
+O governo tem importancia fundamental na questão de dados abertos, devido â grande quantidade de dados que coleta e por serem públicos, conforme a lei, podendo ser tornados abertos e disponíveis para a sociedade~\cite{openknowledge}.
+
+Esses dados governamentais tem relevância tanto no âmbito da transparência, podendo haver rastreamento dos impostos e gastos governamentais; da vida pessoal, como na localização de serviços públicos por parte da população; economicamente, com a reutilização de dados abertos já disponíveis; e também dentro do próprio governo, que pode aumentar sua eficiência ao permitir que a população consulte diretamente dados que antes precisavam de interferência direta e individual por parte de funcionários públicos~\cite{openknowledge}.
 
 
 
