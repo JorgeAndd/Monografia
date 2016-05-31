@@ -1,22 +1,10 @@
-@book{pramod,
-	author		= {Pramod J. Sadalage and Martin Fowler},
-	title 		= {NoSQL Essencial},
-	publisher 	= {Novatec},
-	year 		= {2013}
-}
+// Dados Abertos --------------------------------------------------------------------
 
 @book{seijiconectados,
 	author		= {Seiji Isotani and Ig I. Bittencourt},
 	title 		= {Dados Abertos Conectados},
 	publisher 	= {Novatec},
 	year 		= {2015}
-}
-
-@book{jan,
-	author		= {Jan L. Harrington},
-	title		= {Relational database design and implementation : clearly explained},
-	publisher 	= {Morgan Kaufmann},
-	year		= {2009}
 }
 
 @misc{opendefinition,
@@ -31,29 +19,6 @@
 	howpublished = {\url{http://opendatahandbook.org/guide/pt_BR/what-is-open-data/}},
 	note = {Acessado em 07 de maio de 2016},
 	annote = {}
-}
-
-@misc{blograshid,
-	title = {NoSQL Systems},
-	howpublished = {\url{http://blog.imrashid.com/nosql-systems/}},
-	note = {Acessado em 08 de maio de 2016},
-	annote = {}
-}
-
-@article{chrisnosql,
-	author = {Christof Strauch},
-	title = {NoSQL Databases},
-	journal = {Stuttgart Media University},
-	year = 2011
-}
-
-@article{bigtable,
-    author = {Fay Chang and Jeffrey Dean and Sanjay Ghemawat and Wilson C. Hsieh and Deborah A. Wallach and Mike Burrows and Tushar Chandra and Andrew Fikes and Robert E. Gruber},
-    title = {Bigtable: A distributed storage system for structured data},
-    booktitle = {IN PROCEEDINGS OF THE 7TH CONFERENCE ON USENIX SYMPOSIUM ON OPERATING SYSTEMS DESIGN AND IMPLEMENTATION - VOLUME 7},
-    year = {2006},
-    pages = {205--218},
-    publisher = {}
 }
 
 @misc{tcu,
@@ -71,39 +36,39 @@
   annote = 	 {}
 }
 
-@misc{neo4j_acidbase,
-  title = 	 {Graph Databases for Beginners: ACID vs. BASE Explained},
-  howpublished = {\url{http://neo4j.com/blog/acid-vs-base-consistency-models-explained/}},
-  note = 	 {Acessado em 05 de maio de 2016},
-  annote = 	 {}
+@article{bizerlinked,
+  title={Linked Data - The Story So Far},
+  author={Christian Bizer and Tom Heath and Tim Berners-Lee},
+  journal={Semantic Services, Interoperability and Web Applications: Emerging Concepts},
+  pages={205--227},
+  year={2009}
 }
 
-@inproceedings{brewer,
-  title={Harvest, yield, and scalable tolerant systems},
-  author={Armando Fox and Eric Brewer},
-  booktitle={Hot Topics in Operating Systems, 1999. Proceedings of the Seventh Workshop on},
-  pages={174--178},
-  year={1999},
-  organization={IEEE}
+// DW -------------------------------------------------------------------------------
+
+@book{dwkimball,
+	author = {Ralph Kimball and Margy Ross},
+	title = {The Data Warehouse Toolkit},
+	publisher = {Wiley},
+	year = {2013},
+	edition = {3}
 }
 
-@article{brewer12years,
-  title={CAP twelve years later: How the "rules" have changed},
-  author={Eric Brewer},
-  journal={Computer},
-  volume={45},
-  number={2},
-  pages={23--29},
-  year={2012},
-  publisher={IEEE}
+@book{dwpaulraj,
+	author = {Paulraj Ponniah},
+	title = {Data Warehousing for IT Professionals},
+	publisher = {Wiley},
+	year = {2010}, 
+	edition = {2}
 }
 
-@misc{deutsch,
-	title = {The eight fallacies of distributed computing},
-	author={Deutsch, Peter},
-	howpublished = {\url{http://today.java.net/jag/Fallacies.html}},
-	note = {Acessado em 28 de maio de 2016},
-	annote = {}
+// Bancos de Dados ---------------------------------------------------------------
+
+@book{jan,
+	author		= {Jan L. Harrington},
+	title		= {Relational database design and implementation : clearly explained},
+	publisher 	= {Morgan Kaufmann},
+	year		= {2009}
 }
 
 @book{dmsbook,
@@ -112,6 +77,14 @@
   year = {2003},
   publisher = {Osborne/McGraw-Hill},
   edition = 3
+}
+
+@misc{deutsch,
+	title = {The eight fallacies of distributed computing},
+	author={Deutsch, Peter},
+	howpublished = {\url{http://today.java.net/jag/Fallacies.html}},
+	note = {Acessado em 28 de maio de 2016},
+	annote = {}
 }
 
 @article{haerder,
@@ -156,6 +129,65 @@
   publisher={American Documentation Institute}
 }
 
+// NoSQL -------------------------------------------------------------------------
+
+@book{pramod,
+	author		= {Pramod J. Sadalage and Martin Fowler},
+	title 		= {NoSQL Essencial},
+	publisher 	= {Novatec},
+	year 		= {2013}
+}
+
+@misc{blograshid,
+	title = {NoSQL Systems},
+	howpublished = {\url{http://blog.imrashid.com/nosql-systems/}},
+	note = {Acessado em 08 de maio de 2016},
+	annote = {}
+}
+
+@article{chrisnosql,
+	author = {Christof Strauch},
+	title = {NoSQL Databases},
+	journal = {Stuttgart Media University},
+	year = 2011
+}
+
+@article{bigtable,
+    author = {Fay Chang and Jeffrey Dean and Sanjay Ghemawat and Wilson C. Hsieh and Deborah A. Wallach and Mike Burrows and Tushar Chandra and Andrew Fikes and Robert E. Gruber},
+    title = {Bigtable: A distributed storage system for structured data},
+    booktitle = {IN PROCEEDINGS OF THE 7TH CONFERENCE ON USENIX SYMPOSIUM ON OPERATING SYSTEMS DESIGN AND IMPLEMENTATION - VOLUME 7},
+    year = {2006},
+    pages = {205--218},
+    publisher = {}
+}
+
+@misc{neo4j_acidbase,
+  title = 	 {Graph Databases for Beginners: ACID vs. BASE Explained},
+  howpublished = {\url{http://neo4j.com/blog/acid-vs-base-consistency-models-explained/}},
+  note = 	 {Acessado em 05 de maio de 2016},
+  annote = 	 {}
+}
+
+@inproceedings{brewer,
+  title={Harvest, yield, and scalable tolerant systems},
+  author={Armando Fox and Eric Brewer},
+  booktitle={Hot Topics in Operating Systems, 1999. Proceedings of the Seventh Workshop on},
+  pages={174--178},
+  year={1999},
+  organization={IEEE}
+}
+
+@article{brewer12years,
+  title={CAP twelve years later: How the "rules" have changed},
+  author={Eric Brewer},
+  journal={Computer},
+  volume={45},
+  number={2},
+  pages={23--29},
+  year={2012},
+  publisher={IEEE}
+}
+
 @article{leavitt2010nosql,
   title={Will NoSQL databases live up to their promise?},
   author={Leavitt, Neal},
@@ -185,3 +217,49 @@
   pages={336-341}, 
   publisher={IEEE}
 }
+
+// Cassandra ---------------------------------------------------------------------
+
+@book{cassandraguide,
+	author = {Eben Hewitt},
+	title = {Cassandra: The Definitive Guide},
+	publisher = {O'Reilly Media},
+	year = {2010}
+}
+
+@article{lakshmancassandra,
+  title={Cassandra: A Decentralized Structured Storage System},
+  author={Avinash Lakshman and Prashant Malik},
+  journal={ACM SIGOPS Operating Systems Review},
+  volume={44},
+  number={2},
+  pages={35--40},
+  year={2010},
+  publisher={ACM}
+}
+
+@misc{cassandracompanies,
+  title = 	 {Companies Using NoSQL Apache Cassandra},
+  howpublished = {\url{http://www.planetcassandra.org/companies/}},
+  note = 	 {Acessado em 30 de maio de 2016},
+  annote = 	 {}
+}
+
+------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
