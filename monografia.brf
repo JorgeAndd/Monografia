@@ -60,3 +60,7 @@
 \backcite {cassandracompanies}{{12}{4.1}{section.4.1}}
 \backcite {cassandraguide}{{12}{4.1}{section.4.1}}
 \backcite {lakshmancassandra}{{14}{4.2}{section.4.2}}
+\backcite {bigtable}{{14}{4.2}{section.4.2}}
+\backcite {cassandraguide}{{14}{4.2}{section*.19}}
+\backcite {lakshmancassandra}{{14}{4.2}{section*.20}}
+\backcite {cassandraguide}{{14}{4.2}{section*.20}}
