@@ -7,7 +7,7 @@ O Cassandra se originou em 2007 como um projeto do \emph{Facebook} para resolver
 
 O projeto foi desenvolvido por Jeff Hammerbacher, Avinash Lakshman, Karthik Ranganathan e Prashant Malik, tendo seu modelo de dados sofrido grande inspiração nos trabalhos anteriores do \emph{Amazon Dynamo}~\cite{dynamo} e do \emph{Google Bigtable}~\cite{bigtable}, e lançado em 2008 como um projeto \emph{open source}. Foi mantido e atualizado apenas pelo Facebook até 2009, quando foi comprado pela Apache~\cite{cassandraguide}, sendo utilizado atualmente por companias como \emph{Netflix}, \emph{Spotify} e até em agências governamentais, como a NASA~\cite{cassandracompanies}. 
 
-Pode ser definido como um banco de dados orientado a colunas \emph{open source}, distribuído, descentralizado, elasticamente escalavel, altamente disponível, tolerante a falhas e variavelmente consistente~\cite{cassandraguide}. A seguir iremos analisar cada uma dessas características.
+O Apache Cassandra pode ser definido como um banco de dados orientado a colunas \emph{open source}, distribuído, descentralizado, elasticamente escalavel, altamente disponível, tolerante a falhas e variavelmente consistente~\cite{cassandraguide}. A seguir iremos analisar cada uma dessas características.
 
 \subsection{Características}
 
@@ -35,21 +35,44 @@ O Cassandra é por vezes definido como \enquote{eventualmente consistente}, por 
 
 \section{Modelo de Dados}
 
-Um banco de dados Cassandra consiste em um \emph{keyspace}, formado por colunas agrupadas em conjuntos chamados famílias de colunas. Esse modelo é bastante semelhante ao que foi proposto pelo Bigtable~\cite{lakshmancassandra, bigtable}. Seu modelo de dados pode ser visto como um mapa multidimensional indexado por uma chave, se assemelhando aos modelos de chave-valor e orientados à colunas. A seguir veremos em detalhes cada um desses conceitos.
+Um banco de dados Cassandra consiste em um \emph{keyspace} contendo famílias de colunas, que por sua vez definem um conjunto de linhas que englobam várias colunas. Essa disposição de dados é bastante semelhante ao que foi proposto pelo Bigtable~\cite{lakshmancassandra, bigtable}. Seu modelo de dados pode ser visto como um mapa multidimensional indexado por uma chave, se assemelhando aos modelos de chave-valor e orientados à colunas. A seguir veremos em detalhes cada um desses conceitos.
+
+A figura \ref{fig:cassandradm} ilustra de forma resumida o modelo de dados do Cassandra, contendo um \emph{keyspace} e seus componentes. 
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1.1\textwidth]{figuras/cassandradatamodel.png}
+\caption{Modelo de dados do Cassandra. Adaptado de ~\cite{ibmcassandra}}
+\label{fig:cassandradm}
+\end{figure}
 
 \subsection*{\emph{Keyspace}}
-Um \emph{keyspace} define o maior agrupamento de dados no Cassandra, podendo ser correspondido a um banco de um SGBD relacional. Um \emph{keyspace} define um nome e uma série de atributos que definem o seu comportamento~\cite{cassandraguide}.
-
-Atributos do \emph{keyspace} incluem:
+Um \emph{keyspace} define o agrupamento de dados mais externo no Cassandra, podendo ser correspondido a um banco de um SGBD relacional. Um \emph{keyspace} define um nome e uma série de atributos que definem o seu comportamento. 
+Atributos do \emph{keyspace} incluem~\cite{cassandraguide}:
 \begin{itemize}
 \item \textbf{Fator de replicação} diz respeito ao número de nós que armazenarão uma réplica de cada linha de dados. O fator de replicação tem forte influencia no balanço entre performance e consistência do banco de dados.
-\item \textbf{Estratégia de replicação} se refere a como as réplicas (ou cópias) de um dado serão posicionados no anel do \emph{cluster}.
+\item \textbf{Estratégia de replicação} se refere a como as réplicas (ou cópias) de um dado serão posicionados no anel do \emph{cluster}. Diversas estratégias de replicação estão disponíveis no Cassandra.
 \item \textbf{Famílias de colunas} pode ser visto como o análogo às tabelas de um modelo relacional, da mesma forma que o \emph{keyspace} é o análogo do banco.  Uma família de colunas é um agrupamento para uma coleção de linhas, onde cada linha contém colunas ordenadas.
 \end{itemize}
+
+
 
 \subsection*{Colunas e famílias de colunas}
 Uma família de colunas (ou tabela) no Cassandra é um mapa multidimensional indexado por uma chave. Essa chave é uma \emph{string} sem restrição de tamanho, mas que em geral varia de 16 a 36 \emph{bytes}. O valor desse mapeamento consiste em uma família de colunas, um agrupamento para uma coleção ordenadas de linhas, que por sua vez é uma coleção ordenada de colunas ~\cite{lakshmancassandra, cassandraguide}.
 
-O modelo de família de colunas se diferencia do modelo relacional por ser o que é chamado comumente de \emph{livre de esquema} (\emph{schama free}) . É possível realizar a inserção, remoção ou alteração de qualquer coluna ou família de colunas a qualquer momento, ficando as aplicações clientes do banco encarregadas de interpretar e manipular o novo modelo de dados. 
+Uma família de colunas possui dois atributos: um nome e um comparador. O nome identifica a coluna para realização de consultas, enquanto o comparador indica como as colunas serão ordenadas ao serem retornadas em uma consultas, podendo ser \emph{long}, \emph{byte}, UTF8, etc~\cite{cassandraguide}.
 
-Ao se inserir um novo dado em uma família de colunas do Cassandra são especificados valores para uma ou mais colunas. O conjunto de valores é chamado de linha, e é identificado unicamente por uma chave de linha. Uma linha não precisa possuir dados para todas colunas presentes na família de colunas à que ela pertence, sendo o espaço alocado apenas para as colunas presentes nessa linha. Isso gera tanto uma economia de espaço quanto uma melhora de performance em relação a um banco relacional, que precisa preencher com valores nulos colunas não utilizadas.
+O modelo de família de colunas se diferencia do modelo relacional por ser o que é chamado comumente de \emph{livre de esquema} (\emph{schema free}) . É possível realizar a inserção, remoção ou alteração de qualquer coluna ou família de colunas a qualquer momento, ficando as aplicações clientes do banco encarregadas de interpretar e manipular o novo modelo de dados. 
+
+Ao se inserir um novo dado em uma família de colunas do Cassandra são especificados valores para uma ou mais colunas. O conjunto de valores é chamado de linha, e é identificado unicamente por uma chave primária ou chave de linha. Uma linha não precisa possuir dados para todas colunas presentes na família de colunas à que ela pertence, sendo o espaço alocado apenas para as colunas presentes nessa linha. Isso gera tanto uma economia de espaço quanto uma melhora de performance em relação a um banco relacional, que precisa preencher com valores nulos colunas não utilizadas.
+
+Uma coluna é a unidade básica de armazenamento do Cassandra, e é constituida por um nome, um valor e um \emph{timestamp}. Se difere do conceito de colunas de bancos relacionais pois durante a criação do banco não é necessário a criação de colunas, e sim apenas famílias de colunas. A criação de colunas ocorre apenas durante a inserção de dados no banco e suas colunas correspondentes~\cite{cassandraguide}.
+
+\section{Arquitetura}
+
+O Cassandra foi projetado para lidar com grandes massas de dados distribuídas em vários nós sem ponto único de falha, pensado no fato de que tanto um sistema quanto componentes de hardware podem falhar.
+A arquitetura Cassandra combate o problema de falhas ao empregar uma distribuição par-a-par (\emph{peer-to-peer}) entre nós homogêneos, com dados distribuidos entre todos os nós de um \emph{cluster}~\cite{cassandradocs}. 
+
+Cada nó frequentemente troca informações de estado sobre ele mesmo e outros nós do cluster utilizando um  protocolo par-a-par \emph{gossip}. Um \emph{commit log} sequencial em cada nó armazena atividades de escrita de dados para garantir durabilidade. Esses dados são então indexados e escritos em uma estrutura em memória RAM chamada \emph{memtable}. Sempre que a \emph{memtable} é completamente preenchida, os dados são escritos em disco em um arquivo \emph{SSTable}. Uma \emph{SSTable} é um arquivo imutável, onde os dados são apenas inseridos ao final do arquivo. Os arquivos \emph{SSTable} são então particionados e replicados no cluster, o que garante a redundância dos dados. Periodicamente, as \emph{SSTables} são compactadas e dados obsoletos são descartados, além disso a consistencia do \emph{cluster} é mantida por meio de mecanismos de reparo~\cite{cassandradocs}.
+
+Consultas no Cassandra podem ser realizadas por meio da linguagem \emph{CQL}, que possui sintax próxima a do \emph{SQL} e trabalha com dados de tabelas. Operações de leitura e escrita podem ser realizados em qualquer nó do \emph{cluster}, devido à característica de homogeneidade entre eles. Ao realizar uma conexão com um cliente, o nó atua como coordenador dessa operação, servindo de ponte entre a aplicação e os nós que possuem o dado requisitado~\cite{cassandradocs}e. 

@@ -1,4 +1,5 @@
 \backcite {blograshid}{{vi}{(document)}{Doc-Start}}
+\backcite {ibmcassandra}{{vi}{(document)}{Doc-Start}}
 \backcite {opendefinition}{{1}{1}{chapter.1}}
 \backcite {leavitt2010nosql}{{1}{1}{chapter.1}}
 \backcite {opendefinition}{{2}{2}{chapter.2}}
@@ -61,6 +62,12 @@
 \backcite {cassandraguide}{{12}{4.1}{section.4.1}}
 \backcite {lakshmancassandra}{{14}{4.2}{section.4.2}}
 \backcite {bigtable}{{14}{4.2}{section.4.2}}
+\backcite {ibmcassandra}{{14}{4.1}{figure.4.1}}
 \backcite {cassandraguide}{{14}{4.2}{section*.19}}
-\backcite {lakshmancassandra}{{14}{4.2}{section*.20}}
-\backcite {cassandraguide}{{14}{4.2}{section*.20}}
+\backcite {lakshmancassandra}{{15}{4.2}{section*.20}}
+\backcite {cassandraguide}{{15}{4.2}{section*.20}}
+\backcite {cassandraguide}{{15}{4.2}{section*.20}}
+\backcite {cassandraguide}{{15}{4.2}{section*.20}}
+\backcite {cassandradocs}{{15}{4.3}{section.4.3}}
+\backcite {cassandradocs}{{16}{4.3}{section.4.3}}
+\backcite {cassandradocs}{{16}{4.3}{section.4.3}}
