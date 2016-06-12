@@ -1,11 +1,11 @@
 \chapter{Diferenças entre Bancos de Dados Relacionais e NoSQL}
 
-O armazenamento a a manipulação de dados tem sido um importante foco da computação desde o seu nascimento, tendo os bancos de dados suas raízes ja na década de 60, principalmente em aplicações médicas e científicas~\cite{neufeld1986database}, e em 1970, Edgar Codd propos uma nova forma de armazenamento de dados, que ficou conhecida como modelo de dados relacionais (\emph{relational model of data})~\cite{codd1970relational}. 
+O armazenamento a a manipulação de dados tem sido um importante foco da computação desde o seu nascimento, tendo os bancos de dados suas raízes já na década de 60, principalmente em aplicações médicas e científicas~\cite{neufeld1986database}, e em 1970, Edgar Codd propôs uma nova forma de armazenamento de dados, que ficou conhecida como modelo de dados relacionais (\emph{relational model of data})~\cite{codd1970relational}. 
 
 \section{Bancos de Dados Relacionais}
-    Podemos definir um banco de dados relacional como um conjunto de dados que se relacionam entre si e que são armazenados de forma persistente, podendo ser recuperados quando necessario. Os dados são armazenados em tabelas, que são organizadas por colunas, que definem uma categoria de um dado, e por linhas, que representam a instância de um dado~\cite{leavitt2010nosql}. A popularização desse modelo em virtude de suas características de persistência, concorrência e integração entre múltiplas aplicações, o transformou no modelo padrão de armazenamento computacional, principalmente em ambientes empresarias~\cite{pramod}. Outra questão de importância em bancos de dados computacionais é a não necessidade que o usuario tem de conhecer como esses dados são armazenados, o que foi possível com o uso dos chamados Sistemas Gerenciadores de Bancos de Dados (SGBDs)~\cite{jan}.
+    Podemos definir um banco de dados relacional como um conjunto de dados que se relacionam entre si e que são armazenados de forma persistente, podendo ser recuperados quando necessário. Os dados são armazenados em tabelas, que são organizadas por colunas, que definem uma categoria de um dado, e por linhas, que representam a instância de um dado~\cite{leavitt2010nosql}. A popularização desse modelo em virtude de suas características de persistência, concorrência e integração entre múltiplas aplicações, o transformou no modelo padrão de armazenamento computacional, principalmente em ambientes empresarias~\cite{pramod}. Outra questão de importância em bancos de dados computacionais é a não necessidade que o usuário tem de conhecer como esses dados são armazenados, o que foi possível com o uso dos chamados Sistemas Gerenciadores de Bancos de Dados (SGBDs)~\cite{jan}.
     
-    Outras opções surgiram ao longo dos anos, como os bancos orientados a objetos ou bancos XML. Nenhum deles, entretanto, conseguiu competir com o modelo ja tradicional de dados relacionais.~\cite{pramod} Nos últimos anos, entretanto, o modelo conhecido como NoSQL vem surgindo como essa alternativa.
+    Outras opções surgiram ao longo dos anos, como os bancos orientados a objetos ou bancos \emph{XML}. Nenhum deles, entretanto, conseguiu competir com o modelo já tradicional de dados relacionais.~\cite{pramod} Nos últimos anos, entretanto, o modelo conhecido como NoSQL vem surgindo como essa alternativa.
     
     Bancos de Dados relacionais tem como um de seus requisitos a existência de chaves primarias, colunas que que identificam unicamente cada linha, ou registro, de uma tabela. Um banco de dados relacional necessita de três informações para recuperar um dado específico: o nome da tabela, o nome da coluna e a chave primaria do registro que esta sendo buscado \cite{jan}.
 
@@ -35,16 +35,16 @@ O armazenamento a a manipulação de dados tem sido um importante foco da comput
 	Uma tabela esta na terceira forma normal (\textbf{3FN}) quando, além de obedecer à segunda forma normal, não apresenta dependências transitivas, ou seja, cada atributo não-chave não pode ser determinado, ou dependente, de outro atributo não-chave. 
 
 \section{Bancos NoSQL}
-    O rapido crescimento no volume de dados nos últimos anos, principalmente após a bolha da Internet na década de 90~\cite{pramod}, tras uma necessidade de certa mudança em relação ao modelo tradicional. Modelos relacionais possuem diversas vantagem ja citadas, porém restrições como propriedades ACID e normalização, levam ao surgimento de problemas quando precisamos aplica-los nesse domínio recente de expansão dos dados, por apresentarem problemas de escalabilidade, complexidade dos dados e rigidez em seus esquemas~\cite{leavitt2010nosql}. 
+    O rápido crescimento no volume de dados nos últimos anos, principalmente após a bolha da Internet na década de 90~\cite{pramod}, trás uma necessidade de certa mudança em relação ao modelo tradicional. Modelos relacionais possuem diversas vantagem já citadas, porém restrições como propriedades ACID e normalização, levam ao surgimento de problemas quando precisamos aplica-los nesse domínio recente de expansão dos dados, por apresentarem problemas de escalabilidade, complexidade dos dados e rigidez em seus esquemas~\cite{leavitt2010nosql}. 
     
     Isso levou ao surgimento de um movimento em direção ao novo paradigma denominado NoSQL. O termo foi utilizado pela primeira vez em 1998 para denominar um banco de dados que omitia o uso de SQL, o \emph{Strozzi NOSQL}. A definição atual, porém, tem suas bases em uma reunião, conhecida como \emph{NoSQL Meetup} realizada em 2009 em São Franscisco, Estados Unidos. Organizada por Johan Oskarsdon, criador do Last.fm, nela foram discutidas formas mais eficientes e baratas de organização dos dados, como as ja sugeridas em publicações anteriores, como o Google Bigtable em 2006~\cite{bigtable}, e Amazon's Dynamo em 2007~\cite{dynamo, chrisnosql}.
 \subsection{Definição e Características}
-Apesar do termo não tem uma definição precisa e universalmente aceita, sendo geralmente descrito como \emph{Not Only SQL}, bancos NoSQL em geral são caracterizados, mas não definidos, como sendo não relacionais, sem esquema bem definido, distribuidos e tolerantes a falhas~\cite{pramod}. Buscam um processamento de dados rápido e de forma eficiente, evitando a rigidez dos bancos tradicionais. 
+Apesar do termo não tem uma definição precisa e universalmente aceita, sendo geralmente descrito como \emph{Not Only SQL}, bancos NoSQL em geral são caracterizados, mas não definidos, como sendo não relacionais, sem esquema bem definido, distribuídos e tolerantes a falhas~\cite{pramod}. Buscam um processamento de dados rápido e de forma eficiente, evitando a rigidez dos bancos tradicionais. 
 	Entre as razões e vantagens dos bancos NoSQL podemos citar~\cite{chrisnosql}:
     \begin{itemize}
     \item \textbf{Evitar complexidade desnecessária}: Bancos relacionais costumam aderir às já citadas propriedades ACID, além de serem restritos em seu esquema de dados. Bancos NoSQL costumam ignorar ou relaxar essas restrições a fim de obter um melhor desempenho.
     \item \textbf{Alto rendimento}: Bancos NoSQL surgiram da necessidade e armazenamento e processamento de um cada vez maior volume de dados, e por isso são construídos objetivando um desempenho melhor, em aplicações específicas, do que de bancos tradicionais.
-    \item \textbf{Alta escalabilidade}: Bancos relacionais podem ser escalados verticamente com a utilização de equipamentos poderosos e caros, e uma operação distribuida costuma ser mais complexa devido à forma de armazenamento de seus dados~\cite{leavitt2010nosql}. Bancos NoSQL foram pensados para execução em um sistema de \emph{clusters}, o que facilita a sua escalabilidade horizontal e reduz a necessidade de um hardware mais caro e específico, podendo ser utilizado em \emph{hardwares} mais simples. 
+    \item \textbf{Alta escalabilidade}: Bancos relacionais podem ser escalados verticalmente com a utilização de equipamentos poderosos e caros, e uma operação distribuída costuma ser mais complexa devido à forma de armazenamento de seus dados~\cite{leavitt2010nosql}. Bancos NoSQL foram pensados para execução em um sistema de \emph{clusters}, o que facilita a sua escalabilidade horizontal e reduz a necessidade de um hardware mais caro e específico, podendo ser utilizado em \emph{hardwares} mais simples. 
     \item \textbf{Alta disponibilidade}: Devido à possibilidade de escalabilidade horizontal, bancos NoSQL podem distribuir sua operação em diversos nós de um \emph{cluster}, o que possibilita acesso simultâneo por um grande número de usuários, mesmo que não seja possível acessar algum desses nós. 
     \item \textbf{\emph{Open source}}: SGBDs tradicionais costumam possuir licenças pagas, gerando um custo financeiro alto, principalmente quando executados em múltiplas maquinas~\cite{pramod}. NoSQLs costumam seguir licenças \emph{open source}, podendo reduzir significativamente os gastos da aplicação. 
 \end{itemize}
@@ -78,7 +78,7 @@ Apesar do termo não tem uma definição precisa e universalmente aceita, sendo 
 \end{figure}
 
 \subsection{BASE}
-    Em um ambiente distribuido, escabalibilidade, resiliência e velocidade são mais importantes do que consistência imediata e segurança quanto à veracidade dos  dados, não sendo necessaria a aderência total às propriedades ACID ja citadas~\cite{neo4j_acidbase}. Além disso, de acordo com o \textbf{Teorema CAP}, um banco que aceite particionamento não pode possuir alta disponibilidade e consistência simultâneamente. Essa necessidade, tanto de performance quanto de disponibilidade, levou à criação do acrônimo \textbf{BASE}, \emph{\textbf{B}asically \textbf{A}vailable} (Basicamente Disponível), \emph{\textbf{S}oft State} (Estado Leve) e \emph{\textbf{E}ventual Consistency} (Consistência Eventual)~\cite{foxcluster}. 
+    Em um ambiente distribuído, escalabilidade, resiliência e velocidade são mais importantes do que consistência imediata e segurança quanto à veracidade dos  dados, não sendo necessária a aderência total às propriedades ACID já citadas~\cite{neo4j_acidbase}. Além disso, de acordo com o \textbf{Teorema CAP}, um banco que aceite particionamento não pode possuir alta disponibilidade e consistência simultaneamente. Essa necessidade, tanto de performance quanto de disponibilidade, levou à criação do acrônimo \textbf{BASE}, \emph{\textbf{B}asically \textbf{A}vailable} (Basicamente Disponível), \emph{\textbf{S}oft State} (Estado Leve) e \emph{\textbf{E}ventual Consistency} (Consistência Eventual)~\cite{foxcluster}. 
     
     Enquanto um banco \textbf{ACID} é pessimista, requerendo que cada operação mantenha a consistência do banco como um todo, \textbf{BASE} segue uma visão otimista, entendendo que dados serão eventualmente consistentes.
     
@@ -112,7 +112,7 @@ Grafos              & Neo4j \\
 \subsection*{Chave-Valor}
 Bancos com armazenamento em chave-valor existem a muito tempo, como \emph{Berkeley DB}, mas ganharam importância no meio NoSQL a partir do Amazon DynamoDB e do Google BigTable~\cite{chrisnosql}.
 
-Consiste basicamente em uma tabela \emph{hash}, sendo o acesso aos dados realizado por meio de uma chave primaria, assim como ocorre em \emph{maps} e dicionarios.  Esses bancos são completamente livres de esquema e suas operações se resumem a consultar o valor a partir de uma chave, inserir um valor para uma chave ou deletar uma chave e seu valor do banco~\cite{nosqleval}. O valor armazenado em geral pode representar qualquer tipo de objeto, como uma \emph{string} ou um \emph{BLOB}, não sendo necessária que exista qualquer relação entre diferentes registros, ficando a aplicação responsável pelo seu tratamento. 
+Consiste basicamente em uma tabela \emph{hash}, sendo o acesso aos dados realizado por meio de uma chave primaria, assim como ocorre em \emph{maps} e dicionários.  Esses bancos são completamente livres de esquema e suas operações se resumem a consultar o valor a partir de uma chave, inserir um valor para uma chave ou deletar uma chave e seu valor do banco~\cite{nosqleval}. O valor armazenado em geral pode representar qualquer tipo de objeto, como uma \emph{string} ou um \emph{BLOB}, não sendo necessária que exista qualquer relação entre diferentes registros, ficando a aplicação responsável pelo seu tratamento. 
 
 Esses bancos favorecem escalabilidade sobre consistência, e por isso em geral não possuem ferramentas mais poderosas de consulta e analise de dados~\cite{chrisnosql}.
 
@@ -151,7 +151,7 @@ A seguir temos um exemplo de dois documentos. Apesar de parecidos, eles possuem 
 }
 \end{lstlisting}
 
-Esses documentos não são opacos à aplicação, seu conteúdo pode ser consultado diretamente, com consultas diretas em atributos de seus registros. Isso permite a manipulação de estruturas mais complexas, que ainda assim não possuem nenhuma restrição de esquema, sendo facil a inserção de novos documentos ou a modificação dos documentos ja armazenados. Devido à essa flexibilidade, são recomendados para integração de dados e migração de esquemas~\cite{nosqleval}. 
+Esses documentos não são opacos à aplicação, seu conteúdo pode ser consultado diretamente, com consultas diretas em atributos de seus registros. Isso permite a manipulação de estruturas mais complexas, que ainda assim não possuem nenhuma restrição de esquema, sendo fácil a inserção de novos documentos ou a modificação dos documentos já armazenados. Devido à essa flexibilidade, são recomendados para integração de dados e migração de esquemas~\cite{nosqleval}. 
 
 Como exemplos de bancos orientados a documentos podemos citar o \emph{CouchDB}, \emph{MongoDB} e \emph{OrientDB}.
 
@@ -164,13 +164,25 @@ Colunas e linhas podem ser adicionadas a qualquer momento, o que gera uma flexib
 
 Como exemplo de bancos orientados a colunas temos o \emph{HBase} e \emph{Hypertable}, que são implementações \emph{open source} do BigTable, e o \emph{Cassandra}.
 
+Nesse trabalho será utilizado o banco orientado a colunas Cassandra, e suas características serão melhor abordadas no capítulo \ref{chap:cassandra}.
+
 
 \subsection*{Grafos}
-Diferente dos bancos relacionais e dos ja citados modelos NoSQL vistos, um banco de dados em grafos é especializado em dados altamente conectados. São ideias para aplicações que realizam consultas baseadas em relações~\cite{nosqleval}.
-Esse modelo realiza o armazenamento por meio de entidades e os relacionamentos entre essas entidades. Entidades podem ser vistas como nós e os relacionamentos como as areas de um grafo~\cite{pramod}. Esses nós podem possuir propriedades dos objetos que representam, assim como as áreas, que podem possuir atributos do relacionamento e além disso possuem significância em sua direção.
+Diferente dos bancos relacionais e dos já citados modelos NoSQL vistos, um banco de dados em grafos é especializado em dados altamente conectados. São ideias para aplicações que realizam consultas baseadas em relações~\cite{nosqleval}.
+Esse modelo realiza o armazenamento por meio de entidades e os relacionamentos entre essas entidades. Entidades podem ser vistas como nós e os relacionamentos como as áreas de um grafo~\cite{pramod}. Esses nós podem possuir propriedades dos objetos que representam, assim como as áreas, que podem possuir atributos do relacionamento e além disso possuem significância em sua direção.
 
-Consultas nesse tipo de modelo são realizadas percorrendo o grafo. Isso possui como vantagem a possibilidade de se modificar a forma que se camanha nesse grafo, sem ser necessarias mudanças em sua estrutura de nós e relações~\cite{pramod}.
+Consultas nesse tipo de modelo são realizadas percorrendo o grafo. Isso possui como vantagem a possibilidade de se modificar a forma que se caminha nesse grafo, não sendo necessárias mudanças em sua estrutura de nós e relações~\cite{pramod}.
 
-Uma diferença importante dos bancos orientados a grafos em relação aos modelos anteriores é o seu suporte menor a sistemas distribuidos, não sendo geralmente possível a distribuição dos nós em diferentes servidores~\cite{pramod}.
+Uma diferença importante dos bancos orientados a grafos em relação aos modelos anteriores é o seu suporte menor a sistemas distribuídos, não sendo geralmente possível a distribuição dos nós em diferentes servidores~\cite{pramod}.
+
+A figura \ref{fig:graphneo4j} ilustra um banco de dados orientado a grafos implementado com a utilização do \emph{Neo4J}.
 
 Como exemplos desse modelo podemos citar o \emph{Neo4J}, o \emph{Infinite Graph} e o \emph{OrientDB}.
+
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/graph.jpg}
+\caption{Visualização de um banco de dados em grafo}
+\label{fig:graphneo4j}
+\end{figure}

@@ -1,13 +1,13 @@
-\chapter{Cassandra}
+\chapter{Cassandra} \label{chap:cassandra}
 
 Esse trabalho ira utilizar o Cassandra como banco de dados para validação de sua hipótese. Como visto no capítulo 3, o Apache Cassandra, distribuição que sera utilizada, é um banco de dados orientado a colunas altamente disponível e distribuído em servidores constituídos de hardware de \enquote{prateleira} para gerenciamento de grande volumes de dados~\cite{lakshmancassandra}. Este capítulo tem como objetivo definir esse banco de dados, suas características, funcionamento, vantagens e desvantagens.
 
 \section{Definição}
-O Cassandra se originou em 2007 como um projeto do \emph{Facebook} para resolver um problema na busca da caixa de mensagens. A compania necessitava de um sistema com alta performance, confiabilidade, eficiência e que suportasse o contínuo crescimento da ferramenta~\cite{lakshmancassandra, cassandraguide}. 
+O Cassandra se originou em 2007 como um projeto do \emph{Facebook} para resolver um problema na busca da caixa de mensagens. A companhia necessitava de um sistema com alta performance, confiabilidade, eficiência e que suportasse o contínuo crescimento da ferramenta~\cite{lakshmancassandra, cassandraguide}. 
 
-O projeto foi desenvolvido por Jeff Hammerbacher, Avinash Lakshman, Karthik Ranganathan e Prashant Malik, tendo seu modelo de dados sofrido grande inspiração nos trabalhos anteriores do \emph{Amazon Dynamo}~\cite{dynamo} e do \emph{Google Bigtable}~\cite{bigtable}, e lançado em 2008 como um projeto \emph{open source}. Foi mantido e atualizado apenas pelo Facebook até 2009, quando foi comprado pela Apache~\cite{cassandraguide}, sendo utilizado atualmente por companias como \emph{Netflix}, \emph{Spotify} e até em agências governamentais, como a NASA~\cite{cassandracompanies}. 
+O projeto foi desenvolvido por Jeff Hammerbacher, Avinash Lakshman, Karthik Ranganathan e Prashant Malik, tendo seu modelo de dados sofrido grande inspiração nos trabalhos anteriores do \emph{Amazon Dynamo}~\cite{dynamo} e do \emph{Google Bigtable}~\cite{bigtable}, e lançado em 2008 como um projeto \emph{open source}. Foi mantido e atualizado apenas pelo Facebook até 2009, quando foi comprado pela Apache~\cite{cassandraguide}, sendo utilizado atualmente por companhias como \emph{Netflix}, \emph{Spotify} e até em agências governamentais, como a NASA~\cite{cassandracompanies}. 
 
-O Apache Cassandra pode ser definido como um banco de dados orientado a colunas \emph{open source}, distribuído, descentralizado, elasticamente escalavel, altamente disponível, tolerante a falhas e variavelmente consistente~\cite{cassandraguide}. A seguir iremos analisar cada uma dessas características.
+O Apache Cassandra pode ser definido como um banco de dados orientado a colunas \emph{open source}, distribuído, descentralizado, elasticamente escalável, altamente disponível, tolerante a falhas e variavelmente consistente~\cite{cassandraguide}. A seguir iremos analisar cada uma dessas características.
 
 \subsection{Características}
 
@@ -66,14 +66,14 @@ O modelo de família de colunas se diferencia do modelo relacional por ser o que
 
 Ao se inserir um novo dado em uma família de colunas do Cassandra são especificados valores para uma ou mais colunas. O conjunto de valores é chamado de linha, e é identificado unicamente por uma chave primária ou chave de linha. Uma linha não precisa possuir dados para todas colunas presentes na família de colunas à que ela pertence, sendo o espaço alocado apenas para as colunas presentes nessa linha. Isso gera tanto uma economia de espaço quanto uma melhora de performance em relação a um banco relacional, que precisa preencher com valores nulos colunas não utilizadas.
 
-Uma coluna é a unidade básica de armazenamento do Cassandra, e é constituida por um nome, um valor e um \emph{timestamp}. Se difere do conceito de colunas de bancos relacionais pois durante a criação do banco não é necessário a criação de colunas, e sim apenas famílias de colunas. A criação de colunas ocorre apenas durante a inserção de dados no banco e suas colunas correspondentes~\cite{cassandraguide}.
+Uma coluna é a unidade básica de armazenamento do Cassandra, e é constituída por um nome, um valor e um \emph{timestamp}. Se difere do conceito de colunas de bancos relacionais pois durante a criação do banco não é necessário a criação de colunas, e sim apenas famílias de colunas. A criação de colunas ocorre apenas durante a inserção de dados no banco e suas colunas correspondentes~\cite{cassandraguide}.
 
 \section{Arquitetura}
 
 O Cassandra foi projetado para lidar com grandes massas de dados distribuídas em vários nós sem ponto único de falha, pensado no fato de que tanto um sistema quanto componentes de hardware podem falhar.
-Ao contrário de outras soluções de bancos de dados distribuidos, sejam elas relacionais ou modelos mais novos como o \emph{Google Bigtable}, em que os nós são definidos como mestres e escravos (\emph{master} e \emph{slave}), a arquitetura Cassandra combate o problema de falhas ao empregar uma distribuição par-a-par (\emph{peer-to-peer}) entre nós estruturalmente idênticos, com dados distribuidos entre todos os nós de um \emph{cluster}~\cite{cassandradocs, cassandraguide}.  
+Ao contrário de outras soluções de bancos de dados distribuídos, sejam elas relacionais ou modelos mais novos como o \emph{Google Bigtable}, em que os nós são definidos como mestres e escravos (\emph{master} e \emph{slave}), a arquitetura Cassandra combate o problema de falhas ao empregar uma distribuição par-a-par (\emph{peer-to-peer}) entre nós estruturalmente idênticos, com dados distribuídos entre todos os nós de um \emph{cluster}~\cite{cassandradocs, cassandraguide}.  
 
-Essa decisão arquitetural de nós atuando de maneira par-a-par tem como objetivo melhorar a disponibilidade e facilidade de escalamento do sistema. Na ocasião de um nó ficar indisponível, existe um potencial impacto na vazão de dados do sistema, entretanto isso não causa uma interrupção no serviço. 
+Essa decisão arquitetural de nós atuando de maneira par-a-par tem como objetivo melhorar a disponibilidade e facilidade de escalabilidade do sistema. Na ocasião de um nó ficar indisponível, existe um potencial impacto na vazão de dados do sistema, entretanto isso não causa uma interrupção no serviço. 
 Ao mesmo tempo, ao se inserir um novo nó no sistema, é necessário que ele recebe informações sobre a topologia do anel em que está inserido e dados que ele será responsável. Após isso, entretanto, ele pode integrar o anel e receber requisições assim como os outros nós, sem necessidade de configurações complexas~\cite{cassandraguide}.
 
 O Cassandra é um banco de dados particionado em linhas, com cada linha organizada em tabelas com uma chave primária obrigatória. Sua arquitetura permite que qualquer usuário autorizado se conecte a qualquer nó em qualquer \emph{data center} e acesse os dados por meio da linguagem \emph{CQL}, que possui sintaxe próxima a do \emph{SQL}, com abstração de uma tabela com linhas e colunas~\cite{cassandradocs}. 
@@ -130,11 +130,12 @@ Na segunda parte da figura, nós virtuais são selecionados aleatoriamente e de 
 
 
 \subsection*{Replicação de Dados}
-O Cassandra armazena réplicas de dados em múltiplos nós para garantir confiabilidade e tolerância a falhas. A estratégia de replicação determina em que nós as cópias serão armazenadas. O número de cópias em um \emph{cluster} é chamado fator de replicação. Se um fator de replicação um é utilizado, existe apenas uma copia de cada linha no \emph{cluster}, ou seja, se o nó contendo essa linha cai, a linha não pode ser acessada. Todas as rélicas são igualmente importantes, não existe uma réplica mestre ou primária. Como regra geral, o fator de replicação não deve exceder o número de nós no \emph{cluster}. É possível, porém, aumentar o fator de replicação e inserir o número desejado de nós posteriormente~\cite{cassandradocs}.
+O Cassandra armazena réplicas de dados em múltiplos nós para garantir confiabilidade e tolerância a falhas. A estratégia de replicação determina em que nós as cópias serão armazenadas. O número de cópias em um \emph{cluster} é chamado fator de replicação. Se um fator de replicação um é utilizado, existe apenas uma copia de cada linha no \emph{cluster}, ou seja, se o nó contendo essa linha cai, a linha não pode ser acessada. Todas as réplicas são igualmente importantes, não existe uma réplica mestre ou primária. Como regra geral, o fator de replicação não deve exceder o número de nós no \emph{cluster}. É possível, porém, aumentar o fator de replicação e inserir o número desejado de nós posteriormente~\cite{cassandradocs}.
 
 Existem duas estratégias de replicação:
 \begin{itemize}
-\item \textbf{\emph{SimpleStrategy}} é utilizada para um único \emph{data center} e um único \emph{rack}. A primeira réplica de um nó é determinada pelo particionador, e réplicas adicionais são posicionadas nos próximos nós no anel em sentido horário, sem se considerar a topologia do sistema. 
+\item \textbf{\emph{SimpleStrategy}} é utilizada para um único \emph{data center} e um único \emph{rack}. A primeira réplica de um nó é determinada pelo particionador, e réplicas adicionais são posicionadas nos próximos nós no anel em sentido horário, sem se considerar a topologia do sistema;
+ 
 \item \textbf{\emph{NetworkTopologyStrategy}} deve ser utilizada quando se tem, ou se planeja ter, um \emph{cluster} distribuído em vários \emph{data centers}. Essa estratégia especifica quantas réplicas se deseja em cada \emph{data center}. As réplicas são inseridas em um mesmo \emph{data center} caminhando-se no anel em sentido horário até se alcançar o primeiro nó em outro \emph{rack}. A \emph{NetworkTopologyStrategy} tenta colocar réplicas em \emph{racks} distintos, por entender que nós em um mesmo \emph{rack} frequentemente falham ao mesmo tempo por problemas de energia, resfriamento ou falhas na rede.
 \end{itemize}
 
@@ -148,17 +149,81 @@ Estratégias de replicação são definidas por \emph{keyspace} e definidas dura
 \end{figure}
 
 \subsection*{Particionadores}
-Um particionador determina de que forma os dados e suas réplicas serão distribuídos no \emph{cluster}. Basicamente um particionador é uma função que deriva um \emph{token} a partir de uma chave de partição, geralmente por meio de um mapeamento (\emph{hash}). Cada linha de dados é então distribuída no \emph{cluster} de acordo com o valor desse token. 
+Um particionador determina qual nó irá receber a primeira réplica de um dado e como distribuir outras réplicas entre nós de um \emph{cluster}. Cada linha de dados é unicamente identificada por uma chave primária, que pode ser a mesma que sua chave de partição, mas que também pode incluir outras colunas. Basicamente um particionador é uma função que deriva um \emph{token} a partir de uma chave de primária de uma linha, geralmente por meio de um mapeamento (\emph{hash}). Cada linha de dados é então distribuída no \emph{cluster} de acordo com o valor desse \emph{token}. 
 
 O Cassandra fornece três particionadores, que podem ser definidos no arquivo de configuração principal do Cassandra, o \emph{cassandra.yaml}. São ele:
 
 \begin{itemize}
-\item \textbf{\emph{Murmur3Partitioner}} distribui os dados de forma uniforme no \emph{cluster}, de acordo com valores da função \emph{hash} \emph{MurmurHash}, que cria valores de 64 bits com a chave de partição. É o particionador padrão e fornece um desempenho melhor que o do \emph{RandomPartitioner};
+\item \textbf{\emph{Murmur3Partitioner}} distribui os dados de forma uniforme no \emph{cluster}, de acordo com valores da função \emph{hash} \emph{MurmurHash}, que cria valores de 64 bits com a chave de partição. É o particionador padrão e o recomendável para a maioria dos novos \emph{clusters}, e fornece um desempenho melhor que o do \emph{RandomPartitioner};
 
-
-\item \textbf{\emph{RandomPartitioner}} também distribui os dados uniformemente no \emph{cluster}, porém com a utilização de uma função \emph{hash} MD5. Essa é uma função criptográfica com um tempo de execução mais longo que a \emph{MurmurHash}. Como o Cassandra não exige um \emph{hash} criptográfico, o particionador \emph{RandomPartioner} reduz o desempenho do Cassandra de 3 a 5 vezes em comparação ao \emph{MurmurPartitioner}
+\item \textbf{\emph{RandomPartitioner}} também distribui os dados uniformemente no \emph{cluster}, porém com a utilização de uma função \emph{hash} MD5. Essa é uma função criptográfica com um tempo de execução mais longo que a \emph{MurmurHash}. Como o Cassandra não exige um \emph{hash} criptográfico, o particionador \emph{RandomPartioner} reduz o desempenho do Cassandra de 3 a 5 vezes em comparação ao \emph{MurmurPartitioner};
 
 \item \textbf{\emph{ByteOrderedPartitioner}} distribui os nós no \emph{cluster} em ordem alfabética. É utilizado quando se deseja um particionamento ordenado, porém causa problemas de dificuldade de balanceamento de carga, pontos quentes em escritas sequenciais e balanceamento desigual de carga para múltiplas tabelas. É incluído no Cassandra por razões de retrocompatibilidade.
 \end{itemize}
 
 Tanto o \emph{MurmurPartitioner} quanto o \emph{RandomPartitioner} utilizam to\emph{tokens} para auxiliar na designação de porções iguais de dados para cada nó e na distribuição de forma uniforme desses dados a partir de todos as tabelas do anel ou de outros agrupamentos, como um \emph{keyspace}.
+
+Ao se selecionar a configuração de quantas réplicas serão armazenadas em cada \emph{data center}, as duas considerações primárias são:
+
+\begin{enumerate}
+\item ser capaz de satisfazer leituras locais sem incorrer em latência entre \emph{data centers};
+
+\item cenários de falha.
+\end{enumerate}
+
+Os dois modos mais comuns para configurar \emph{clusters} em múltiplos \emph{data centers} são~\cite{cassandradocs}:
+
+\begin{itemize}
+
+\item Duas réplicas por \emph{data center}: essa configuração tolera falhas em nós únicos por grupo de replicação, permitindo ainda leituras locais em um nível de consistência \emph{ONE}.
+
+\item Três réplicas por \emph{data center}: essa configuração tolera tanto a falha de um nó por grupo de replicação em um nível de consistência \emph{LOCAL\_QUORUM} quanto falhas em múltiplos nós com nível de consistência \emph{ONE}
+
+\end{itemize}
+
+Grupos de replicação assimétricos também são possíveis, com cada \emph{data center} adotando a configuração preferível. Já estratégias de replicação são definidas por \emph{keyspace} e definidas durante sua criação~\cite{cassandradocs}.
+
+\subsection*{Níveis de consistência}
+
+Consistência se a quão atuais e sincronizadas todas as réplicas de uma linha de dados do Cassandra está em um dado momento. Operações de reparo automático do Cassandra garantem que todas as réplicas serão eventualmente serão consistentes, porém o tráfego constante de dados entre um sistema largamente distribuído pode levar à inconsistências em algum momento~\cite{cassandradocs}.
+
+Níveis de consistência podem ser configurados para gerenciar o balanço entre disponibilidade de dados e acurácia dos dados. Essa configuração pode se dar dentro de um \emph{cluster}, de um \emph{data center} ou mesmo em operações individuais de leitura e escrita~\cite{cassandradocs}.
+
+Um conceito importante ao se considerar níveis de consistência é o \textbf{quorum}. O nível de \emph{QUORUM} determina o numero de nós que forma um quorum e pode ser calculado pela equação \ref{eq:quorum}~\cite{cassandradocs}.
+
+\begin{equation} \label{eq:quorum}
+quorum = ( \frac{Soma Dos Fatores De Replicacao}{2}) + 1
+\end{equation}
+
+
+\subsection*{Consistência de escrita}
+
+A seguir estão listados alguns dos diferentes níveis de consistência de escrita, do mais forte ao mais fraco, sendo o nível \emph{ONE} o nível padrão de consistência~\cite{cassandradocs}:
+
+\begin{itemize}
+
+\item \textbf{\emph{ALL}}: Uma escrita deve ser feita no \emph{commit log} e na \emph{memtable} em todos os nós réplicas em um \emph{cluster} para aquela partição. Fornece a mais alta consistência e mais baixa disponibilidade entre os todos os níveis; 
+
+\item \textbf{\emph{QUORUM}}: Uma escrita deve ser feita no \emph{commit log} e na \emph{memtable} em um quorum de réplicas de nós entre todos os \emph{data center}. Mantém forte consistência porém apresenta certo nível de falha;
+
+\item \textbf{\emph{ONE}}: Uma escrita deve ser feita no \emph{commit log} e na \emph{memtable} de pelo menos um nó. Satisfaz as necessidades da maioria dos usuários, pois não possui exigências rígidas.
+
+\item \textbf{\emph{ANY}}: Garante baixa latência e permite que uma escrita nunca falhe. Fornece a mais alta disponibilidade e a mais baixa consistência
+
+\end{itemize}
+
+\subsection*{Consistência de leitura}
+
+A seguir estão listados alguns dos diferentes níveis de consistência de leitura, do mais forte ao mais fraco, sendo o nível \emph{ONE} o nível padrão de consistência~\cite{cassandradocs}:
+
+\begin{itemize}
+
+\item \textbf{\emph{ALL}}: Retorna um registro depois que todas as réplicas tenham respondido. A operação irá falhar se uma réplica não responder. Fornece a mais alta consistência e mais baixa disponibilidade entre os todos os níveis; 
+
+\item \textbf{\emph{QUORUM}}: Retorna um registro assim que um quorum de réplicas de todos os \emph{data centers} tenham respondido. É utilizado tanto em únicos quanto múltiplos \emph{data centers}, para manter uma forte consistência dentro do \emph{cluster}, desde que seja tolerável certo nível de falha.
+
+\item \textbf{\emph{ONE}}: Retorna uma reposta da réplica mais próxima. Garante a mais alta disponibilidade, desde que seja tolerável uma relativamente alta probabilidade de que um dado antigo seja lido, já que a réplica contatada nem sempre tera a versão mais atual da informação.
+
+\end{itemize}
+
+
