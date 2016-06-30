@@ -11,10 +11,27 @@ A utilização de bancos NoSQL para o tratamento de grande volumes de dados prov
 
 Vários modelos NoSQL são descritos nesse trabalho, e o banco Cassandra, um representante de bancos orientados à colunas, foi utilizado. O Cassandra é atualmente um projeto da fundação \emph{Apache}, tendo sido  originalmente proposto e utilizado pelo \emph{Facebook}, com base em trabalhos anteriores da \emph{Amazon} (\emph{Dynamo}) e do \emph{Google} (\emph{BigTable}). É um banco distribuído que armazena seus dados em forma de colunas e linhas com esquema flexível. Essa características é importante para o armazenamento de dados governamentais abertos, devido à sua natureza extremamente variável de um período à outro.
 
-\section{Estrutura do Trabalho}
+\section{Problema e Hipótese}
+Vários órgãos da administração pública brasileira disponibilizam seus dados na web. No entanto, o formato original e a falta de integração dificultam a análise desses dados. Nesse contexto, esse trabalho se propõe a analisar se bancos de dados não relacionais (NoSQL) podem melhorar o desempenho de sistemas de apoio à decisão baseados em uma arquitetura Online Analytical Processing (OLAP) para a análise de uma grande massa de dados abertos governamentais.
 
+Temos como hipótese que a utilização de bancos NoSQL podem apresentar um desempenho superior ao alcançado com a utilização de sistemas gerenciadores de bancos de dados relacionais.
 
+\section{Justificativa}
+Um sistema que facilite a análise de dados abertos, em especial em grandes volumes e governamentais, pode trazer diversos benefícios à sociedade.
 
+\section{Objetivos}
+
+\subsection{Objetivo Geral}
+Esse trabalho tem como objetivo principal comparar o desempenho de bancos de dados relacionais e o de bancos NoSQL em aplicações de apoio à decisão no contexto da análise de dados abertos governamentais(INEP).
+
+\subsection{Objetivos Específicos}
+\begin{itemize}
+		\item Desenvolver uma aplicação de apoio à decisão utilizando o banco de dados NoSQL Cassandra para a análise de dados abertos governamentais(INEP).
+		
+		\item Comparar a performance da aplicação desenvolvida com outra já implementada utilizando a mesma arquitetura, porém com o banco de dados relacional MySQL.
+		
+		\item Verificar o desempenho da aplicação em um ambiente distribuído.
+\end{itemize}
 
 
 
