@@ -1,0 +1,31 @@
+\documentclass{beamer}
+  % personalizações de tema
+    \usetheme{default} % Darmstadt, Warsaw, Madrid, ...
+    \usecolortheme{default} % albatross, beaver, crane, ...
+    \usefonttheme{default} % structurebold, serif ...
+  % incluir pacotes
+    \usepackage[utf8]{inputenc} % ou latin1
+    \usepackage[T1]{fontenc}
+	\usepackage{lmodern}% http://ctan.org/pkg/lm
+    \usepackage[brazil]{babel} 
+    \usepackage{graphicx} % vamos utilizar em aula
+  % informações do título
+    \title[identificação curta]{Título da apresentação}
+    \author[identificação curta]{Nome do aluno}
+    \institute[UnB]{Universidade de Brasília}
+    \date[identificação curta]{\today}
+    \logo{\includegraphics[width=1cm,height=1cm,keepaspectratio]{figuras/unb-logo}}
+
+\begin{document}
+  \frame{\titlepage} % slide com o título da apresentação
+  \begin{frame} % slide com o Sumário da apresentação
+    \frametitle{Sumário}
+    \tableofcontents
+  \end{frame}
+  \section{Introdução}
+  \begin{frame} % slide com o conteúdo da apresentação
+    \frametitle{Introdução}
+    \framesubtitle{Subtítulo}
+    conteúdo do slide
+  \end{frame}
+\end{document}

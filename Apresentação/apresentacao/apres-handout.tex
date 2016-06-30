@@ -1,0 +1,21 @@
+% Para LaTeX
+\documentclass[handout]{beamer}
+
+% Para XeLaTeX
+%\documentclass[xetex,handout]{beamer}
+
+
+\usepackage{array}
+\usepackage{pgfpages}
+\pgfpagesuselayout{4 on 1}[a4paper,border shrink=10mm,landscape]
+  \newlength\hackpaperwidth \hackpaperwidth210mm
+  \newlength\hackpaperheight \hackpaperheight297mm
+  \RequirePackage{everyshi}
+  \EveryShipout{%
+    \special{papersize=\the\hackpaperheight,\the\hackpaperwidth}}
+
+\include{header}
+\setbeamercolor{background canvas}{bg=black!5}
+\begin{document}
+\include{slides}
+\end{document}

@@ -1,0 +1,130 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Slides
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{Roteiro}
+  \tableofcontents
+\end{frame}
+
+\section{Introdução}
+
+\begin{frame}{Cassandra}
+\begin{itemize}
+
+\item Distribuido e Descentralizado
+\item Elasticamente Escalável
+\item Altamente Disponível e Tolerante a Falhas
+\item Variavelmente Consistente
+
+\end{itemize}
+\end{frame}
+
+\section{Problema e Hipótese}
+
+\begin{frame}{Contexto}
+    \begin{itemize}
+      \item Vários órgãos da administração pública brasileira disponibilizam seus dados na web;
+      
+      \item O formato original e a falta de integração dificultam a análise desses dados.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Problema}
+  \begin{block}{Problema}
+Bancos de dados não relacionais (NoSQL) podem melhorar o desempenho de sistemas de apoio à decisão baseados em uma arquitetura OLAP para a análise de uma grande massa de dados abertos governamentais?
+  \end{block}
+\end{frame}
+
+\begin{frame}{Hipótese}
+
+\begin{block}{Hipótese}
+A utilização de sistemas gerenciadores de bancos de dados NoSQL em sistemas de apoio à decisão baseados em arquitetura OLAP para a análise de grandes massas de dados pode apresentar uma performance melhor que a utlização de sistemas gerenciadores de banco de dados relacionais.
+\end{block}
+
+\end{frame}
+
+\section{Objetivos}
+
+\begin{frame}{Objetivos}
+
+    \begin{block}{Geral}
+    Comparar o desempenho de bancos de dados relacionais e NoSQL em aplicações de apio à decisão baseadas em uma arquitetura OLAP para a análise de dados abertos governamentais.
+    \end{block}
+    
+\end{frame}
+
+\begin{frame}{Objetivos}
+
+    \begin{block}{Específicos}
+    \begin{itemize}
+        \item Desenvolver uma aplicação de apoio à decisão baseada em uma arquitetura OLAP utilizando o banco de dados NoSQL Cassandra para a análise de dados abertos governamentais.
+        
+        \item Comparar a performance da aplicação desenvolvida com outra já implementada por alunos de semestres anteriores utilizando a mesma arquitetura, porém com o banco de dados relacional MySQL. Cabe ressaltar que as duas aplicações utilizarão o mesmo conjunto de dados.
+    \end{itemize}
+    \end{block}
+
+\end{frame}
+
+\begin{frame}{Resultados Esperados}
+
+Espera-se obter uma aplicação com melhor desempenho em relação à uma arquitetura convencional OLAP, baseada em bancos de dados relacionais, em um ambiente passível de escalabilidade.
+  
+\end{frame}
+
+\section{Metodologia}
+
+\begin{frame}{Metodologia}
+
+\begin{itemize}
+
+\item Estudo bibliográfico
+\item Estudo do modelo de dados
+\item Implementação da ferramenta 
+\item Execução e testes
+\item Análise e comparação dos resultados
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Cronograma}
+
+\begin{table}[]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|>{\bfseries}l|c|c|c|c|c|c|c|}
+\hline
+\textbf{Atividade} & \multicolumn{1}{l|}{\textbf{Junho}} & \multicolumn{1}{l|}{\textbf{Julho}} & \multicolumn{1}{l|}{\textbf{Agosto}} & \multicolumn{1}{l|}{\textbf{Setembro}} & \multicolumn{1}{l|}{\textbf{Outubro}} & \multicolumn{1}{l|}{\textbf{Novembro}} & \multicolumn{1}{l|}{\textbf{Dezembro}} \\ \hline
+\textbf{Estudo bibliográfico} & x & x & x &  &  &  &  \\ \hline
+\textbf{Estudo do modelo de dados} &  & x & x &  &  &  &  \\ \hline
+\textbf{Implementação da ferramenta} &  &  & x & x & x &  &  \\ \hline
+\textbf{Execução e testes} &  &  &  &  & x & x &  \\ \hline
+\textbf{\begin{tabular}[c]{@{}l@{}}Análise e comparação \\ dos resultados\end{tabular}} &  &  &  &  &  & x & x \\ \hline
+\end{tabular}%
+}
+\end{table}
+\end{frame}
+
+\section{Conclusão}
+
+\appendix
+
+\begin{frame}
+  \frametitle{Obrigado pela atenção!}
+  \begin{center}
+    {\Huge Obrigado!}
+  \end{center}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+  \frametitle{Créditos}
+  \begin{description}
+  \item[Slide~\pageref{fig:exemplo}]
+    \url{http://hackage.haskell.org/package/hierarchical-clustering-diagrams}.
+  \end{description}
+\end{frame}
