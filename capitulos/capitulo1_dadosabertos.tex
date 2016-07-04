@@ -1,6 +1,8 @@
 \chapter{Dados Abertos}
 
-O termo \enquote{Dados abertos} no conceito que conhecemos hoje surgiu em 1995 em um documento da agência científica americana no contexto da abertura de dados geofísicos e ambientais. Esse conceito vem sendo ampliado e estimulado nos últimos anos por diversos movimentos~\cite{seijiconectados}. 
+O rápido crescimento no volume de dados gerados pela sociedade nos últimos anos tem levado à uma necessidade cada vez maior de ferramentas e pessoas que consigam trabalhar com esses dados. Um estudo da \emph{IDC Digital Universe}, realizado em 2011, estimou que naquele ano o volume de dados criados, replicados e consumidos foi de 1,8 trilhão de \emph{gigabytes}~\cite{gantz2012digital}. Esses dados, entretanto, não estão disponíveis de forma aberta ao público. Também não estão estruturados de forma que possam ser lidos e analisados por máquinas daqueles que possam acessá-los e manipulá-los~\cite{seijiconectados}. 
+
+Nesse contexto, diversas empresas, governos e institutos vem trabalhando para uma maior abertura desses dados, objetivando os chamados dados abertos. O termo \enquote{Dados abertos} no conceito que conhecemos hoje surgiu em 1995 em um documento de uma agência científica americana no contexto da abertura de dados geofísicos e ambientais. Esse conceito vem sendo ampliado e estimulado nos últimos anos por diversos movimentos~\cite{seijiconectados}. 
 
 A \emph{Open Definition} define um dado como aberto \enquote{se qualquer pessoa está livre para acessa-lo, utiliza-lo, modifica-lo, e compartilha-lo — restrito, no maximo, a medidas que preservam a proveniência e abertura.}~\cite{opendefinition}. A abertura dos dados evita mecanismos de controle e restrições sobre os mesmos, o que permite seu uso de forma livre~\cite{seijiconectados}.
 
@@ -12,6 +14,104 @@ A Open Knowledge Foundation, organização mundial que promove a abertura de dad
 \item \textbf{Reutilização e Redistribuição}: os dados devem ser fornecidos sob termos que permitam a reutilização e a redistribuição, inclusive a combinação com outros conjuntos de dados.
 
 \item \textbf{Participação Universal}: todos devem ser capazes de usar, reutilizar e redistribuir - não deve haver discriminação contra áreas de atuação ou contra pessoas ou grupos. Por exemplo, restrições de uso 'não-comercial' que impediriam o uso 'comercial', ou restrições de uso para certos fins (ex.: somente educativos) excluem determinados dados do conceito de 'aberto'.
+\end{itemize}
+
+\section{Classificação de Dados Abertos}
+Tim Berners-Lee, o inventor da \emph{Web} e um defensor da abertura de dados, propõs, em 2010, princípios que definem um sistema de classicação de dados abertos por meio de estrelas. Quanto mais aberto é o dado, maior o número de estrelas que ele possui e mais fácil é para enriquece-lo~\cite{seijiconectados}.
+
+As cinco estrelas de Tim Berners-Lee são:
+\begin{itemize}
+\item \textbf{1 estrela}: O dado está disponível na Internet, em qualquer formato, acompanhado de licença aberta.
+\item \textbf{2 estrelas}: O dado está disponível na Internet de maneira estruturada, em um formato que permita sua leitura por máquinas (por exemplo, XML).
+\item \textbf{3 estrelas}: O dado está disponível na Internet, de maneira estruturada, e em formato não proprietário (por exemplo, CSV).
+\item \textbf{4 estrelas}: O dado está disponível na Internet, de maneira estruturada e em formato proprietário. Além disso, deve estar dentro dos padrões estabelecidos pela W3C (RDF): utilização de URI para nomear relações entre coisas e propriedades.
+\item \textbf{5 estrelas}: Além das propriedades anteriores, ter no RDF conexões com com outros dados, por meio de \emph{links}, de forma a se obter um contexto de dados relevantes.
+\end{itemize}
+
+Dados publicados seguindo a classificação de estrelas de Berners-Lee conferem uma série de custos e benefícios, tanto para quem os publica quanto para quem os consome, sendo eles~\cite{seijiconectados}:
+\begin{itemize} 
+\item \textbf{1 Estrela}: 
+	\item[] \textbf{Quem consome}
+		\begin{itemize}
+			\itemsep0em
+			\item Ver os dados
+			\item Imprimi-los
+			\item Guardá-los
+			\item Modificar os dados como queira
+			\item Acessar os dados de qualquer sistema
+			\item Compartilhar os dados com qualquer pessoa			
+		\end{itemize}
+		
+	\item[] \textbf{Quem produz}
+		\begin{itemize}
+			\itemsep0em
+			\item É simples de publicar
+			\item Não é necessário explicar repetidamente para outros que eles podem usar seus dados
+		\end{itemize}
+		
+\item \textbf{2 Estrelas}:
+
+	\item[] \textbf{Quem consome}
+		\begin{itemize}
+			\itemsep0em
+			\item É possível processa-los diretamente com\emph{softwares} proprietários 
+			\item É possível exportar os dados para outro formato estruturado
+		\end{itemize}
+		
+	\item[] \textbf{Quem produz}
+		\begin{itemize}
+			\itemsep0em
+			\item Ainda é simples de publicar
+		\end{itemize}
+
+\item \textbf{3 Estrelas}:
+	\item[] \textbf{Quem consome}
+		\begin{itemize}
+			\itemsep0em
+			\item Você pode manipular os dados da forma que quiser, sem a necessidade de nenhum \emph{software} proprietário	
+		\end{itemize}
+		
+	\item[] \textbf{Quem produz}
+		\begin{itemize}
+			\itemsep0em
+			\item Ainda é relativamente simples de publicar
+			\item Podem ser necessários \emph{plug-ins} ou conversores para exportar os dados do \emph{software} proprietário
+		\end{itemize}
+\item \textbf{4 Estrelas}:
+	\item[] \textbf{Quem consome}
+		\begin{itemize}
+			\itemsep0em
+			\item Fazer marcações nos dados
+			\item Você pode reusar partes dos dados
+			\item Você pode reusar ferramentas e bibliotecas existentes
+			\item Você pode combinar os dados com outros dados
+			\item O entendimento do formato RDF pode ser mais difício do que formatos tabulares (CSV) ou em árvore (XML).
+			
+		\end{itemize}
+		
+	\item[] \textbf{Quem produz}
+		\begin{itemize}
+			\itemsep0em
+			\item Você tem um controle granular sobre seus dados, podendo realizar otimizações de acesso
+			\item Outros publicadores de dados podem fazer ligações com seus dados
+			\item Pode ser necessário investimento de tempo para dividir ou agrupar seus dados
+			
+		\end{itemize}
+\item \textbf{5 Estrelas}:
+	\item[] \textbf{Quem consome}
+		\begin{itemize}
+			\itemsep0em
+			\item Você pode encontrar dados relacionados enquanto consome os dados
+			\item Você pode aprender sobre o esquema de dados	
+		\end{itemize}
+		
+	\item[] \textbf{Quem produz}
+		\begin{itemize}
+			\itemsep0em
+			\item Os dados podem ser encontrados com maior facilidade
+			\item Os dados possuem maior valor agregado
+			\item A organização ganha os mesmos benefícios da vinculação de dados que os consumidores
+		\end{itemize}
 \end{itemize}
 
 \section{Dados abertos governamentais}
@@ -58,6 +158,7 @@ O governo tem importância fundamental na questão de dados abertos, devido â g
 
 Esses dados governamentais tem relevância tanto no âmbito da transparência, podendo haver rastreamento dos impostos e gastos governamentais; da vida pessoal, como na localização de serviços públicos por parte da população; economicamente, com a reutilização de dados abertos já disponíveis; e também dentro do próprio governo, que pode aumentar sua eficiência ao permitir que a população consulte diretamente dados que antes precisavam de interferência direta e individual por parte de funcionários públicos~\cite{openknowledge}.
 
+Apesar desses esforços e da existência de programas avançados de transparência pública, ainda são raros os órgãos que disponibilizam dados de forma aberta. Em geral esses dados estão disponíveis para visualização, mas barreiras técnicas e políticas impedem sua reutilização~\cite{w3cmanual}.
 
 
 

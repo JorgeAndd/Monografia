@@ -1,7 +1,5 @@
 \chapter{Introdução}
 
-Dados abertos tem ganhado importância cada vez maior em nossa sociedade. O volume desses dados, que podem ser definidos como dados livres para acesso, utilização e modificação~\cite{opendefinition}, tem crescido cada vez mais, e vem sendo necessário encontrar novas formas para realizar o seu armazenamento e analise, comumente realizados por meio de bancos de dados.
-
 Bancos de dados podem ser definidos como um conjunto de dados que se relazionam entre si e armazenados de forma que possam ser acessados posteriormente, quando necessario~\cite{leavitt2010nosql}.
 Os bancos de dados relacionais predominaram por pelo menos nas últimas três décadas, mas seu desempenho em certas aplicações atuais, principalmente naquelas que trabalham com grande volumes de dados, denominado \emph{Big Data}, vem sendo questionado. 
 
@@ -11,8 +9,12 @@ A utilização de bancos NoSQL para o tratamento de grande volumes de dados prov
 
 Vários modelos NoSQL são descritos nesse trabalho, e o banco Cassandra, um representante de bancos orientados à colunas, foi utilizado. O Cassandra é atualmente um projeto da fundação \emph{Apache}, tendo sido  originalmente proposto e utilizado pelo \emph{Facebook}, com base em trabalhos anteriores da \emph{Amazon} (\emph{Dynamo}) e do \emph{Google} (\emph{BigTable}). É um banco distribuído que armazena seus dados em forma de colunas e linhas com esquema flexível. Essa características é importante para o armazenamento de dados governamentais abertos, devido à sua natureza extremamente variável de um período à outro.
 
+Dados abertos tem ganhado importância cada vez maior em nossa sociedade. O volume desses dados, que podem ser definidos como dados livres para acesso, utilização e modificação~\cite{opendefinition}, tem crescido cada vez mais, e vem sendo necessário encontrar novas formas para realizar o seu armazenamento e analise, comumente realizados por meio de bancos de dados.
+
+O governo brasileiro vem, especialmente desde 2011, disponibilizando dados significativos a respeito da administração pública. Esses dados, apesar de estarem disponíveis para acesso ao público, em geral não seguem um formato que permita fácil análise. Além disso, devido ao grande volume desses dados, uma abordagem tradicional pode não ser a forma mais adequada para a sua manipulação. Esse trabalho visa a utilização de bancos de dados NoSQL no contexto de dados abertos brasileiros, em especial dados públicos do INEP (Instituto Nacional de Estudos e Pesquisas Educacionais).
+
 \section{Problema e Hipótese}
-Vários órgãos da administração pública brasileira disponibilizam seus dados na web. No entanto, o formato original e a falta de integração dificultam a análise desses dados. Nesse contexto, esse trabalho se propõe a analisar se bancos de dados não relacionais (NoSQL) podem melhorar o desempenho de sistemas de apoio à decisão baseados em uma arquitetura Online Analytical Processing (OLAP) para a análise de uma grande massa de dados abertos governamentais.
+Vários órgãos da administração pública brasileira disponibilizam seus dados na web. No entanto, o formato original e a falta de integração dificultam sua análise. Nesse contexto, esse trabalho se propõe a analisar se bancos de dados não relacionais (NoSQL) podem melhorar o desempenho de sistemas de apoio à decisão baseados em uma arquitetura Online Analytical Processing (OLAP) para a análise de uma grande massa de dados abertos governamentais.
 
 Temos como hipótese que a utilização de bancos NoSQL podem apresentar um desempenho superior ao alcançado com a utilização de sistemas gerenciadores de bancos de dados relacionais.
 
@@ -22,9 +24,10 @@ Um sistema que facilite a análise de dados abertos, em especial em grandes volu
 \section{Objetivos}
 
 \subsection{Objetivo Geral}
-Esse trabalho tem como objetivo principal comparar o desempenho de bancos de dados relacionais e o de bancos NoSQL em aplicações de apoio à decisão no contexto da análise de dados abertos governamentais(INEP).
+Esse trabalho tem como objetivo principal comparar o desempenho de bancos de dados relacionais e o de bancos NoSQL em aplicações de apoio à decisão no contexto da análise de dados abertos governamentais (INEP).
 
 \subsection{Objetivos Específicos}
+A fim de se alcançar o objetivo geral do trabalho, foram traçados os seguintes objetivos específicos:
 \begin{itemize}
 		\item Desenvolver uma aplicação de apoio à decisão utilizando o banco de dados NoSQL Cassandra para a análise de dados abertos governamentais(INEP).
 		
@@ -33,6 +36,13 @@ Esse trabalho tem como objetivo principal comparar o desempenho de bancos de dad
 		\item Verificar o desempenho da aplicação em um ambiente distribuído.
 \end{itemize}
 
+\section{Estrutura do Trabalho}
+Esse trabalho se estrutura em:
+\begin{itemize}
+\item \textbf{Capítulo 2}: São apresentadas definições e características de dados abertos segundo vários autores. Os dados abertos também são contextualizados no âmbito do governo brasileiro, mostrando ações que vem sendo tomadas nesse sentido.
+\item \textbf{Capítulo 3}: É feita uma exposição de conceitos relacionados a bancos de dados, realizando uma comparação entre os bancos de dados relacionais e os bancos NoSQL, além de apresentar os principais modelos de dados da abordagem NoSQL.
+\item \textbf{Capítulo 4}: Detalha o banco de dados Cassandra, demonstrando suas características e funcionamento.
+\end{itemize}
 
 
 

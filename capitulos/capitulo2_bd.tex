@@ -162,9 +162,18 @@ O Cassandra possui ainda o conceito de super colunas, que pode ser visto como um
 
 Colunas e linhas podem ser adicionadas a qualquer momento, o que gera uma flexibilidade bem maior em relação aos esquemas em geral fixos dos bancos de dados relacionais.  Entretanto, famílias de colunas em geral devem ser predefinidas, situação menos flexível que a encontrada nos modelos de chave-valor ou de documentos~\cite{nosqleval}.  
 
+A figura \ref{fig:modelcolunas} ilustra um modelo de dados orientado a colunas, em específico com a utilização do banco Cassandra.
+
 Como exemplo de bancos orientados a colunas temos o \emph{HBase} e \emph{Hypertable}, que são implementações \emph{open source} do BigTable, e o \emph{Cassandra}.
 
 Nesse trabalho será utilizado o banco orientado a colunas Cassandra, e suas características serão melhor abordadas no capítulo \ref{chap:cassandra}.
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{figuras/modelpb.jpg}
+\caption{Modelo de dados orientado a colunas (Cassandra). Adaptado de ~\cite{cassandradocs}}
+\label{fig:modelcolunas}
+\end{figure}
 
 
 \subsection*{Grafos}
