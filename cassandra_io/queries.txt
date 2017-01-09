@@ -1,0 +1,3 @@
+SELECT sum(valor) FROM dados WHERE uf='DF'
+SELECT * FROM dados WHERE uf = 'AM' AND periodo = '2015-07-01' AND valor = 131 AND nis_favorecido = 00023625326260
+SELECT count(*) FROM dados WHERE uf = 'AC' AND periodo = '2016-02-01' AND valor < 150

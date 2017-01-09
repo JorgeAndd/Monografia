@@ -1,0 +1,1 @@
+mutt -s "Resultados" -a "2CM_out.csv" -- jorgeluizandrade@outlook.com < /dev/null
