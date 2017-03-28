@@ -1,0 +1,22 @@
+\chapter{Estudo de Caso e Metodologia}
+
+Neste capítulo será apresentado o estudo de caso dos dados do Bolsa Família utilizado no trabalho, assim como explicadas as etapas utilizadas para a inserção e consultas desses dados em um ambiente Cassandra distribuído.
+
+\section{Estudo de Caso}
+Os dados do Bolsa Família utilizados para estudo de caso nesse trabalho foram obtidos no \emph{site} do Portal da Transparência~\cite{portaltransparencia}. Os dados são disponibilizados em arquivos mensais em formato \emph{.csv}. Para os testes realizados, foram utilizados os arquivos dos meses de ... a ... Esses arquivos possuem em média ...(tamanho) com ...(registros). Cada arquivo apresentam como campos: UF, Código SIAFI Município, Nome Município, Código Função, Código Subfunção, Código Programa, Código Ação, NIS Favorecido, Nome Favorecido, Fonte-Finalidade, Valor Parcela e Mês Competência. Como os testes realizados buscavam mensurar apenas o desempenho de um banco de dados distribuídos, e não fazer uma real análise das informações, foi escolhido um subconjunto desses campos, que contivesse informações suficientes para um resultado satisfatório. Os campos escolhidos foram ....(campos).
+
+\section{Modelo de dados Cassandra}
+O modelo de dados do Cassandra foi criado utilizando-se as colunas ... como chave primária, com ordenamento pelas colunas... Essa escolha de chave primária foi feita pois os campos ... são o mínimo necessário para se identificar unicamente um registro da base de dados. Além disso, o campo UF foi escolhido para uma melhor distribuição dos dados no ambiente a ser construído.
+
+\section{Desenvolvimento da aplicação}
+Para inserção e busca dos dados no ambiente, foi desenvolvido um programa em Java utilizando-se o drive ... Essa aplicação é responsável pela leitura de todos os arquivos de entrada e a inserção dos campos necessários dos registros no banco de dados Cassandra. Ela também realiza a leitura dos dados...
+
+\section{Arquitetura do Ambiente}
+O ambiente Cassandra foi implementado em um ambiente formado por 4 conjuntos de clusters, com um, dois, quatro e seis nós. Cada nó possui ...(configuração).
+O Cassandra versão ... foi instalado em cada nó. 
+
+
+
+
+
+

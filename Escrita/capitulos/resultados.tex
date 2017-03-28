@@ -1,0 +1,65 @@
+\chapter{Resultados}
+
+Neste capítulo serão apresentados os resultados obtidos na nos testes de carga e busca dos dados utilizando ...(driver). Os testes foram realizados em quatro configurações de \emph{cluster}, com uma, duas, quatro e seis máquinas, a fim de se analisar a melhora do desempenho de um banco de dados não relacional ao se aumentar o número de nós. Além disso, em cada configuração de \emph{cluster}, foram realizados três testes com diferentes volumes de dados.
+
+\section{Carga de dados}
+Para a carga de dados foi realizada apenas uma leitura dos arquivos \emph{.csv} de dados do Bolsa Família e a seleção das colunas a serem utilizadas. Os dados foram carregados a partir de uma única máquina utilizando-se o cliente desenvolvido com ...(driver).
+
+A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos diferentes ambientes e volumes de dados. O gráfico~\ref{fig:graphinsert} apresenta os mesmo dados para melhor visualização.
+
+\begin{table}[]
+	\centering
+	\caption{Inserção}
+	\label{tb_insert}
+	\begin{tabular}{lllll}
+		\textbf{Tamanho}	& \textbf{1 nó} & \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
+		\textbf{6 meses}    & 25m37s        & 28m02s         & 27m15s         & 26m29s         \\ \hline
+		\textbf{1 ano}      & 51m19s        & 55m25s         & 54m16s         & 52m22s         \\ \hline
+		\textbf{2 anos}     & 01h44m53s     & 01h59m17s      & 01h46m57s      & 01h43m56s      \\ \hline
+	\end{tabular}
+\end{table}
+
+\subsection{Comparação dos ambientes}
+
+Pelos resultados obtidos é possível perceber que o tempo de inserção melhora com o uso de mais máquinas, com exceção do caso de apenas uma máquina, provavelmente devido às limitações da rede na comunicação entre as máquinas. Mesmo assim, é possível observar que ao se aumentar o volume dos dados, mesmo a configuração com uma máquina oferece desempenho pior do que a com seis. 
+
+Para o teste com dados de 6 meses, a melhoria média ao se aumentar o número de máquinas foi de \textbf{2,8\%}, para 1 ano foi de \textbf{2,78\%}, e para 2 anos foi de \textbf{6,58\%}, desconsiderando-se os resultados com uma máquina.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=1\textwidth]{figuras/graphinsert.png}
+	\caption{Inserção de dados}
+	\label{fig:graphinsert}
+\end{figure}
+
+\section{Extração de dados}
+Assim como na carga de dados, para os testes de extração foram utilizados quatro configurações de cluster, com três diferentes volumes de dados. Foram realizadas consultas de agregação de dados e buscas por registros específicos.
+As consultas por agregação estão listadas na tabela~\ref{tab:consultasagregacao}, enquanto os registros buscados estão listados na tabela~\ref{tab:consultasbuscas}.
+
+As tabelas~\ref{tab:select_agreg} e ~\ref{tab:select_busca} apresenta os tempos obtidos na extração agregada e de busca de dados nos diferentes ambientes e volumes de dados.
+
+\begin{table}[]
+	\centering
+	\caption{Agregação de dados}
+	\label{tab:select_agreg}
+	\begin{tabular}{lllll}
+		\textbf{Tamanho} & \textbf{1 nó} & \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
+		6 meses          & 01m04s        & 01m43s         & 02m39s         & 03m01s         \\ \hline
+		1 ano            & 02m01s        & 03m13s         & 05m00s         & 09m29s         \\ \hline
+		2 anos           & 04m02s        & 11m22s         & 11m13s         & 09m29s         \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[]
+	\centering
+	\caption{Busca de dados}
+	\label{tab:select_busca}
+	\begin{tabular}{lllll}
+		\textbf{Tamanho} & \textbf{1 nó} & \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
+		6 meses          & 0,0112s       & 0,0188s        & 0,0326s        & 0,0376s        \\ \hline
+		1 ano            & 0,0844s       & 0,0399s        & 0,0463s        & 0,0579s        \\ \hline
+		2 anos           & 0,2253s       & 0,2492s        & 0,1121s        & 0,0579s        \\ \hline
+	\end{tabular}
+\end{table}
+
+\subsection{Comparação do ambiente}
