@@ -17,11 +17,12 @@ import com.datastax.driver.core.SocketOptions;
 
 public class CassandraConnector{
 
-	private static String CLUSTER_NAME = "2CM";
-	private static int repetitions_insert = 1;
+	private static String CLUSTER_NAME = "6CM";
+	private static String CLUSTER_FILE_NAME;
+	private static int repetitions_insert = 10;
 	private static int repetitions_select = 10;
 
-	public static void insertData(String outputName) throws InterruptedException, IOException
+	public static void insertData(String inputName, String outputName) throws InterruptedException, IOException
 	{   	    
     	FileWriter file = new FileWriter(outputName, true);    	
     	PrintWriter writer = new PrintWriter(file);
@@ -29,13 +30,14 @@ public class CassandraConnector{
     	writer.println("Arquivo\tRegistros\tTempo");
     	writer.flush();
     	// Lê o zip contendo os arquivos .csv
-    	ZipFile zipFile = new ZipFile("dados.zip");
+    	ZipFile zipFile = new ZipFile(inputName + ".zip");
     	
         Enumeration<? extends ZipEntry> entries = zipFile.entries();
         InputStream stream = null;
         
         
         // Itera pelos arquivos presentes no zip
+
         while(entries.hasMoreElements()){
             ZipEntry entry = entries.nextElement();
             stream = zipFile.getInputStream(entry);
@@ -85,7 +87,7 @@ public class CassandraConnector{
 		System.out.println("Table truncated");
 	}
 	
-	public static void selectData() throws IOException
+	public static void selectData() throws Exception
 	{
 		String serverIP = "localhost";
 		Cluster cluster = Cluster.builder()
@@ -101,54 +103,71 @@ public class CassandraConnector{
 		// Le os dados
 		System.out.println("Lendo dados...\n");
 		CassandraReader reader = new CassandraReader();
-    	reader.read(session, repetitions_select, "2CM");
+    	reader.read(session, repetitions_select, CLUSTER_FILE_NAME);
     	
     	session.close();
 	}
 	
     public static void main( String[] args ) throws InterruptedException, RuntimeException, IOException
-    {
-    	String fileName = CLUSTER_NAME + "_in.csv"; 
+    {    	
     	
-    	FileWriter file = new FileWriter("log", true);  
-   	
-    	FileWriter file2 = new FileWriter("log", true);  
-    	PrintWriter writer = new PrintWriter(file2);
+    	// String[] zipFiles = new String[] { "dados", "dados_1ano", "dados_6meses" };
+    	String[] zipFiles = new String[] { "dados_1ano", "dados_6meses" };
     	
-    	// Insere dados no Cassandra
-    	for(int i = 0; i < repetitions_insert; i++)
-    	{    		
-    		System.out.println("Inserindo " + i + ":\n");
-    		try{
-    			truncateData();
-    			insertData(fileName);	
-        		
-        		// Na segunda execução faz os selects
-        		if(i == 2)
-        		{
-        			selectData();
-        		}
-        			
-        		// envia arquivo por email
-        		String target = new String("/home/ppca/jorge/workspace/cassandra_in/script.sh");
-
-                Runtime rt = Runtime.getRuntime();
-                Process proc = rt.exec(target);
-                proc.waitFor();
-    		}catch(Exception e)
-    		{    	    	
-    	    	writer.println(LocalDateTime.now().toString() + "\n" + e.getMessage() + "\n\n");
-    	    	writer.flush();
-    	    	
-    	    	// Caso ocorra erro, executa novamente
-    	    	i--;
-    		}
-
+    	for(String zip : zipFiles)
+    	{
+    		CLUSTER_FILE_NAME = CLUSTER_NAME + "_" + zip; 
+        	String fileName =  CLUSTER_FILE_NAME + "_in.csv"; 
+    	  	
+        	FileWriter file = new FileWriter("log", true);  
+        	PrintWriter writer = new PrintWriter(file);
+    		
+	    	// Insere dados no Cassandra
+	    	for(int i = 0; i < repetitions_insert; i++)
+	    	{    		
+	    		System.out.println("Inserindo " + i + ":\n");
+	    		try{
+	    			truncateData();
+	    			insertData(zip, fileName);	
+	        		
+	        		// Depois da primeira inserção faz o select
+	        		if(i == 0 && repetitions_select > 0)
+	        		{
+	        			boolean done = false;
+	            		
+	            		while(!done)
+	            		{
+	            			try{
+	            				selectData();
+	            				done = true;
+	            			}
+	            			catch(Exception e)
+	            			{
+	                	    	writer.println(LocalDateTime.now().toString() + "\n" + e.getMessage() + "\n\n");
+	                	    	System.out.print(LocalDateTime.now().toString() + "\n" + e.getMessage() + "\n\n");
+	                	    	writer.flush();
+	            				done = false;
+	            			}	
+	            		}
+	        		}      		
+	        		
+	    		}catch(Exception e)
+	    		{    	    	
+	    	    	writer.println(LocalDateTime.now().toString() + "\n" + e.getMessage() + "\n\n");
+	    	    	System.out.print(LocalDateTime.now().toString() + "\n" + e.getMessage() + "\n\n");
+	    	    	writer.flush();
+	    	    	
+	    	    	// Caso ocorra erro, executa novamente
+	    	    	truncateData();
+	    	    	i--;
+	    		}
+	
+	    	}
+	    	truncateData();
     	}
-    	
     	   	
     	// Envia resultados por email
-		String target = new String("/home/ppca/jorge/workspace/cassandra_in/script.sh");
+		String target = new String("/home/bioinformatica/jorge/workspace/cassandra_io/script.sh");
 
         Runtime rt = Runtime.getRuntime();
         Process proc = rt.exec(target);

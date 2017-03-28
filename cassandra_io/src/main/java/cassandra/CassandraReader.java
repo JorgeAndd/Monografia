@@ -21,17 +21,12 @@ public class CassandraReader
 		public ArrayList<Double> times = new ArrayList<Double>();
 	}
 		
-	public double runQuery(Session session, String query)
+	public double runQuery(Session session, String query) throws Exception
 	{    	
     	long start = System.nanoTime();
     	
     	ResultSet results = null;
-    	try{
-    		results = session.execute(query);
-    	}catch(Exception e)
-    	{
-    		System.out.println("Erro na query: \n" + query);
-    	}
+    	results = session.execute(query);
     	
     	long elapsed = System.nanoTime() - start;
     	double seconds = (double)elapsed / 1000000000.0;
@@ -43,17 +38,12 @@ public class CassandraReader
 		return seconds;
 	}
 
-	public void read(Session session, int times, String clusterName) throws IOException
+	public void read(Session session, int times, String clusterName) throws Exception
 	{
 		ArrayList<QueryTimes> selectionTimes = new ArrayList<QueryTimes>();
 		
 		FileInputStream fstream = null;
-		try {
-			fstream = new FileInputStream("queries.txt");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		fstream = new FileInputStream("queries.txt");
 		    	
     	// Le as queries do arquivo e adiciona na lista de queries
 		BufferedReader fileReader = new BufferedReader(new InputStreamReader(fstream));
@@ -68,6 +58,7 @@ public class CassandraReader
 			newQueryTime.query = line;
 			selectionTimes.add(newQueryTime);
 		} 
+    	
     	
     	// Executa as queries contidas no arquivo times vezes
     	// Adiciona os tempos na lista de queries
@@ -86,6 +77,7 @@ public class CassandraReader
     	for(QueryTimes query : selectionTimes)
     	{
     		writer.print(query.query + ';');
+    		
     		for(Double time : query.times)
     		{
     			writer.print(time.toString() + ';');

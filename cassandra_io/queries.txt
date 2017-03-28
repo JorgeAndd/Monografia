@@ -1,3 +1,31 @@
+SELECT sum(valor) FROM dados WHERE uf='AC'
 SELECT sum(valor) FROM dados WHERE uf='DF'
-SELECT * FROM dados WHERE uf = 'AM' AND periodo = '2015-07-01' AND valor = 131 AND nis_favorecido = 00023625326260
-SELECT count(*) FROM dados WHERE uf = 'AC' AND periodo = '2016-02-01' AND valor < 150
+SELECT sum(valor) FROM dados WHERE uf='MG'
+SELECT sum(valor) FROM dados WHERE uf='PB'
+SELECT sum(valor) FROM dados WHERE uf='SC'
+SELECT sum(valor) FROM dados WHERE uf='BA'
+
+
+
+SELECT * FROM dados WHERE uf = 'RN' AND periodo = '2015-07-01' AND valor = 77 AND nis_favorecido = 00020420391414
+SELECT * FROM dados WHERE uf = 'PE' AND periodo = '2015-09-01' AND valor = 35 AND nis_favorecido = 00023698153404
+SELECT * FROM dados WHERE uf = 'CE' AND periodo = '2015-10-01' AND valor = 112 AND nis_favorecido = 00020952340997
+SELECT * FROM dados WHERE uf = 'RJ' AND periodo = '2015-11-01' AND valor = 79 AND nis_favorecido = 00010751866684
+SELECT * FROM dados WHERE uf = 'MT' AND periodo = '2015-12-01' AND valor = 35 AND nis_favorecido = 00016547494560
+SELECT * FROM dados WHERE uf = 'RS' AND periodo = '2016-01-01' AND valor = 77 AND nis_favorecido = 00016540177012
+SELECT * FROM dados WHERE uf = 'BA' AND periodo = '2016-02-01' AND valor = 155 AND nis_favorecido = 00016457367888
+SELECT * FROM dados WHERE uf = 'SP' AND periodo = '2016-03-01' AND valor = 147 AND nis_favorecido = 00021208322062
+SELECT * FROM dados WHERE uf = 'MG' AND periodo = '2016-05-01' AND valor = 156 AND nis_favorecido = 00020407769654
+SELECT * FROM dados WHERE uf = 'AL' AND periodo = '2016-06-01' AND valor = 77 AND nis_favorecido = 00017044198056
+SELECT * FROM dados WHERE uf = 'RS' AND periodo = '2015-06-01' AND valor = 77 AND nis_favorecido = 00016435129143
+SELECT * FROM dados WHERE uf = 'RN' AND periodo = '2015-05-01' AND valor = 217 AND nis_favorecido = 00020314831619
+SELECT * FROM dados WHERE uf = 'CE' AND periodo = '2015-04-01' AND valor = 343 AND nis_favorecido = 00021243238536
+SELECT * FROM dados WHERE uf = 'SP' AND periodo = '2015-03-01' AND valor = 233 AND nis_favorecido = 00016138224362
+SELECT * FROM dados WHERE uf = 'GO' AND periodo = '2015-02-01' AND valor = 189 AND nis_favorecido = 00016198271804
+SELECT * FROM dados WHERE uf = 'MG' AND periodo = '2015-01-01' AND valor = 147 AND nis_favorecido = 00016429573738
+SELECT * FROM dados WHERE uf = 'BA' AND periodo = '2014-12-01' AND valor = 77 AND nis_favorecido = 00016348185436
+SELECT * FROM dados WHERE uf = 'PB' AND periodo = '2014-11-01' AND valor = 301 AND nis_favorecido = 00012190556491
+SELECT * FROM dados WHERE uf = 'AL' AND periodo = '2014-10-01' AND valor = 497 AND nis_favorecido = 00016075811886
+SELECT * FROM dados WHERE uf = 'PE' AND periodo = '2014-09-01' AND valor = 112 AND nis_favorecido = 00020902816912
+SELECT * FROM dados WHERE uf = 'PA' AND periodo = '2014-08-01' AND valor = 187 AND nis_favorecido = 00016099378449
+SELECT * FROM dados WHERE uf = 'RJ' AND periodo = '2014-07-01' AND valor = 77 AND nis_favorecido = 00012192905213

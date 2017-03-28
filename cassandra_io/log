@@ -1,40 +1,20 @@
-2017-01-01T19:47:42.577
-dados.zip (No such file or directory)
+2017-02-20T08:35:22.114
+All host(s) tried for query failed (tried: localhost/127.0.0.1:9042 (com.datastax.driver.core.exceptions.TransportException: [localhost/127.0.0.1:9042] Cannot connect))
 
 
-2017-01-01T19:47:42.578
-dados.zip (No such file or directory)
+2017-02-24T10:49:35.259
+Error during truncate: Truncate timed out - received only 0 responses
 
 
-2017-01-01T19:47:42.578
-dados.zip (No such file or directory)
+2017-02-24T15:56:15.169
+Error during truncate: Truncate timed out - received only 0 responses
 
 
-2017-01-01T19:47:42.578
-dados.zip (No such file or directory)
+2017-02-24T16:48:37.396
+Error during truncate: Truncate timed out - received only 0 responses
 
 
-2017-01-01T19:47:42.578
-dados.zip (No such file or directory)
-
-
-2017-01-01T19:47:42.579
-dados.zip (No such file or directory)
-
-
-2017-01-01T19:47:42.582
-dados.zip (No such file or directory)
-
-
-2017-01-01T19:47:42.582
-dados.zip (No such file or directory)
-
-
-2017-01-01T19:47:42.583
-dados.zip (No such file or directory)
-
-
-2017-01-01T19:47:42.583
-dados.zip (No such file or directory)
+2017-03-06T08:48:26.568
+Keyspace 'bolsa_familia' does not exist
 
 

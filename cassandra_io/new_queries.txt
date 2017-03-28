@@ -1,0 +1,7 @@
+SELECT max(valor) FROM dados WHERE uf='AC'
+SELECT max(valor) FROM dados WHERE uf='DF'
+SELECT max(valor) FROM dados WHERE uf='MG'
+SELECT max(valor) FROM dados WHERE uf='PB'
+SELECT max(valor) FROM dados WHERE uf='SC'
+SELECT max(valor) FROM dados WHERE uf='BA'
+
