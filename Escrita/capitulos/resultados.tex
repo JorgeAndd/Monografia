@@ -1,11 +1,25 @@
 \chapter{Resultados}
 
-Neste capítulo serão apresentados os resultados obtidos na nos testes de carga e busca dos dados utilizando ...(driver). Os testes foram realizados em quatro configurações de \emph{cluster}, com uma, duas, quatro e seis máquinas, a fim de se analisar a melhora do desempenho de um banco de dados não relacional ao se aumentar o número de nós. Além disso, em cada configuração de \emph{cluster}, foram realizados três testes com diferentes volumes de dados.
+Neste capítulo serão apresentados os resultados obtidos na nos testes de carga e busca dos dados. Os testes foram realizados em quatro configurações de \emph{cluster}, com uma, duas, quatro e seis máquinas, a fim de se analisar a melhora do desempenho de um banco de dados não relacional ao se aumentar o número de nós. Além disso, em cada configuração de \emph{cluster}, foram realizados três testes com diferentes volumes de dados. 
+
+Em cada configuração de teste foram realizadas dez repetições, tanto na inserção quanto na busca, para garantir resultados mais consistentes. 
 
 \section{Carga de dados}
-Para a carga de dados foi realizada apenas uma leitura dos arquivos \emph{.csv} de dados do Bolsa Família e a seleção das colunas a serem utilizadas. Os dados foram carregados a partir de uma única máquina utilizando-se o cliente desenvolvido com ...(driver).
+Para a carga de dados foi realizada apenas uma leitura dos arquivos \emph{.csv} de dados do Bolsa Família e a seleção das colunas a serem utilizadas. Os dados foram carregados a partir de uma única máquina utilizando-se o cliente desenvolvido com o \emph{driver} da \emph{Datastax}. Foram realizadas cargas com três volumes de dados, com dados de seis meses, um ano e dois anos. A tabela~\ref{tab:volume} apresenta o volume de dados em cada uma dessas cargas.
 
 A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos diferentes ambientes e volumes de dados. O gráfico~\ref{fig:graphinsert} apresenta os mesmo dados para melhor visualização.
+
+\begin{table}[]
+	\centering
+	\caption{Volume da dados}
+	\label{tab:volume}
+	\begin{tabular}{ll}
+		\textbf{Carga} & \textbf{Tamanho} \\ \hline
+		6 meses        & x GB             \\ \hline
+		1 ano          & x GB             \\ \hline
+		2 anos         & x GB             \\ \hline
+	\end{tabular}
+\end{table}
 
 \begin{table}[]
 	\centering
