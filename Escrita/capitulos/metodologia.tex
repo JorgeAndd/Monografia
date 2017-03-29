@@ -2,10 +2,14 @@
 
 \chapter{Estudo de Caso e Metodologia}
 
-Neste capítulo será apresentado o estudo de caso dos dados do Bolsa Família utilizado no trabalho, assim como explicadas as etapas utilizadas para a inserção e consultas desses dados em um ambiente Cassandra distribuído.
+Neste capítulo serão apresentados os estudos de caso, onde os dados públicos do programa Bolsa Família são inseridos e extraídos de um banco de dados Cassandra com clusters de um, dois, quatro e seis máquinas, além das descrições das etapas e programas utilizados.
 
 \section{Estudo de Caso}
-Os dados do Bolsa Família utilizados para estudo de caso nesse trabalho foram obtidos no \emph{site} do Portal da Transparência~\cite{portaltransparencia}. Os dados são disponibilizados em arquivos mensais em formato \emph{.csv}. Para os testes realizados, foram utilizados os arquivos dos meses de ... a ... Esses arquivos possuem em média ...(tamanho) com ...(registros). Cada arquivo apresenta como campos: \textbf{UF, Código SIAFI Município, Nome Município, Código Função, Código Subfunção, Código Programa, Código Ação, NIS Favorecido, Nome Favorecido, Fonte-Finalidade, Valor Parcela e Mês Competência}. 
+Os dados do Bolsa Família utilizados para estudo de caso nesse trabalho foram obtidos no \emph{site} do Portal da Transparência~\cite{portaltransparencia}. Esses dados são apresentados em arquivos agrupados mensalmente e disponibilizados em formato \emph{.csv}. 
+
+Foram utilizados no total vinte quatro arquivos, equivalentes a vinte e quatro meses do programa, compreendidos entre ... e ... Cada arquivo possui em média 16GiB de tamanho, com 13.968.749 registros.
+
+Cada arquivo apresenta como campos: \textbf{UF, Código SIAFI Município, Nome Município, Código Função, Código Subfunção, Código Programa, Código Ação, NIS Favorecido, Nome Favorecido, Fonte-Finalidade, Valor Parcela e Mês Competência}. 
 
 
 \section{Modelo de dados Cassandra}
@@ -14,6 +18,8 @@ O modelo de dados no Cassandra foi criado utilizando-se um \emph{keyspace} com e
 Apenas uma família de colunas foi criada, com as colunas \textbf{UF, Código SIAFI Município, Nome Município, NIS Favorecido, Nome Favorecido, Fonte-Finalidade, Valor Parcela, Mês Competência}. Esse subconjunto de colunas foi escolhido pois os testes não buscam uma análise real das informações armazenadas, e sim mensurar o desempenho de um banco de dados não distribuido com dados públicos.
 
 A família de colunas criada possui como chave primária os campos \textbf{NIS Favorecido, Valor Parcela e Mês Competência}, que servem para identificar unicamente cada registro, além de \textbf{UF} para permitir uma melhor distribuição dos dados no \emph{cluster}.
+
+A configuração do ambiente Cassandra foi realizada por meio do cliente \emph{cqlsh}, que permite realizar consultas e manipulações no banco por meio da linguagem \emph{CQL}(\emph{Cassandra Query Language}).
 
 \section{Desenvolvimento da aplicação}
 Para inserção e busca dos dados no ambiente, foi desenvolvido um programa em Java utilizando-se o driver disponibilizado pela Datastax. Essa aplicação é responsável pela leitura de todos os arquivos de entrada e a inserção dos campos utilizados no banco de dados Cassandra. A aplicação também faz a leitura desses dados inseridos a partir de uma lista de consultas a serem realizadas.
