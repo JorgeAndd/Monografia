@@ -5,7 +5,21 @@ Neste capítulo serão apresentados os resultados obtidos na nos testes de carga
 Em cada configuração de teste foram realizadas dez repetições, tanto na inserção quanto na busca, para garantir resultados mais consistentes. 
 
 \section{Carga de dados}
-Para a carga de dados foi realizada apenas uma leitura dos arquivos \emph{.csv} de dados do Bolsa Família e a seleção das colunas a serem utilizadas. Os dados foram carregados a partir de uma única máquina utilizando-se o cliente desenvolvido com o \emph{driver} da \emph{Datastax}. Foram realizadas cargas com três volumes de dados, com dados de seis meses, um ano e dois anos. A tabela~\ref{tab:volume} apresenta o volume de dados em cada uma dessas cargas.
+A carga de dados foi relizada a partir da leitura dos arquivos \emph{.csv} de dados do Bolsa Família, com seleção das colunas a serem utilizadas e tratamento de alguns campos.
+Os dados foram carregados a partir de uma única máquina utilizando-se o cliente desenvolvido com o \emph{driver} da \emph{Datastax}. Foi feita também uma comparação entre os tempos observados em cada uma das configurações utilizadas. Essa sessão descreve em detalhes essas operações.
+
+\subsection{Preparação e carga}
+Foi desenvolvido um cliente em Java responsável por toda a operação da inserção dos dados. Essa inserção é realizada selecionando-se os campos a serem inseridos e tratando alguns campos com formatos não suportados pelo Cassandra. 
+
+Foi necessário a remoção do separador de milhares(','), além da formatação da hora, que originalmente segue o padrão MM/AAAA, que não é suportado pelo Cassandra, sendo considerado então o primeiro dia de cada mês.
+
+A carga foi realizada com três volumes de dados, equivalentes a seis meses, um ano e dois anos de dados. A tabela~\ref{tab:volume} apresenta o volume total dos dados inseridos em cada uma dessas cargas.
+
+A inserção foi realizada utilizando funções padrões do driver da Datastax, com uso da linguagem CQL com uma \emph{query} simples() de inserção e preenchimento dos parâmetros. As operações foram realizadas com seis \emph{threads} simultâneas, valor que apresentou o melhor resultado nos testes. 
+
+\begin{lstlisting}[caption={Código CQL para inserção},label={lst:label},language=SQL]
+INSERT INTO bolsa_familia.dados (uf, cod_municipio, nome_municipio, nis_favorecido, nome_favorecido, fonte, valor, periodo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+\end{lstlisting}
 
 A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos diferentes ambientes e volumes de dados. O gráfico~\ref{fig:graphinsert} apresenta os mesmo dados para melhor visualização.
 
@@ -15,9 +29,9 @@ A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos
 	\label{tab:volume}
 	\begin{tabular}{ll}
 		\textbf{Carga} & \textbf{Tamanho} \\ \hline
-		6 meses        & x GB             \\ \hline
-		1 ano          & x GB             \\ \hline
-		2 anos         & x GB             \\ \hline
+		6 meses        &  GB             \\ \hline
+		1 ano          &  GB             \\ \hline
+		2 anos         &  GB             \\ \hline
 	\end{tabular}
 \end{table}
 
