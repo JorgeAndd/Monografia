@@ -15,14 +15,6 @@ Foi necessário a remoção do separador de milhares(','), além da formatação
 
 A carga foi realizada com três volumes de dados, equivalentes a seis meses, um ano e dois anos de dados. A tabela~\ref{tab:volume} apresenta o volume total dos dados inseridos em cada uma dessas cargas.
 
-A inserção foi realizada utilizando funções padrões do driver da Datastax, com uso da linguagem CQL com uma \emph{query} simples() de inserção e preenchimento dos parâmetros. As operações foram realizadas com seis \emph{threads} simultâneas, valor que apresentou o melhor resultado nos testes. 
-
-\begin{lstlisting}[caption={Código CQL para inserção},label={lst:label},language=SQL]
-INSERT INTO bolsa_familia.dados (uf, cod_municipio, nome_municipio, nis_favorecido, nome_favorecido, fonte, valor, periodo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-\end{lstlisting}
-
-A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos diferentes ambientes e volumes de dados. O gráfico~\ref{fig:graphinsert} apresenta os mesmo dados para melhor visualização.
-
 \begin{table}[]
 	\centering
 	\caption{Volume da dados}
@@ -34,6 +26,15 @@ A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos
 		2 anos         &  GB             \\ \hline
 	\end{tabular}
 \end{table}
+
+A inserção foi realizada utilizando funções padrões do driver da Datastax, com uso da linguagem CQL com uma \emph{query} simples() de inserção e preenchimento dos parâmetros. As operações foram realizadas com seis \emph{threads} simultâneas, valor que apresentou o melhor resultado nos testes. 
+
+\begin{lstlisting}[caption={Código CQL para inserção},label={lst:label},language=SQL]
+INSERT INTO bolsa_familia.dados (uf, cod_municipio, nome_municipio, nis_favorecido, nome_favorecido, fonte, valor, periodo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+\end{lstlisting}
+
+A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos diferentes ambientes e volumes de dados. O gráfico~\ref{fig:graphinsert} apresenta os mesmo dados para melhor visualização.
+
 
 \begin{table}[]
 	\centering
@@ -60,34 +61,34 @@ Para o teste com dados de 6 meses, a melhoria média ao se aumentar o número de
 	\label{fig:graphinsert}
 \end{figure}
 
-\section{Extração de dados}
-Assim como na carga de dados, para os testes de extração foram utilizados quatro configurações de cluster, com três diferentes volumes de dados. Foram realizadas consultas de agregação de dados e buscas por registros específicos.
-As consultas por agregação estão listadas na tabela~\ref{tab:consultasagregacao}, enquanto os registros buscados estão listados na tabela~\ref{tab:consultasbuscas}.
-
-As tabelas~\ref{tab:select_agreg} e ~\ref{tab:select_busca} apresenta os tempos obtidos na extração agregada e de busca de dados nos diferentes ambientes e volumes de dados.
-
-\begin{table}[]
-	\centering
-	\caption{Agregação de dados}
-	\label{tab:select_agreg}
-	\begin{tabular}{lllll}
-		\textbf{Tamanho} & \textbf{1 nó} & \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
-		6 meses          & 01m04s        & 01m43s         & 02m39s         & 03m01s         \\ \hline
-		1 ano            & 02m01s        & 03m13s         & 05m00s         & 09m29s         \\ \hline
-		2 anos           & 04m02s        & 11m22s         & 11m13s         & 09m29s         \\ \hline
-	\end{tabular}
-\end{table}
-
-\begin{table}[]
-	\centering
-	\caption{Busca de dados}
-	\label{tab:select_busca}
-	\begin{tabular}{lllll}
-		\textbf{Tamanho} & \textbf{1 nó} & \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
-		6 meses          & 0,0112s       & 0,0188s        & 0,0326s        & 0,0376s        \\ \hline
-		1 ano            & 0,0844s       & 0,0399s        & 0,0463s        & 0,0579s        \\ \hline
-		2 anos           & 0,2253s       & 0,2492s        & 0,1121s        & 0,0579s        \\ \hline
-	\end{tabular}
-\end{table}
-
-\subsection{Comparação do ambiente}
+%\section{Extração de dados}
+%Assim como na carga de dados, para os testes de extração foram utilizados quatro configurações de cluster, com três diferentes volumes de dados. Foram realizadas consultas de agregação de dados e buscas por registros específicos.
+%As consultas por agregação estão listadas na tabela~\ref{tab:consultasagregacao}, enquanto os registros buscados estão listados na tabela~\ref{tab:consultasbuscas}.
+%
+%As tabelas~\ref{tab:select_agreg} e ~\ref{tab:select_busca} apresenta os tempos obtidos na extração agregada e de busca de dados nos diferentes ambientes e volumes de dados.
+%
+%\begin{table}[]
+%	\centering
+%	\caption{Agregação de dados}
+%	\label{tab:select_agreg}
+%	\begin{tabular}{lllll}
+%		\textbf{Tamanho} & \textbf{1 nó} & \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
+%		6 meses          & 01m04s        & 01m43s         & 02m39s         & 03m01s         \\ \hline
+%		1 ano            & 02m01s        & 03m13s         & 05m00s         & 09m29s         \\ \hline
+%		2 anos           & 04m02s        & 11m22s         & 11m13s         & 09m29s         \\ \hline
+%	\end{tabular}
+%\end{table}
+%
+%\begin{table}[]
+%	\centering
+%	\caption{Busca de dados}
+%	\label{tab:select_busca}
+%	\begin{tabular}{lllll}
+%		\textbf{Tamanho} & \textbf{1 nó} & \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
+%		6 meses          & 0,0112s       & 0,0188s        & 0,0326s        & 0,0376s        \\ \hline
+%		1 ano            & 0,0844s       & 0,0399s        & 0,0463s        & 0,0579s        \\ \hline
+%		2 anos           & 0,2253s       & 0,2492s        & 0,1121s        & 0,0579s        \\ \hline
+%	\end{tabular}
+%\end{table}
+%
+%\subsection{Comparação do ambiente}

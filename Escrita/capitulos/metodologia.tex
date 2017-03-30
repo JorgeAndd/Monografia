@@ -5,9 +5,9 @@
 Neste capítulo serão apresentados os estudos de caso, onde os dados públicos do programa Bolsa Família são inseridos e extraídos de um banco de dados Cassandra com clusters de um, dois, quatro e seis máquinas, além das descrições das etapas e programas utilizados.
 
 \section{Estudo de Caso}
-Os dados do Bolsa Família utilizados para estudo de caso nesse trabalho foram obtidos no \emph{site} do Portal da Transparência~\cite{portaltransparencia}. Esses dados são apresentados em arquivos agrupados mensalmente e disponibilizados em formato \emph{.csv}. 
+Os dados do Bolsa Família utilizados para estudo de caso nesse trabalho foram obtidos no \emph{site} do Portal da Transparência~\cite{portaldatransparencia}. Esses dados são apresentados em arquivos agrupados mensalmente e disponibilizados em formato \emph{.csv}. 
 
-Foram utilizados no total vinte quatro arquivos, equivalentes a vinte e quatro meses do programa, compreendidos entre ... e ... Cada arquivo possui em média 16GiB de tamanho, com 13.968.749 registros.
+Foram utilizados no total vinte quatro arquivos, equivalentes a vinte e quatro meses do programa, compreendidos entre Julho de 2014 e Junho de 2016. Cada arquivo possui em média 16GiB de tamanho, com 13.968.749 registros.
 
 Cada arquivo apresenta como campos: \textbf{UF, Código SIAFI Município, Nome Município, Código Função, Código Subfunção, Código Programa, Código Ação, NIS Favorecido, Nome Favorecido, Fonte-Finalidade, Valor Parcela e Mês Competência}. 
 
@@ -31,11 +31,11 @@ A leitura dos dados é feita no mesmo programa, após a inserção de todos os d
 Todas as interações com o banco, seja na inserção quanto na leitura, foram realizadas por meio da linguagem CQL, que se assemelha a consultas padrões SQL.
 
 \section{Arquitetura do Ambiente}
-Cada nós do ambiente consiste em um ...(configuração).
+O ambiente utilizado consiste em seis máquinas com Intel i5-4570 3.20GHz, 16GB de RAM, disco rígido de 500GB, com sistema operacional Ubuntu.
 
-O ambiente foi configurado instalando-se o Cassandra em cada uma das seis máquinas utilizadas no teste. Em cada máquina foi necessário a modificação do arquivo de configuração \emph{cassandra.yaml} para possibilitar a detecção do cluster.
+O Cassandra foi instalado em cada uma das seis máquinas utilizadas no teste. Em cada máquina foi necessário a modificação do arquivo de configuração \emph{cassandra.yaml} para possibilitar a detecção do \emph{cluster}.
 
-Além disso, seguindo as orientações em ~\cite{cassandrasettings}, guardadas as devidas limitações do laboratório, foram realizadas as seguintes configurações do Linux:
+Além disso, seguindo as orientações em ~\cite{cassandrasettings}, e guardadas as devidas limitações do laboratório, foram realizadas as seguintes configurações do Linux:
 \begin{itemize}
 	\item Remoção do limite de memória(\emph{memlock})
 	\item Aumento do limite do número de arquivos abertos(\emph{nofile})
