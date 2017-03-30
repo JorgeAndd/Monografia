@@ -1,17 +1,17 @@
 \chapter{Resultados}
 
-Neste capítulo serão apresentados os resultados obtidos na nos testes de carga e busca dos dados. Os testes foram realizados em quatro configurações de \emph{cluster}, com uma, duas, quatro e seis máquinas, a fim de se analisar a melhora do desempenho de um banco de dados não relacional ao se aumentar o número de nós. Além disso, em cada configuração de \emph{cluster}, foram realizados três testes com diferentes volumes de dados. 
+Neste capítulo serão apresentados os resultados obtidos nos testes de carga e busca dos dados. Os testes foram realizados em quatro configurações de \emph{cluster}, com uma, duas, quatro e seis máquinas, a fim de se analisar a melhora do desempenho de um banco de dados não relacional ao se aumentar o número de nós. Além disso, em cada configuração de \emph{cluster}, foram realizados três testes com diferentes volumes de dados. 
 
-Em cada configuração de teste foram realizadas dez repetições, tanto na inserção quanto na busca, para garantir resultados mais consistentes. 
+Em cada configuração de teste foram realizadas dez repetições, tanto na inserção quanto na busca, a fim de garantir resultados mais consistentes. 
 
 \section{Carga de dados}
 A carga de dados foi relizada a partir da leitura dos arquivos \emph{.csv} de dados do Bolsa Família, com seleção das colunas a serem utilizadas e tratamento de alguns campos.
-Os dados foram carregados a partir de uma única máquina utilizando-se o cliente desenvolvido com o \emph{driver} da \emph{Datastax}. Foi feita também uma comparação entre os tempos observados em cada uma das configurações utilizadas. Essa sessão descreve em detalhes essas operações.
+Os dados foram carregados a partir de uma única máquina utilizando aplicação desenvolvida. Foi feita também uma comparação entre os tempos observados em cada uma das configurações utilizadas. Essa sessão descreve em detalhes essas operações.
 
 \subsection{Preparação e carga}
-Foi desenvolvido um cliente em Java responsável por toda a operação da inserção dos dados. Essa inserção é realizada selecionando-se os campos a serem inseridos e tratando alguns campos com formatos não suportados pelo Cassandra. 
+Foi desenvolvida uma aplicação Java responsável por toda a operação da inserção dos dados com uso do \emph{driver} da \emph{Datastax}. Essa inserção é realizada selecionando-se os campos a serem inseridos e tratando alguns campos com formatos não suportados pelo Cassandra. 
 
-Foi necessário a remoção do separador de milhares(','), além da formatação da hora, que originalmente segue o padrão MM/AAAA, que não é suportado pelo Cassandra, sendo considerado então o primeiro dia de cada mês.
+Foi necessário a remoção do separador de milhares(','), além da formatação do período do benefício, que originalmente segue o padrão MM/AAAA, que não é suportado pelo Cassandra. Essa data teve que ser alterada, adicionando-se o o primeiro dia de cada mês ao formato original.
 
 A carga foi realizada com três volumes de dados, equivalentes a seis meses, um ano e dois anos de dados. A tabela~\ref{tab:volume} apresenta o volume total dos dados inseridos em cada uma dessas cargas.
 
@@ -21,13 +21,13 @@ A carga foi realizada com três volumes de dados, equivalentes a seis meses, um 
 	\label{tab:volume}
 	\begin{tabular}{ll}
 		\textbf{Carga} & \textbf{Tamanho} \\ \hline
-		6 meses        &  GB             \\ \hline
+		6 meses        &  2,94GB             \\ \hline
 		1 ano          &  GB             \\ \hline
 		2 anos         &  GB             \\ \hline
 	\end{tabular}
 \end{table}
 
-A inserção foi realizada utilizando funções padrões do driver da Datastax, com uso da linguagem CQL com uma \emph{query} simples() de inserção e preenchimento dos parâmetros. As operações foram realizadas com seis \emph{threads} simultâneas, valor que apresentou o melhor resultado nos testes. 
+A inserção foi realizada utilizando funções padrões do driver da Datastax, com uso da linguagem CQL com uma \emph{query} simples(lst:label) de inserção e preenchimento dos parâmetros. As operações foram realizadas com seis \emph{threads} simultâneas, valor que apresentou o melhor resultado nos testes. 
 
 \begin{lstlisting}[caption={Código CQL para inserção},label={lst:label},language=SQL]
 INSERT INTO bolsa_familia.dados (uf, cod_municipio, nome_municipio, nis_favorecido, nome_favorecido, fonte, valor, periodo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
@@ -50,7 +50,7 @@ A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos
 
 \subsection{Comparação dos ambientes}
 
-Pelos resultados obtidos é possível perceber que o tempo de inserção melhora com o uso de mais máquinas, com exceção do caso de apenas uma máquina, provavelmente devido às limitações da rede na comunicação entre as máquinas. Mesmo assim, é possível observar que ao se aumentar o volume dos dados, mesmo a configuração com uma máquina oferece desempenho pior do que a com seis. 
+Pelos resultados obtidos é possível observar uma melhora no tempo de inserção com uso de mais máquinas no \emph{cluster}, com exceção do caso de apenas um nó, devido às limitações da rede na comunicação entre as máquinas. Mesmo assim, é possível observar que ao se aumentar o volume dos dados, um aumento do número de máquinas apresenta uma tendência de melhora nos tempos obtidos.
 
 Para o teste com dados de 6 meses, a melhoria média ao se aumentar o número de máquinas foi de \textbf{2,8\%}, para 1 ano foi de \textbf{2,78\%}, e para 2 anos foi de \textbf{6,58\%}, desconsiderando-se os resultados com uma máquina.
 

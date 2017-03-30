@@ -5,7 +5,7 @@
 Neste capítulo serão apresentados os estudos de caso, onde os dados públicos do programa Bolsa Família são inseridos e extraídos de um banco de dados Cassandra com clusters de um, dois, quatro e seis máquinas, além das descrições das etapas e programas utilizados.
 
 \section{Estudo de Caso}
-Os dados do Bolsa Família utilizados para estudo de caso nesse trabalho foram obtidos no \emph{site} do Portal da Transparência~\cite{portaldatransparencia}. Esses dados são apresentados em arquivos agrupados mensalmente e disponibilizados em formato \emph{.csv}. 
+Os dados do Bolsa Família utilizados para estudo de caso nesse trabalho foram obtidos no \emph{site} do Portal da Transparência~\cite{portaldatransparencia}. Esses dados são disponibilizados em arquivos agrupados mensalmente em formato \emph{.csv}. 
 
 Foram utilizados no total vinte quatro arquivos, equivalentes a vinte e quatro meses do programa, compreendidos entre Julho de 2014 e Junho de 2016. Cada arquivo possui em média 16GiB de tamanho, com 13.968.749 registros.
 
@@ -19,21 +19,21 @@ Apenas uma família de colunas foi criada, com as colunas \textbf{UF, Código SI
 
 A família de colunas criada possui como chave primária os campos \textbf{NIS Favorecido, Valor Parcela e Mês Competência}, que servem para identificar unicamente cada registro, além de \textbf{UF} para permitir uma melhor distribuição dos dados no \emph{cluster}.
 
-A configuração do ambiente Cassandra foi realizada por meio do cliente \emph{cqlsh}, que permite realizar consultas e manipulações no banco por meio da linguagem \emph{CQL}(\emph{Cassandra Query Language}).
+A configuração do ambiente Cassandra foi feita por meio do cliente \emph{cqlsh}, que permite realizar consultas e manipulações no banco por meio da linguagem \emph{CQL}(\emph{Cassandra Query Language}).
 
 \section{Desenvolvimento da aplicação}
-Para inserção e busca dos dados no ambiente, foi desenvolvido um programa em Java utilizando-se o driver disponibilizado pela Datastax. Essa aplicação é responsável pela leitura de todos os arquivos de entrada e a inserção dos campos utilizados no banco de dados Cassandra. A aplicação também faz a leitura desses dados inseridos a partir de uma lista de consultas a serem realizadas.
+Para inserção e busca dos dados no ambiente, foi desenvolvida uma aplicação em Java utilizando o \emph{driver} disponibilizado pela \emph{Datastax}. Essa aplicação é responsável pela leitura de todos os arquivos de entrada e a inserção dos campos utilizados no banco de dados Cassandra, assim como a posterior busca dos dados.
 
 A inserção dos dados é feita de forma assíncrona utilizando os métodos do \emph{driver}. A filtragem dos campos utilizados é feita no momento da inserção pelo próprio programa desenvolvido.
 
-A leitura dos dados é feita no mesmo programa, após a inserção de todos os dados, também utilizando o driver da Datastax.
+A leitura dos dados é feita no mesmo programa, após a inserção de todos os dados, também utilizando o driver da \emph{Datastax}.
 
 Todas as interações com o banco, seja na inserção quanto na leitura, foram realizadas por meio da linguagem CQL, que se assemelha a consultas padrões SQL.
 
 \section{Arquitetura do Ambiente}
 O ambiente utilizado consiste em seis máquinas com Intel i5-4570 3.20GHz, 16GB de RAM, disco rígido de 500GB, com sistema operacional Ubuntu.
 
-O Cassandra foi instalado em cada uma das seis máquinas utilizadas no teste. Em cada máquina foi necessário a modificação do arquivo de configuração \emph{cassandra.yaml} para possibilitar a detecção do \emph{cluster}.
+O cliente Cassandra foi instalado em cada uma das seis máquinas utilizadas no teste. Em cada máquina foi necessário a modificação do arquivo de configuração \emph{cassandra.yaml} para possibilitar a detecção do \emph{cluster}.
 
 Além disso, seguindo as orientações em ~\cite{cassandrasettings}, e guardadas as devidas limitações do laboratório, foram realizadas as seguintes configurações do Linux:
 \begin{itemize}
