@@ -2,9 +2,11 @@
 
 \chapter{Estudo de Caso e Metodologia}
 
-Neste capítulo são apresentados os estudos de caso, onde os dados públicos do programa Bolsa Família são inseridos e extraídos de um banco de dados Cassandra com clusters de um, dois, quatro e seis máquinas, além das descrições das etapas e programas utilizados.
+Neste capítulo são apresentados os estudos de caso, onde os dados públicos do programa Bolsa Família são inseridos e extraídos de um banco de dados Cassandra com \emph{clusters} de um, dois, quatro e seis máquinas, além das descrições das etapas e programas utilizados.
 
 \section{Estudo de Caso}
+O Bolsa Família é um programa federal, instituído em 2003 pelo então presidente Lula, que visa a transferência de renda para famílias em situação de pobreza e extrema pobreza no Brasil~\cite{caixa-bolsafamilia}. Atualmente cerca de 13,9 milhões de famílias são atendidas pelo programa, que recebem em média R\$182, com um custo total de R\$27,4 bilhões em 2016~\cite{gov-bolsafamilia1, gov-bolsafamilia2}.
+
 Os dados do Bolsa Família utilizados para estudo de caso nesse trabalho foram obtidos no \emph{site} do Portal da Transparência~\cite{portaldatransparencia}. Esses dados são disponibilizados em arquivos agrupados mensalmente em formato \emph{.csv}. 
 
 Foram utilizados no total vinte quatro arquivos, equivalentes a vinte e quatro meses do programa, compreendidos entre Julho de 2014 e Junho de 2016. Cada arquivo possui em média 16GiB de tamanho, com 13.968.749 registros.
