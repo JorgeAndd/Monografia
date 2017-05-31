@@ -6,7 +6,7 @@ Em cada configuração de teste foram realizadas dez repetições, tanto na inse
 
 \section{Carga de dados}
 A carga de dados foi relizada a partir da leitura dos arquivos \emph{.csv} de dados do Bolsa Família, com seleção das colunas a serem utilizadas e tratamento de alguns campos.
-Os dados foram carregados a partir de uma única máquina utilizando aplicação desenvolvida. Foi feita também uma comparação entre os tempos observados em cada uma das configurações utilizadas. Essa sessão descreve em detalhes essas operações.
+Os dados foram carregados a partir de uma única máquina utilizando aplicação desenvolvida. Foi feita também uma comparação entre os tempos observados em cada uma das configurações utilizadas. Esta seção descreve em detalhes essas operações.
 
 \subsection{Preparação e carga}
 Foi desenvolvida uma aplicação Java responsável por toda a operação da inserção dos dados com uso do \emph{driver} da \emph{Datastax}. Essa inserção é realizada selecionando-se os campos a serem inseridos e tratando alguns campos com formatos não suportados pelo Cassandra. 
@@ -21,15 +21,15 @@ A carga foi realizada com três volumes de dados, equivalentes a seis meses, um 
 	\label{tab:volume}
 	\begin{tabular}{ll}
 		\textbf{Carga} & \textbf{Tamanho} \\ \hline
-		6 meses        &  2,94GB             \\ \hline
-		1 ano          &  GB             \\ \hline
-		2 anos         &  GB             \\ \hline
+		6 meses        &  2,94 GB             \\ \hline
+		1 ano          &  5,88 GB             \\ \hline
+		2 anos         &  11,79 GB             \\ \hline
 	\end{tabular}
 \end{table}
 
-A inserção foi realizada utilizando funções padrões do driver da Datastax, com uso da linguagem CQL com uma \emph{query} simples(lst:label) de inserção e preenchimento dos parâmetros. As operações foram realizadas com seis \emph{threads} simultâneas, valor que apresentou o melhor resultado nos testes. 
+A inserção foi realizada utilizando funções padrões do driver da Datastax, com uso da linguagem CQL com uma \emph{query} simples de inserção e preenchimento dos parâmetros ~\ref{lst:clq_insert}. As operações foram realizadas com seis \emph{threads} simultâneas, valor que apresentou o melhor resultado nos testes. 
 
-\begin{lstlisting}[caption={Código CQL para inserção},label={lst:label},language=SQL]
+\begin{lstlisting}[caption={Código CQL para inserção},label={lst:clq_insert},language=SQL]
 INSERT INTO bolsa_familia.dados (uf, cod_municipio, nome_municipio, nis_favorecido, nome_favorecido, fonte, valor, periodo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 \end{lstlisting}
 
