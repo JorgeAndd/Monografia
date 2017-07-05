@@ -117,4 +117,8 @@
 \backcite {gov-bolsafamilia1}{{29}{5.1}{section.5.1}}
 \backcite {gov-bolsafamilia2}{{29}{5.1}{section.5.1}}
 \backcite {portaldatransparencia}{{29}{5.1}{section.5.1}}
-\backcite {cassandrasettings}{{31}{5.4}{section.5.4}}
+\backcite {cassandra08}{{30}{5.3}{section.5.3}}
+\backcite {cassandracql}{{30}{5.3}{section.5.3}}
+\backcite {cassandracql}{{30}{5.3}{section.5.3}}
+\backcite {cassandra_intro_cql}{{31}{5.3}{section.5.3}}
+\backcite {cassandrasettings}{{31}{5.5}{section.5.5}}
