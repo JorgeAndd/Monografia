@@ -5,13 +5,18 @@
 Neste capítulo é apresentado o estudo de caso, onde os dados públicos do programa Bolsa Família são inseridos e extraídos de um banco de dados não relacional Cassandra, com \emph{clusters} de um, dois, quatro e seis máquinas, além das descrições das etapas e programas utilizados. O programa é exposto brevemente e o modelo de dados e o ambiente utilizado são descritos.
 
 \section{Estudo de Caso}
-O Bolsa Família é um programa federal, instituído em 2003 pelo então presidente Lula, que visa a transferência de renda para famílias brasileiras em situação de pobreza e extrema pobreza, ou seja, que recebam até R\$170 e R\$85 respectivamente~\cite{caixa-bolsafamilia}. Atualmente cerca de 13,9 milhões de famílias são atendidas pelo programa, recebendo em média R\$182 cada, totalizando R\$27,4 bilhões em 2016~\cite{gov-bolsafamilia1, gov-bolsafamilia2}.
+O Bolsa Família é um programa federal, em operação desde 2003 quando foi instituído pelo então presidente Lula, com objetivo de "combater a fome e promover a segurança alimentar e nutricional, combater a pobreza e outras formas de privação das famílias e promover o acesso à rede de serviços públicos, em especial, saúde, educação, segurança alimentar e assistência social"~\cite{caixa-bolsafamilia}. 
+O programa se caracteriza pela transferência de renda para famílias brasileiras em situação de pobreza e extrema pobreza, ou seja, que recebam até R\$170 e R\$85 respectivamente. Atualmente cerca de 13,9 milhões de famílias são atendidas pelo programa, recebendo em média R\$182 cada, totalizando R\$27,4 bilhões em 2016, que recebem recursos do Ministério do Desenvolvimento Social, por meio da Caixa Econômica Federal~\cite{gov-bolsafamilia1, gov-bolsafamilia2}.
 
-Os dados do Bolsa Família utilizados para estudo de caso nesse trabalho foram obtidos no \emph{site} do Portal da Transparência~\cite{portaldatransparencia}. Esses dados são disponibilizados em arquivos agrupados mensalmente em formato \emph{.csv}. 
+Os dados do Bolsa Família utilizados para estudo de caso nesse trabalho foram obtidos no \emph{site} do Portal da Transparência, um projeto da Controladoria Geral da União, que disponibiliza informações sobre os gastos do dinheiro público, com objetivo de melhora na transparência da gestão pública~\cite{sobreportaldatransparencia}. 
+
+Esses dados são disponibilizados em formato aberto \emph{.csv}, e agrupados mensalmente, trazendo informações sobre a transferência de recursos federais aos participantes do programa. 
 
 Foram utilizados no total vinte quatro arquivos, equivalentes a vinte e quatro meses do programa, compreendidos entre Julho de 2014 e Junho de 2016. Cada arquivo possui em média 16GiB de tamanho e 13.968.749 registros.
 
 Cada arquivo apresenta como campos: \textbf{UF, Código SIAFI Município, Nome Município, Código Função, Código Subfunção, Código Programa, Código Ação, NIS Favorecido, Nome Favorecido, Fonte-Finalidade, Valor Parcela e Mês Competência}. Um subconjunto dessas colunas foi escolhido para a realização dos testes, como será explicado na próxima sessão.
+
+No trabalho os dados foram inseridos em um ambiente de \emph{cluster} de até seis máquinas, com configuração de \emph{hardware} com Intel i5-4570 3.20GHz, 16GB de RAM, disco rígido de 500GB, com sistema operacional Ubuntu.
 
 \section{Modelo de dados Cassandra}
 O modelo de dados do Cassandra foi criado utilizando-se um \emph{keyspace} com fator de replicação de apenas um~\ref{lst:cql_create_keyspace}, pois a tolerância a falhas não é um fator relevante nos testes a serem realizados, devido ao ambiente controlado em que eles são feitos.
@@ -29,7 +34,14 @@ Apenas uma família de colunas foi criada, contendo as colunas \textbf{UF, Códi
 
 Ao se definir uma chave primária no Cassandra é necessária a escolha de uma \emph{Partition Key} (chave de partição) e uma \emph{Clustering Key} (chave de agrupamento). A \emph{Partition Key} é responsável pela distribuição dos dados nos nós do ambiente, enquanto a \emph{Clustering Key} distribui esses dados dentro de cada nó.
 
-Para o modelo testado foi escolhido como \emph{Partition Key} apenas a coluna \textbf{UF} como forma de distribuição dos registros no \emph{cluster}. Além disso, para complementar a chave primária foram escolhidos os campos \textbf{NIS Favorecido, Valor Parcela e Mês Competência}, que identificam unicamente cada registro, considerando que um mesmo favorecido pelo programa(identificado pela coluna NIS Favorecido), pode receber mais de uma parcela em um mesmo mês, ou parcelas em meses distintos.
+Para o modelo testado foi escolhido como \emph{Partition Key} apenas a coluna \textbf{UF} como forma de distribuição dos registros no \emph{cluster}. Além disso, para complementar a chave primária foram escolhidos os campos \textbf{NIS Favorecido, Valor Parcela e Mês Competência}, que identificam unicamente cada registro, considerando que um mesmo favorecido pelo programa(identificado pela coluna NIS Favorecido), pode receber mais de uma parcela em um mesmo mês, ou parcelas em meses distintos. A figura \ref{fig:modelocassandra} apresenta o modelo utilizado.
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=1\textwidth]{figuras/modelocassandra.png}
+	\caption{Modelo de Dados}
+	\label{fig:modelocassandra}
+\end{figure}
 
 Foi feito também um ordenamento das colunas, definindo Período e NIS Favorecido em ordem crescente e valor em ordem decrescente~\ref{lst:cql_create}. 
 
@@ -58,7 +70,27 @@ Todas as interações com o banco, seja na inserção quanto na leitura, foram r
 \section{Arquitetura do Ambiente}
 O ambiente utilizado consiste em seis máquinas com Intel i5-4570 3.20GHz, 16GB de RAM, disco rígido de 500GB, com sistema operacional Ubuntu.
 
-O cliente Cassandra foi instalado em cada uma das seis máquinas utilizadas no teste. Em cada máquina foi necessário a modificação do arquivo de configuração \emph{cassandra.yaml} para possibilitar a detecção do \emph{cluster}.
+O cliente Cassandra foi instalado em cada uma das seis máquinas utilizadas no teste. Foi utilizada a versão TODO.
+
+Em cada máquina foi necessária a modificação do arquivo de configuração \emph{cassandra.yaml} para possibilitar correta configuração e detecção do \emph{cluster}. O número de nós virtuais foi mantido em 256, valor recomendado para manter um balanceamento correto dos nós, o particionador padrão \emph{Murmur3Partitioner} foi mantido por ser o recomendado para novos \emph{clusters}~\cite{cassandrapartitioners}, e como \emph{snitch} foi utilizado o \emph{SimpleSnitch}, pois a implementação desenvolvida faz uso de apenas um \emph{datacenter}. 
+
+O arquivo \emph{cassandra.yaml} também define os ips dos nós \emph{seed}, responsáveis por manter informações sobre os outros nós, bem como o nome do \emph{cluster} utilizado. Esses dados devem ser configurados de forma idêntica em todos as máquinas do \emph{cluster} para permitir a sua detecção dentro do mesmo~\ref{lst:yaml}.
+
+\begin{lstlisting}[caption={Configuração cassandra.yaml},label={lst:yaml},language=python]
+cluster_name: 'BolsaFamilia Cluster C2M FR1'
+
+num_tokens: 256
+
+partitioner: org.apache.cassandra.dht.Murmur3Partitioner
+
+seed_provider:
+	- class_name: org.apache.cassandra.locator.SimpleSeedProvider
+	parameters:
+		- seeds: "164.41.40.35"
+
+endpoint_snitch: SimpleSnitch
+
+\end{lstlisting}
 
 Além disso, seguindo as orientações em ~\cite{cassandrasettings}, e guardadas as devidas limitações do laboratório, foram realizadas as seguintes configurações do Linux:
 \begin{itemize}
