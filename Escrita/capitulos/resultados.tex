@@ -27,13 +27,13 @@ A carga foi realizada com três volumes de dados, equivalentes a seis meses, um 
 	\end{tabular}
 \end{table}
 
-A inserção foi realiza de maneira assíncrona com uso de funções disponibilizadas pelo \emph{driver} da \emph{Datastax}. A \emph{query} em formato CQL~\ref{lst:clq_insert} é montada e tem seus parâmetros substituidos, e então ela é executada com o comando \emph{executeAsync} da classe \emph{Session} do \emph{driver}. São realizadas operações em seis \emph{threads} simultâneas, valor que apresentou o melhor resultado nos testes realizados.
+A inserção foi realiza de maneira assíncrona com uso de funções disponibilizadas pelo \emph{driver} da \emph{Datastax}. A \emph{query} em formato CQL~\ref{lst:cql_insert} é montada e tem seus parâmetros substituidos, e então ela é executada com o comando \emph{executeAsync} da classe \emph{Session} do \emph{driver}. São realizadas operações em seis \emph{threads} simultâneas, valor que apresentou o melhor resultado nos testes realizados.
 
-\begin{lstlisting}[caption={Código CQL para inserção},label={lst:clq_insert},language=SQL]
+\begin{lstlisting}[caption={Código CQL para inserção},label={lst:cql_insert},language=SQL]
 INSERT INTO bolsa_familia.dados (uf, cod_municipio, nome_municipio, nis_favorecido, nome_favorecido, fonte, valor, periodo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 \end{lstlisting}
 
-A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos diferentes ambientes e volumes de dados. O gráfico~\ref{fig:graphinsert} apresenta os mesmo dados para melhor visualização.
+A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos diferentes ambientes e volumes de dados. O gráfico~\ref{fig:graph_insert} apresenta os mesmo dados para melhor visualização.
 
 
 \begin{table}[]
@@ -58,37 +58,36 @@ Para o teste com dados de 6 meses, a melhoria média ao se aumentar o número de
 	\centering
 	\includegraphics[width=1\textwidth]{figuras/graphinsert.png}
 	\caption{Inserção de dados}
-	\label{fig:graphinsert}
+	\label{fig:graph_insert}
 \end{figure}
 
-%\section{Extração de dados}
-%Assim como na carga de dados, para os testes de extração foram utilizados quatro configurações de cluster, com três diferentes volumes de dados. Foram realizadas consultas de agregação de dados e buscas por registros específicos.
-%As consultas por agregação estão listadas na tabela~\ref{tab:consultasagregacao}, enquanto os registros buscados estão listados na tabela~\ref{tab:consultasbuscas}.
-%
-%As tabelas~\ref{tab:select_agreg} e ~\ref{tab:select_busca} apresenta os tempos obtidos na extração agregada e de busca de dados nos diferentes ambientes e volumes de dados.
-%
-%\begin{table}[]
-%	\centering
-%	\caption{Agregação de dados}
-%	\label{tab:select_agreg}
-%	\begin{tabular}{lllll}
-%		\textbf{Tamanho} & \textbf{1 nó} & \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
-%		6 meses          & 01m04s        & 01m43s         & 02m39s         & 03m01s         \\ \hline
-%		1 ano            & 02m01s        & 03m13s         & 05m00s         & 09m29s         \\ \hline
-%		2 anos           & 04m02s        & 11m22s         & 11m13s         & 09m29s         \\ \hline
-%	\end{tabular}
-%\end{table}
-%
-%\begin{table}[]
-%	\centering
-%	\caption{Busca de dados}
-%	\label{tab:select_busca}
-%	\begin{tabular}{lllll}
-%		\textbf{Tamanho} & \textbf{1 nó} & \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
-%		6 meses          & 0,0112s       & 0,0188s        & 0,0326s        & 0,0376s        \\ \hline
-%		1 ano            & 0,0844s       & 0,0399s        & 0,0463s        & 0,0579s        \\ \hline
-%		2 anos           & 0,2253s       & 0,2492s        & 0,1121s        & 0,0579s        \\ \hline
-%	\end{tabular}
-%\end{table}
-%
-%\subsection{Comparação do ambiente}
+\section{Extração de dados}
+Após cada inserção dos dados, nas quatro configurações de \emph{cluster} (uma, duas, quatro e seis máquinas), e com os três volumes diferentes de dados, foram realizadas consultas para verificar o desempenho de um banco de dados Cassandra ao se realizar extração de dados.
+
+\subsection{Consultas}
+Assim como para a carga de dados, foi desenvolvida uma aplicação Java para a realização das consultas no banco de dados, com uso do \emph{driver} da \emph{Datastax}. Cada teste de consulta envolveu a execução de trinta \emph{Selects} no banco, sendo que cada um realiza uma consulta com uso da linguagem CQL a um registro específico, selecionado de forma aleatória. Essa consulta, exemplificada em \ref{lst:cql_select}, contém toda a totalidade da chave primária da tabela, requisito imposto pelo banco de dados Cassandra. Cada teste foi repetido dez vezes a fim de se obter uma média dos resultados encontrados.
+
+\begin{lstlisting}[caption={Consulta CQL},label={lst:cql_select},language=SQL]
+SELECT * FROM dados WHERE uf = 'MS' AND periodo = '2014-07-01' AND valor = 147.00 AND nis_favorecido = 00020915229557
+\end{lstlisting}
+
+A tabela \ref{tab:select_busca} apresenta os tempos obtidos na consulta de registros nos diferentes ambientes e volumes de dados testados. O gráfico \ref{fig:graph_select_busca} apresenta os mesmos dados para melhor visualização.
+
+\begin{table}[]
+	\centering
+	\caption{Busca de dados}
+	\label{tab:select_busca}
+	\begin{tabular}{lllll}
+		\textbf{Tamanho} & \textbf{1 nó} & \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
+		6 meses          &     			 & 28,43ms        & 21,65ms        & 21,15ms        \\ \hline
+		1 ano            &         		 & 9,98ms         & 8,33ms         & 6,26ms         \\ \hline
+		2 anos           &         		 & 15,17ms        & 13,33ms        & 6,54ms         \\ \hline
+	\end{tabular}
+\end{table}
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=1\textwidth]{figuras/graph_select_buscas.png}
+	\caption{Busca de dados}
+	\label{fig:graph_select_busca}
+\end{figure}
