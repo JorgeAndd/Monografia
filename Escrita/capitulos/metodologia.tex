@@ -12,6 +12,8 @@ Os dados do Bolsa Família utilizados para estudo de caso nesse trabalho foram o
 
 Esses dados são disponibilizados em formato aberto \emph{.csv}, e agrupados mensalmente, trazendo informações sobre a transferência de recursos federais aos participantes do programa. 
 
+\subsection{Dados Utilizados}
+
 Foram utilizados no total vinte quatro arquivos, equivalentes a vinte e quatro meses do programa, compreendidos entre Julho de 2014 e Junho de 2016. Cada arquivo possui em média 16GiB de tamanho e 13.968.749 registros.
 
 Cada arquivo apresenta como campos: \textbf{UF, Código SIAFI Município, Nome Município, Código Função, Código Subfunção, Código Programa, Código Ação, NIS Favorecido, Nome Favorecido, Fonte-Finalidade, Valor Parcela e Mês Competência}. Um subconjunto dessas colunas foi escolhido para a realização dos testes, como será explicado na próxima sessão.
@@ -30,7 +32,7 @@ CREATE KEYSPACE bolsa_familia WITH replication = {'class': 'SimpleStrategy', 're
 \end{lstlisting}
 \end{minipage}
 
-Apenas uma família de colunas foi criada, contendo as colunas \textbf{UF, Código SIAFI Município, Nome Município, NIS Favorecido, Nome Favorecido, Fonte-Finalidade, Valor Parcela, Mês Competência}. Esse subconjunto foi escolhido pois os testes não buscam uma análise e interpretação das informações armazenadas, e sim mensurar o desempenho de um banco de dados distribuídos com dados públicos abertos.
+Apenas uma família de colunas foi criada, contendo as colunas \textbf{UF, Código SIAFI Município, Nome Município, NIS Favorecido, Nome Favorecido, Fonte-Finalidade, Valor Parcela, Mês Competência}. Esse subconjunto foi escolhido pois os testes não buscam uma análise e interpretação das informações armazenadas, e sim mensurar a possível melhora de desempenho com aumento do número de máquinas em um \emph{cluster}, com uso de um banco de dados distribuído, para operações de inserção e busca de registros em dados abertos.
 
 Ao se definir uma chave primária no Cassandra é necessária a escolha de uma \emph{Partition Key} (chave de partição) e uma \emph{Clustering Key} (chave de agrupamento). A \emph{Partition Key} é responsável pela distribuição dos dados nos nós do ambiente, enquanto a \emph{Clustering Key} distribui esses dados dentro de cada nó.
 
@@ -59,7 +61,7 @@ Sua utilização é similar à do SQL convencional, com a abstração de tabelas
 Para interação direta com o banco também é disponibilizado o \emph{cqlsh}(\emph{CQL shell}), um utilitário desenvolvido em Python, que por meio de linha de comando permite a execução de chamadas CQL, como criação de \emph{keyspaces}, tabelas, inserções e consultas~\cite{cassandra_intro_cql}.
 
 \section{Desenvolvimento da aplicação}
-Para inserção e busca dos dados no ambiente, foi desenvolvida uma aplicação em Java utilizando o \emph{driver} disponibilizado pela \emph{Datastax}, empresa que disponibiliza um distribuição gratuita do Apache Cassandra. Essa aplicação é responsável pela leitura de todos os arquivos de entrada bem como a inserção dos campos utilizados no banco de dados Cassandra, assim como a posterior busca desses dados.
+Para inserção e busca dos dados no ambiente, foi desenvolvida uma aplicação em Java utilizando o \emph{driver} disponibilizado pela \emph{Datastax}, empresa que disponibiliza um distribuição gratuita do Apache Cassandra. Essa aplicação é responsável pela leitura de todos os arquivos de entrada e inserção dos campos utilizados no banco de dados Cassandra, assim como a posterior busca desses dados.
 
 A inserção dos dados é feita de forma assíncrona utilizando os métodos do \emph{driver}. A filtragem dos campos utilizados é feita no momento da inserção pelo próprio programa desenvolvido. Essa filtragem é responsável pela separação dos campos das linhas do arquivo .csv utilizado, bem como a seleção dos campos que serão utilizados na análise.
 
@@ -74,7 +76,7 @@ O cliente Cassandra foi instalado em cada uma das seis máquinas utilizadas no t
 
 Em cada máquina foi necessária a modificação do arquivo de configuração \emph{cassandra.yaml} para possibilitar correta configuração e detecção do \emph{cluster}. O número de nós virtuais foi mantido em 256, valor recomendado para manter um balanceamento correto dos nós, o particionador padrão \emph{Murmur3Partitioner} foi mantido por ser o recomendado para novos \emph{clusters}~\cite{cassandrapartitioners}, e como \emph{snitch} foi utilizado o \emph{SimpleSnitch}, pois a implementação desenvolvida faz uso de apenas um \emph{datacenter}. 
 
-O arquivo \emph{cassandra.yaml} também define os ips dos nós \emph{seed}, responsáveis por manter informações sobre os outros nós, bem como o nome do \emph{cluster} utilizado. Esses dados devem ser configurados de forma idêntica em todos as máquinas do \emph{cluster} para permitir a sua detecção dentro do mesmo~\ref{lst:yaml}.
+O arquivo \emph{cassandra.yaml} também define os ips dos nós \emph{seed}, responsáveis por manter informações sobre os outros nós, bem como o nome do \emph{cluster} utilizado. Esses dados devem ser configurados de forma idêntica em todos as máquinas para permitir a sua detecção dentro do mesmo \emph{cluster}~\ref{lst:yaml}.
 
 \begin{lstlisting}[caption={Configuração cassandra.yaml},label={lst:yaml},language=python]
 cluster_name: 'BolsaFamilia Cluster C2M FR1'

@@ -1,0 +1,404 @@
+ppca-hp
+    descrição: Computador desktop de perfil baixo
+    produto: HP EliteDesk 800 G1 SFF (C8N25AV#020)
+    fabricante: Hewlett-Packard
+    serial: BRJ4341L7T
+    largura: 64 bits
+    capacidades: smbios-2.7 dmi-2.7 vsyscall32
+    configuração: administrator_password=disabled boot=normal chassis=low-profile family=103C_53307F G=D frontpanel_password=disabled keyboard_password=disabled power-on_password=disabled sku=C8N25AV#020 uuid=80636932-801F-E411-8C3C-6451061A03D0
+  *-core
+       descrição: Placa-mãe
+       produto: 1998
+       fabricante: Hewlett-Packard
+       ID físico: 0
+       serial: BRJ4341L7T
+     *-firmware
+          descrição: BIOS
+          fabricante: Hewlett-Packard
+          ID físico: 0
+          versão: L01 v02.21
+          date: 12/17/2013
+          tamanho: 64KiB
+          capacidade: 15MiB
+          capacidades: pci pnp upgrade shadowing cdboot bootselect edd int5printscreen int9keyboard int14serial int17printer acpi usb biosbootspecification netboot uefi
+     *-cpu
+          descrição: CPU
+          produto: Intel(R) Core(TM) i5-4570 CPU @ 3.20GHz
+          fabricante: Intel Corp.
+          ID físico: 9
+          informações do barramento: cpu@0
+          versão: Intel(R) Core(TM) i5-4570 CPU @ 3.20GHz
+          slot: SOCKET 0
+          tamanho: 3097MHz
+          capacidade: 3800MHz
+          largura: 64 bits
+          clock: 100MHz
+          capacidades: x86-64 fpu fpu_exception wp vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm ida arat epb pln pts dtherm tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm xsaveopt cpufreq
+          configuração: cores=4 enabledcores=4 threads=4
+        *-cache:0
+             descrição: L2 cache
+             ID físico: a
+             slot: CPU Internal L2
+             tamanho: 1MiB
+             capacidade: 1MiB
+             capacidades: internal write-back unified
+        *-cache:1
+             descrição: L1 cache
+             ID físico: b
+             slot: CPU Internal L1
+             tamanho: 256KiB
+             capacidade: 256KiB
+             capacidades: internal write-back
+        *-cache:2
+             descrição: L3 cache
+             ID físico: c
+             slot: CPU Internal L3
+             tamanho: 6MiB
+             capacidade: 6MiB
+             capacidades: internal write-back unified
+     *-memory
+          descrição: Memória do sistema
+          ID físico: d
+          slot: Placa do sistema ou placa-mãe
+          tamanho: 16GiB
+        *-bank:0
+             descrição: DIMM DDR3 Síncrono 1600 MHz (0,6 ns)
+             produto: 99U5403-159.A01LF
+             fabricante: 0000
+             ID físico: 0
+             serial: 20041224
+             slot: DIMM4
+             tamanho: 8GiB
+             largura: 64 bits
+             clock: 1600MHz (0.6ns)
+        *-bank:1
+             descrição: DIMM DDR3 Síncrono 1600 MHz (0,6 ns)
+             produto: SH564128FH8N6TNSQG
+             fabricante: AMD
+             ID físico: 1
+             serial: 03166318
+             slot: DIMM3
+             tamanho: 4GiB
+             largura: 64 bits
+             clock: 1600MHz (0.6ns)
+        *-bank:2
+             descrição: DIMMProject-Id-Version: lshwReport-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>POT-Creation-Date: 2009-10-08 14:02+0200PO-Revision-Date: 2013-04-07 17:30+0000Last-Translator: Neliton Pereira Jr. <nelitonpjr@gmail.com>Language-Team: Brazilian Portuguese <pt_BR@li.org>MIME-Version: 1.0Content-Type: text/plain; charset=UTF-8Content-Transfer-Encoding: 8bitX-Launchpad-Export-Date: 2014-04-10 12:53+0000X-Generator: Launchpad (build 16976) [vazio]
+             produto: [Empty]
+             fabricante: [Empty]
+             ID físico: 2
+             serial: [Empty]
+             slot: DIMM2
+        *-bank:3
+             descrição: DIMM DDR3 Síncrono 1600 MHz (0,6 ns)
+             produto: SH564128FH8N6TNSQG
+             fabricante: AMD
+             ID físico: 3
+             serial: 03161015
+             slot: DIMM1
+             tamanho: 4GiB
+             largura: 64 bits
+             clock: 1600MHz (0.6ns)
+     *-pci
+          descrição: Host bridge
+          produto: 4th Gen Core Processor DRAM Controller
+          fabricante: Intel Corporation
+          ID físico: 100
+          informações do barramento: pci@0000:00:00.0
+          versão: 06
+          largura: 32 bits
+          clock: 33MHz
+          configuração: driver=hsw_uncore
+          recursos: irq:0
+        *-display
+             descrição: VGA compatible controller
+             produto: Xeon E3-1200 v3/4th Gen Core Processor Integrated Graphics Controller
+             fabricante: Intel Corporation
+             ID físico: 2
+             informações do barramento: pci@0000:00:02.0
+             versão: 06
+             largura: 64 bits
+             clock: 33MHz
+             capacidades: msi pm vga_controller bus_master cap_list rom
+             configuração: driver=i915 latency=0
+             recursos: irq:27 memória:f7800000-f7bfffff memória:e0000000-efffffff porta de E/S:f000(tamanho=64)
+        *-multimedia:0
+             descrição: Audio device
+             produto: Xeon E3-1200 v3/4th Gen Core Processor HD Audio Controller
+             fabricante: Intel Corporation
+             ID físico: 3
+             informações do barramento: pci@0000:00:03.0
+             versão: 06
+             largura: 64 bits
+             clock: 33MHz
+             capacidades: pm msi pciexpress bus_master cap_list
+             configuração: driver=snd_hda_intel latency=0
+             recursos: irq:30 memória:f7c34000-f7c37fff
+        *-usb:0
+             descrição: USB controller
+             produto: 8 Series/C220 Series Chipset Family USB xHCI
+             fabricante: Intel Corporation
+             ID físico: 14
+             informações do barramento: pci@0000:00:14.0
+             versão: 04
+             largura: 64 bits
+             clock: 33MHz
+             capacidades: pm msi xhci bus_master cap_list
+             configuração: driver=xhci_hcd latency=0
+             recursos: irq:24 memória:f7c20000-f7c2ffff
+        *-communication:0
+             descrição: Communication controller
+             produto: 8 Series/C220 Series Chipset Family MEI Controller #1
+             fabricante: Intel Corporation
+             ID físico: 16
+             informações do barramento: pci@0000:00:16.0
+             versão: 04
+             largura: 64 bits
+             clock: 33MHz
+             capacidades: pm msi bus_master cap_list
+             configuração: driver=mei_me latency=0
+             recursos: irq:28 memória:f7c40000-f7c4000f
+        *-communication:1
+             descrição: Serial controller
+             produto: 8 Series/C220 Series Chipset Family KT Controller
+             fabricante: Intel Corporation
+             ID físico: 16.3
+             informações do barramento: pci@0000:00:16.3
+             versão: 04
+             largura: 32 bits
+             clock: 66MHz
+             capacidades: pm msi 16550 bus_master cap_list
+             configuração: driver=serial latency=0
+             recursos: irq:19 porta de E/S:f0e0(tamanho=8) memória:f7c3e000-f7c3efff
+        *-network
+             descrição: Ethernet interface
+             produto: Ethernet Connection I217-LM
+             fabricante: Intel Corporation
+             ID físico: 19
+             informações do barramento: pci@0000:00:19.0
+             nome lógico: eth0
+             versão: 04
+             serial: 64:51:06:1a:03:d0
+             tamanho: 100Mbit/s
+             capacidade: 1Gbit/s
+             largura: 32 bits
+             clock: 33MHz
+             capacidades: pm msi bus_master cap_list ethernet physical tp 10bt 10bt-fd 100bt 100bt-fd 1000bt-fd autonegotiation
+             configuração: autonegotiation=on broadcast=yes driver=e1000e driverversion=3.2.5-k duplex=full firmware=0.13-4 ip=164.41.40.23 latency=0 link=yes multicast=yes port=twisted pair speed=100Mbit/s
+             recursos: irq:25 memória:f7c00000-f7c1ffff memória:f7c3d000-f7c3dfff porta de E/S:f080(tamanho=32)
+        *-usb:1
+             descrição: USB controller
+             produto: 8 Series/C220 Series Chipset Family USB EHCI #2
+             fabricante: Intel Corporation
+             ID físico: 1a
+             informações do barramento: pci@0000:00:1a.0
+             versão: 04
+             largura: 32 bits
+             clock: 33MHz
+             capacidades: pm debug ehci bus_master cap_list
+             configuração: driver=ehci-pci latency=0
+             recursos: irq:16 memória:f7c3c000-f7c3c3ff
+        *-multimedia:1
+             descrição: Audio device
+             produto: 8 Series/C220 Series Chipset High Definition Audio Controller
+             fabricante: Intel Corporation
+             ID físico: 1b
+             informações do barramento: pci@0000:00:1b.0
+             versão: 04
+             largura: 64 bits
+             clock: 33MHz
+             capacidades: pm msi pciexpress bus_master cap_list
+             configuração: driver=snd_hda_intel latency=0
+             recursos: irq:29 memória:f7c30000-f7c33fff
+        *-usb:2
+             descrição: USB controller
+             produto: 8 Series/C220 Series Chipset Family USB EHCI #1
+             fabricante: Intel Corporation
+             ID físico: 1d
+             informações do barramento: pci@0000:00:1d.0
+             versão: 04
+             largura: 32 bits
+             clock: 33MHz
+             capacidades: pm debug ehci bus_master cap_list
+             configuração: driver=ehci-pci latency=0
+             recursos: irq:23 memória:f7c3b000-f7c3b3ff
+        *-isa
+             descrição: ISA bridge
+             produto: Q87 Express LPC Controller
+             fabricante: Intel Corporation
+             ID físico: 1f
+             informações do barramento: pci@0000:00:1f.0
+             versão: 04
+             largura: 32 bits
+             clock: 33MHz
+             capacidades: isa bus_master cap_list
+             configuração: driver=lpc_ich latency=0
+             recursos: irq:0
+        *-storage
+             descrição: SATA controller
+             produto: 8 Series/C220 Series Chipset Family 6-port SATA Controller 1 [AHCI mode]
+             fabricante: Intel Corporation
+             ID físico: 1f.2
+             informações do barramento: pci@0000:00:1f.2
+             versão: 04
+             largura: 32 bits
+             clock: 66MHz
+             capacidades: storage msi pm ahci_1.0 bus_master cap_list
+             configuração: driver=ahci latency=0
+             recursos: irq:26 porta de E/S:f0d0(tamanho=8) porta de E/S:f0c0(tamanho=4) porta de E/S:f0b0(tamanho=8) porta de E/S:f0a0(tamanho=4) porta de E/S:f060(tamanho=32) memória:f7c3a000-f7c3a7ff
+        *-serial DISPONÍVEL
+             descrição: SMBus
+             produto: 8 Series/C220 Series Chipset Family SMBus Controller
+             fabricante: Intel Corporation
+             ID físico: 1f.3
+             informações do barramento: pci@0000:00:1f.3
+             versão: 04
+             largura: 64 bits
+             clock: 33MHz
+             configuração: latency=0
+             recursos: memória:f7c39000-f7c390ff porta de E/S:f040(tamanho=32)
+     *-scsi:0
+          ID físico: 1
+          nome lógico: scsi0
+          capacidades: emulated
+        *-disk
+             descrição: ATA Disk
+             produto: WDC WD5000AAKX-6
+             fabricante: Western Digital
+             ID físico: 0.0.0
+             informações do barramento: scsi@0:0.0.0
+             nome lógico: /dev/sda
+             versão: 1H18
+             serial: WD-WCC2EVS74700
+             tamanho: 465GiB (500GB)
+             capacidades: partitioned partitioned:dos
+             configuração: ansiversion=5 sectorsize=512 signature=b715eb45
+           *-volume:0
+                descrição: Windows NTFS volume
+                ID físico: 1
+                informações do barramento: scsi@0:0.0.0,1
+                nome lógico: /dev/sda1
+                versão: 3.1
+                serial: 8041567b-19c0-aa46-b45b-5fd72be3cfae
+                tamanho: 1023MiB
+                capacidade: 1025MiB
+                capacidades: primary bootable ntfs initialized
+                configuração: clustersize=4096 created=2014-08-19 11:58:56 filesystem=ntfs label=SYSTEM state=clean
+           *-volume:1
+                descrição: Windows NTFS volume
+                ID físico: 2
+                informações do barramento: scsi@0:0.0.0,2
+                nome lógico: /dev/sda2
+                versão: 3.1
+                serial: 228ee67a-579a-684f-a16f-d0ca6c399311
+                tamanho: 231GiB
+                capacidade: 231GiB
+                capacidades: primary ntfs initialized
+                configuração: clustersize=4096 created=2014-08-19 10:59:04 filesystem=ntfs label=Windows state=clean
+           *-volume:2
+                descrição: Extended partition
+                ID físico: 3
+                informações do barramento: scsi@0:0.0.0,3
+                nome lógico: /dev/sda3
+                tamanho: 233GiB
+                capacidade: 233GiB
+                capacidades: primary extended partitioned partitioned:extended
+              *-logicalvolume
+                   descrição: Linux filesystem partition
+                   ID físico: 5
+                   nome lógico: /dev/sda5
+                   nome lógico: /
+                   capacidade: 233GiB
+                   configuração: mount.fstype=ext4 mount.options=rw,relatime,errors=remount-ro,data=ordered state=mounted
+     *-scsi:1
+          ID físico: 2
+          nome lógico: scsi2
+          capacidades: emulated
+        *-cdrom
+             descrição: DVD-RAM writer
+             produto: CDDVDW SN-208FB
+             fabricante: hp
+             ID físico: 0.0.0
+             informações do barramento: scsi@2:0.0.0
+             nome lógico: /dev/cdrom
+             nome lógico: /dev/sr0
+             versão: HJ10
+             capacidades: removable audio cd-r cd-rw dvd dvd-r dvd-ram
+             configuração: ansiversion=5 status=nodisc
+     *-scsi:2
+          ID físico: 3
+          informações do barramento: usb@2:3
+          nome lógico: scsi5
+          capacidades: emulated scsi-host
+          configuração: driver=usb-storage
+        *-disk:0
+             descrição: SCSI Disk
+             produto: USB3.0 CRW-CF/MD
+             fabricante: Generic-
+             ID físico: 0.0.0
+             informações do barramento: scsi@5:0.0.0
+             nome lógico: /dev/sdb
+             versão: 1.00
+             serial: 2012062914345300
+             capacidades: removable
+             configuração: ansiversion=6 sectorsize=512
+           *-medium
+                ID físico: 0
+                nome lógico: /dev/sdb
+        *-disk:1
+             descrição: SCSI Disk
+             produto: USB3.0 CRW-SD
+             fabricante: Generic-
+             ID físico: 0.0.1
+             informações do barramento: scsi@5:0.0.1
+             nome lógico: /dev/sdc
+             versão: 1.00
+             serial: 2012062914345300
+             capacidades: removable
+             configuração: ansiversion=6 sectorsize=512
+           *-medium
+                ID físico: 0
+                nome lógico: /dev/sdc
+        *-disk:2
+             descrição: SCSI Disk
+             produto: USB3.0 CRW-MS/HG
+             fabricante: Generic-
+             ID físico: 0.0.2
+             informações do barramento: scsi@5:0.0.2
+             nome lógico: /dev/sdd
+             versão: 1.00
+             serial: 2012062914345300
+             capacidades: removable
+             configuração: ansiversion=6 sectorsize=512
+           *-medium
+                ID físico: 0
+                nome lógico: /dev/sdd
+     *-scsi:3
+          ID físico: 4
+          informações do barramento: usb@2:5
+          nome lógico: scsi6
+          capacidades: emulated scsi-host
+          configuração: driver=usb-storage
+        *-disk
+             descrição: SCSI Disk
+             ID físico: 0.0.0
+             informações do barramento: scsi@6:0.0.0
+             nome lógico: /dev/sde
+             tamanho: 14GiB (15GB)
+             capacidades: partitioned partitioned:dos
+             configuração: sectorsize=512
+           *-volume
+                descrição: Windows NTFS volume
+                ID físico: 1
+                informações do barramento: scsi@6:0.0.0,1
+                nome lógico: /dev/sde1
+                nome lógico: /media/ppca/Viper
+                versão: 3.1
+                serial: 15a0-9233
+                tamanho: 14GiB
+                capacidade: 14GiB
+                capacidades: primary bootable ntfs initialized
+                configuração: clustersize=4096 created=2016-11-01 16:28:42 filesystem=ntfs label=Viper mount.fstype=fuseblk mount.options=rw,nosuid,nodev,relatime,user_id=0,group_id=0,default_permissions,allow_other,blksize=4096 state=mounted
+  *-power DISPONÍVEL
+       produto: High Efficiency
+       ID físico: 1
+       capacidade: 32768mWh

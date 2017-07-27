@@ -5,15 +5,15 @@ Neste capítulo serão apresentados os resultados obtidos nos testes de carga e 
 Em cada configuração de teste foram realizadas dez repetições, tanto na inserção quanto na busca, a fim de garantir resultados mais consistentes. 
 
 \section{Carga de dados}
-A carga de dados foi relizada a partir da leitura dos arquivos \emph{.csv} de dados do Bolsa Família, com seleção das colunas a serem utilizadas e tratamento de alguns campos.
-Os dados foram carregados a partir de uma única máquina utilizando aplicação desenvolvida. Foi feita também uma comparação entre os tempos observados em cada uma das configurações utilizadas. Esta seção descreve em detalhes essas operações.
+A carga de dados foi realizada a partir da leitura dos arquivos \emph{.csv} de dados do Bolsa Família, com seleção das colunas a serem utilizadas e tratamento de alguns campos.
+Os dados foram carregados a partir de uma única máquina utilizando aplicação desenvolvida, sendo o \emph{Cassandra} responsável pela distribuição dos mesmos dentro do \emph{cluster} . Foi feita também uma comparação entre os tempos observados em cada uma das configurações utilizadas. Esta seção descreve em detalhes essas operações.
 
 \subsection{Preparação e carga}
 Foi desenvolvida uma aplicação Java responsável por toda a operação da inserção dos dados com uso do \emph{driver} da \emph{Datastax}. A aplicação realiza a leitura dos dados à partir dos arquivos .csv e utiliza apenas os campos que serão utilizados na família de colunas do banco de dados: \textbf{UF, Código SIAFI Município, Nome Município, NIS Favorecido, Nome Favorecido, Fonte-Finalidade, Valor Parcela, Mês Competência}. Além disso, os campos Valor Parcela e Mês Competência tiveram seus valores tratados para a correta inserção no banco.
 
 No campo Valor Parcela foi necessária a remoção do separador de milhares(',') para se adequar ao tipo \emph{double} do Cassandra. Para o campo Mês Competência, que originalmente segue o padrão MM/AAAA, não é suportado pelo Cassandra, foi necessária a inclusão de um dia para a correta utilização do tipo \emph{timestamp}, sendo então armazenado no formato DD/MM/AAAA.
 
-A carga foi realizada com três volumes de dados, equivalentes a seis meses, um ano e dois anos de dados, a fim de analisar o desempenho do banco com diferentes números de nós ao se aumentar o volume de dados. A tabela~\ref{tab:volume} apresenta o tamanho total dos dados inseridos em cada uma dessas cargas.
+A carga foi realizada com três volumes de dados, correspondentes a seis meses, um ano e dois anos de informações do Bolsa Família, a fim de se analisar o desempenho do banco com diferentes números de nós ao se aumentar o volume de dados. A tabela~\ref{tab:volume} apresenta o tamanho total dos dados inseridos em cada uma dessas cargas.
 
 \begin{table}[]
 	\centering
@@ -28,6 +28,8 @@ A carga foi realizada com três volumes de dados, equivalentes a seis meses, um 
 \end{table}
 
 A inserção foi realiza de maneira assíncrona com uso de funções disponibilizadas pelo \emph{driver} da \emph{Datastax}. A \emph{query} em formato CQL~\ref{lst:cql_insert} é montada e tem seus parâmetros substituidos, e então ela é executada com o comando \emph{executeAsync} da classe \emph{Session} do \emph{driver}. São realizadas operações em seis \emph{threads} simultâneas, valor que apresentou o melhor resultado nos testes realizados.
+
+Os testes foram repetidos para as configurações de \emph{cluster} com duas, quatro e seis máquinas, com objetivo de analisar uma possível melhora no desempenho em \emph{clusters} maiores.
 
 \begin{lstlisting}[caption={Código CQL para inserção},label={lst:cql_insert},language=SQL]
 INSERT INTO bolsa_familia.dados (uf, cod_municipio, nome_municipio, nis_favorecido, nome_favorecido, fonte, valor, periodo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
@@ -73,15 +75,18 @@ SELECT * FROM dados WHERE uf = 'MS' AND periodo = '2014-07-01' AND valor = 147.0
 
 A tabela \ref{tab:select_busca} apresenta os tempos obtidos na consulta de registros nos diferentes ambientes e volumes de dados testados. O gráfico \ref{fig:graph_select_busca} apresenta os mesmos dados para melhor visualização.
 
+\subsection{Comparação dos ambientes}
+Analisando-se os resultados obtido é possível notar uma significativa melhoria nos tempos ao se adicionar mais máquinas no \emph{cluster}. Ao contrário da inserção, a extração de dados apresentou uma melhora média de 70,14\% ao se aumentar o número de máquinas de um para dois. Considerando-se todas as diferenças de tamanho de \emph{cluster} e de volumes de dados, obtemos uma melhora média de \textbf{30,52\%}.~\ref{tab:melhora_select}
+
 \begin{table}[]
 	\centering
 	\caption{Busca de dados}
 	\label{tab:select_busca}
 	\begin{tabular}{lllll}
 		\textbf{Tamanho} & \textbf{1 nó} & \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
-		6 meses          &     			 & 28,43ms        & 21,65ms        & 21,15ms        \\ \hline
-		1 ano            &         		 & 9,98ms         & 8,33ms         & 6,26ms         \\ \hline
-		2 anos           &         		 & 15,17ms        & 13,33ms        & 6,54ms         \\ \hline
+		6 meses          & 38,42 s		 & 28,43 s        & 21,65 s        & 21,15 s        \\ \hline
+		1 ano            & 47,50 s 		 & 9,98 s         & 8,33 s         & 6,26 s         \\ \hline
+		2 anos           & 174,27 s		 & 15,17 s        & 13,33 s        & 6,54 s         \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -91,3 +96,16 @@ A tabela \ref{tab:select_busca} apresenta os tempos obtidos na consulta de regis
 	\caption{Busca de dados}
 	\label{fig:graph_select_busca}
 \end{figure}
+
+\begin{table}[]
+	\centering
+	\caption{Busca de dados}
+	\label{tab:melhora_select}
+	\begin{tabular}{lllll}
+		\textbf{Tamanho} & \textbf{1 para 2} & \textbf{2 para 4} & \textbf{4 para 6} & \textbf{Média} \\ \hline
+		6 meses          & 40,15\%		 	 & 23,85\%        	 & 2,31\%         	 & 22,10\%        \\ \hline
+		1 ano            & 78,99\% 		 	 & 16m47\%       	 & 24,85\%        	 & 40,10\%         \\ \hline
+		2 anos           & 91,29\%		 	 & 12,16\%        	 & 50,90\%        	 & 51,45\%         \\ \hline
+        Média 		     & 70,14\%		 	 & 17,49\%        	 & 26,02\%        	 & \textbf{30,52}\%         \\ \hline
+	\end{tabular}
+\end{table}
