@@ -1,6 +1,6 @@
 \chapter{Resultados}
 
-Neste capítulo são apresentados os resultados obtidos nos testes de carga e busca dos dados. Os testes foram realizados em três configurações de \emph{cluster}, com duas, quatro e seis máquinas, a fim de se analisar a melhora do desempenho de um banco de dados não relacional ao se aumentar o número de nós. Além disso, em cada configuração de \emph{cluster}, foram realizados três testes com diferentes volumes de dados. 
+Neste capítulo são apresentados os resultados obtidos nos testes de carga e busca dos dados. Os testes foram realizados em três configurações de \emph{cluster}, com duas, quatro e seis máquinas, a fim de se analisar a melhora do desempenho de um banco de dados não relacional ao se aumentar o número de nós. Além disso, em cada configuração de \emph{cluster}, foram realizados testes com dois volumes distintos de dados.
 
 Em cada configuração de teste foram realizadas dez repetições, tanto na inserção quanto na busca, a fim de garantir resultados mais consistentes. 
 
@@ -13,7 +13,7 @@ Foi desenvolvida uma aplicação Java responsável por toda a operação da inse
 
 Para a correta inserção no banco Cassandra alguns campos tiveram seus valores tratados pela aplicação. No campo Valor Parcela foi necessária a remoção do separador de milhares(',') para se adequar ao tipo \emph{double} do Cassandra. Para o campo Mês Competência, que originalmente segue o padrão MM/AAAA, não é suportado pelo Cassandra, foi necessária a inclusão de um dia para a correta utilização do tipo \emph{timestamp}, sendo então armazenado no formato DD/MM/AAAA.
 
-A carga foi realizada com três volumes de dados, correspondentes a um anos e seis meses(18 arquivos), dois anos(24 arquivos) e dois anos e seis meses(30 arquivos) de informações do Bolsa Família, a fim de se analisar o desempenho do banco com diferentes números de nós ao se aumentar o volume de dados. A Tabela~\ref{tab:volume} apresenta o tamanho total dos dados inseridos em cada uma dessas cargas.
+A carga foi realizada com dois volumes de dados, correspondentes a um dezoito meses, e trinta meses de informações do Bolsa Família, a fim de se analisar o desempenho do banco com diferentes números de nós ao se aumentar o volume de dados. A Tabela~\ref{tab:volume} apresenta o tamanho total dos dados inseridos em cada uma dessas cargas.
 
 \begin{table}[]
 	\centering
@@ -21,9 +21,8 @@ A carga foi realizada com três volumes de dados, correspondentes a um anos e se
 	\label{tab:volume}
 	\begin{tabular}{ll}
 		\textbf{Carga} & \textbf{Tamanho} \\ \hline
-		1 ano e 6 meses     &  8,79 GB              \\ \hline
-		2 anos          	&  11,79 GB             \\ \hline
-		2 anos e 6 meses    &  14,69 GB             \\ \hline
+		18 meses     &  8,79 GB              \\ \hline
+		30 meses    &  14,69 GB             \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -45,12 +44,11 @@ A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos
 	\begin{tabular}{lllll}
 		\textbf{Tamanho}	& \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
 		\textbf{18 meses}   	& 1h         	 & 55m       	  & 52m            \\ \hline
-		\textbf{24 meses}      & 2h01m          & 1h51m          & 1h44m          \\ \hline
 		\textbf{30 meses}     & 2h31m      	 & 2h19m          & 2h06m          \\ \hline
 	\end{tabular}
 \end{table}
 
-Com o aumento do número de máquinas, foi observada uma melhora média de \emph{6,46\%} nos dados de 12 meses, \emph{7,62\%} nos dados de 24 meses e {8,54\%} nos dados de 30 meses, como exposto na tabela~\cite{tb:comparativo_insert}. Esse resultado demonstra a utilidade do Cassandra ao se trabalhar com um crescente volume de dados.
+Com o aumento do número de máquinas, foi observada uma melhora média de \emph{6,46\%} quando utilizado o volume de carga correspondente a 18 meses, e {8,54\%} nos dados de 30 meses, como exposto na tabela~\cite{tb:comparativo_insert}. Esse resultado demonstra a utilidade do Cassandra ao se trabalhar com um crescente volume de dados.
 
 \begin{table}[]
 	\centering
@@ -73,29 +71,28 @@ Com o aumento do número de máquinas, foi observada uma melhora média de \emph
 \end{figure}
 
 \section{Extração de dados}
-Após cada inserção dos dados, nas três configurações de \emph{cluster} (duas, quatro e seis máquinas), e com os três volumes diferentes de dados, foram realizadas consultas para verificar o desempenho de um banco de dados Cassandra ao se realizar extração de dados.
+Após cada inserção dos dados, nas três configurações de \emph{cluster} (duas, quatro e seis máquinas), e com os dois volumes distintos de dados, foram realizadas consultas para verificar o desempenho de um banco de dados Cassandra ao se realizar extração de dados.
 
 \subsection{Consultas}
 Assim como para a carga de dados, foi desenvolvida uma aplicação Java para a realização das consultas no banco de dados, com uso do \emph{driver} da \emph{Datastax}. Cada teste de consulta envolveu a execução de trinta \emph{Selects} no banco, sendo que cada um realiza uma consulta com uso da linguagem CQL a um registro específico, selecionado de forma aleatória. Essa consulta, exemplificada em \ref{lst:cql_select}, contém toda a totalidade da chave primária da tabela, requisito imposto pelo banco de dados Cassandra. Cada teste foi repetido dez vezes a fim de se obter uma média dos resultados encontrados.
 
 \begin{lstlisting}[caption={Consulta CQL},label={lst:cql_select},language=SQL]
-SELECT * FROM dados WHERE uf = 'MS' AND periodo = '2014-07-01' AND valor = 147.00 AND nis_favorecido = 00020915229557
+SELECT * FROM dados WHERE nis_favorecido = 00020915229557 AND periodo = '2014-07-01' AND valor = 147.00 
 \end{lstlisting}
 
 A tabela \ref{tab:select_busca} apresenta os tempos obtidos na consulta de registros nos diferentes ambientes e volumes de dados testados. O gráfico \ref{fig:graph_select_busca} apresenta os mesmos dados para melhor visualização.
 
 \subsection{Comparação dos ambientes}
-Analisando-se os resultados obtido é possível notar uma significativa melhoria nos tempos ao se adicionar mais máquinas no \emph{cluster}. Ao contrário da inserção, a extração de dados apresentou uma melhora média de 70,14\% ao se aumentar o número de máquinas de um para dois. Considerando-se todas as diferenças de tamanho de \emph{cluster} e de volumes de dados, obtemos uma melhora média de \textbf{30,52\%}.~\ref{tab:melhora_select}
+O aumento do número de máquinas no \emph{cluster} apresentou uma melhora média de 46,20\% ao se trabalhar com dados de dezoito meses, e 66,85\% com 30 meses. Esse resultado, assim como o observado na inserção dos dados, também revela a melhoria do desempenho do Cassandra em um ambiente com um volume maior de dados.
 
 \begin{table}[]
 	\centering
 	\caption{Busca de dados}
 	\label{tab:select_busca}
 	\begin{tabular}{lllll}
-		\textbf{Tamanho} & \textbf{1 nó} & \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
-		6 meses          & 38,42 s		 & 28,43 s        & 21,65 s        & 21,15 s        \\ \hline
-		1 ano            & 47,50 s 		 & 9,98 s         & 8,33 s         & 6,26 s         \\ \hline
-		2 anos           & 174,27 s		 & 15,17 s        & 13,33 s        & 6,54 s         \\ \hline
+		\textbf{Tamanho} & \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
+		18 meses         & 10,26 s        & 1,95 s        & 1,73 s        \\ \hline
+		30 meses         & 12,98 s        & 4,38 s        & 1,43 s         \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -105,16 +102,3 @@ Analisando-se os resultados obtido é possível notar uma significativa melhoria
 	\caption{Busca de dados}
 	\label{fig:graph_select_busca}
 \end{figure}
-
-\begin{table}[]
-	\centering
-	\caption{Busca de dados}
-	\label{tab:melhora_select}
-	\begin{tabular}{lllll}
-		\textbf{Tamanho} & \textbf{1 para 2} & \textbf{2 para 4} & \textbf{4 para 6} & \textbf{Média} \\ \hline
-		6 meses          & 40,15\%		 	 & 23,85\%        	 & 2,31\%         	 & 22,10\%        \\ \hline
-		1 ano            & 78,99\% 		 	 & 16m47\%       	 & 24,85\%        	 & 40,10\%         \\ \hline
-		2 anos           & 91,29\%		 	 & 12,16\%        	 & 50,90\%        	 & 51,45\%         \\ \hline
-        Média 		     & 70,14\%		 	 & 17,49\%        	 & 26,02\%        	 & \textbf{30,52}\%         \\ \hline
-	\end{tabular}
-\end{table}
