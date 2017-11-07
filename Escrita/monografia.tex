@@ -6,7 +6,7 @@
 % abaixo não-comentada, dependendo se você for do bacharelado ou
 % da licenciatura.
 
-\documentclass[bacharelado]{unb-cic}
+\documentclass[bacharelado]{UnB-CIC}%
 %\documentclass[licenciatura]{unb-cic}
 
 
@@ -63,47 +63,34 @@
 % Informações sobre a monografia
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Armazenamento de Dados Abertos com NoSQL: Um estudo de caso com Dados do Bolsa Família e NoSQL Cassandra}
-
 \orientador{\prof[a] \dr[a] Maristela Terto de Holanda}{CIC/UnB}
-%\coorientador[a]{\prof[a] \dr[a] Coorientadora}{MAT/UnB}
+%\coorientador{\prof \dr José Ralha}{CIC/UnB}
 \coordenador{\prof \dr Rodrigo Bonifácio de Almeida}{CIC/UnB}
-\diamesano{15}{dezembro}{2016}
+\diamesano{07}{novembro}{2017}
 
 \membrobanca{\prof \dr Professor I}{CIC/UnB}
 \membrobanca{\prof \dr Professor II}{CIC/UnB}
 
 \autor{Jorge Luiz}{Andrade}
-\CDU{004.4}
+
+\titulo{Armazenamento de Dados Abertos com NoSQL: Um estudo de caso com Dados do Bolsa Família e NoSQL Cassandra}%
 
 \palavraschave{bancos de dados, nosql, dados abertos }
 \keywords{databases, nosql, open data}
 
 
+\newcommand{\unbcic}{\texttt{UnB-CIC}}%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Texto
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
-  \maketitle
-  \pretextual
-
-  \tableofcontents
-  \listoffigures
-  \listoftables
-
-  \textual
-  \input{capitulos/introducao}
-  \input{capitulos/capitulo1_dadosabertos}
-  \input{capitulos/capitulo2_bd}
-  \input{capitulos/capitulo3_cassandra}
-  \input{capitulos/metodologia}
-  \input{capitulos/resultados}
-  \input{capitulos/conclusao}
-
-  \postextual
-  \bibliographystyle{plain}
-  \bibliography{bib/bancosdedados,bib/bolsafamilia,bib/cassandra,bib/dadosabertos,bib/misc,bib/nosql}
-
+  \capitulo{capitulos/introducao}{Introdução}
+  \capitulo{capitulos/capitulo1_dadosabertos}{Dados Abertos}
+  \capitulo{capitulos/capitulo2_bd}{Bancos de Dados}
+  \capitulo{capitulos/capitulo3_cassandra}{Cassandra}
+  \capitulo{capitulos/metodologia}{Metodologia}
+  \capitulo{capitulos/resultados}{Resultados}
+  \capitulo{capitulos/conclusao}{Conclusao}
 \end{document}

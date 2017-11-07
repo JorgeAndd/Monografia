@@ -1,5 +1,3 @@
-\chapter{Diferenças entre Bancos de Dados Relacionais e NoSQL}
-
 O armazenamento a a manipulação de dados tem sido um importante foco da computação desde o seu nascimento, tendo os bancos de dados suas raízes já na década de 60, principalmente em aplicações médicas e científicas~\cite{neufeld1986database}, e em 1970, Edgar Codd propôs uma nova forma de armazenamento de dados, que ficou conhecida como modelo de dados relacionais (\emph{relational model of data})~\cite{codd1970relational}. 
 
 \section{Bancos de Dados Relacionais}
@@ -71,13 +69,7 @@ Apesar do termo não tem uma definição precisa e universalmente aceita, sendo 
     
     A figura~\ref{fig:capnosql} ilustra as diferentes combinações das propriedades CAP e exemplos de bancos de dados que as utilizam.
     
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=0.7\textwidth]{figuras/cappb.png}
-\caption{Propriedades CAP e exemplos. Adaptado de ~\cite{blograshid}}
-\label{fig:capnosql}
-\end{figure}
+\figura[!htb]{cappb.png}{Propriedades CAP e exemplos}{fig:capnosql}{width=0.5\textwidth}
 
 \subsection{BASE}
     Em um ambiente distribuído, escalabilidade, resiliência e velocidade são mais importantes do que consistência imediata e segurança quanto à veracidade dos  dados, não sendo necessária a aderência total às propriedades ACID já citadas~\cite{neo4j_acidbase}. Além disso, de acordo com o \textbf{Teorema CAP}, um banco que aceite particionamento não pode possuir alta disponibilidade e consistência simultaneamente. Essa necessidade, tanto de performance quanto de disponibilidade, levou à criação do acrônimo \textbf{BASE}, \emph{\textbf{B}asically \textbf{A}vailable} (Basicamente Disponível), \emph{\textbf{S}oft State} (Estado Leve) e \emph{\textbf{E}ventual Consistency} (Consistência Eventual)~\cite{foxcluster}. 
@@ -170,13 +162,7 @@ Como exemplo de bancos orientados a colunas temos o \emph{HBase} e \emph{Hyperta
 
 Nesse trabalho será utilizado o banco orientado a colunas Cassandra, e suas características serão melhor abordadas no capítulo \ref{chap:cassandra}.
 
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=1\textwidth]{figuras/modelpb.jpg}
-\caption{Modelo de dados orientado a colunas (Cassandra). Adaptado de ~\cite{cassandradocs}}
-\label{fig:modelcolunas}
-\end{figure}
-
+\figuraBib[!h]{modelpb.jpg}{Modelo de dados orientado a colunas (Cassandra)}{fig:modelcolunas}{cassandradocs}{width=0.5\textwidth}
 
 \subsection*{Grafos}
 Diferente dos bancos relacionais e dos já citados modelos NoSQL vistos, um banco de dados em grafos é especializado em dados altamente conectados. São ideias para aplicações que realizam consultas baseadas em relações~\cite{nosqleval}.
@@ -190,10 +176,4 @@ A figura \ref{fig:graphneo4j} ilustra um banco de dados orientado a grafos imple
 
 Como exemplos desse modelo podemos citar o \emph{Neo4J}, o \emph{Infinite Graph} e o \emph{OrientDB}.
 
-
-\begin{figure}[!htb]
-\centering
-\includegraphics[width=0.8\textwidth]{figuras/graph.jpg}
-\caption{Visualização de um banco de dados em grafo}
-\label{fig:graphneo4j}
-\end{figure}
+\figura[!h]{graph.jpg}{Visualização de um banco de dados em grafo}{fig:graphneo4j}{width=0.5\textwidth}

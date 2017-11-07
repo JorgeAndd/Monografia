@@ -1,7 +1,3 @@
-
-
-\chapter{Estudo de Caso}
-
 Neste capítulo é apresentado o estudo de caso, onde os dados públicos do programa Bolsa Família são inseridos e extraídos de um banco de dados não relacional Cassandra, com \emph{clusters} de um, dois, quatro e seis máquinas, além das descrições das etapas e programas utilizados. O programa é exposto brevemente e o modelo de dados e o ambiente utilizado são descritos.
 
 \section{O Programa Bolsa Família}
@@ -67,24 +63,14 @@ Para determinar a localização de um registro dentro do \emph{cluster}, o parti
 
 Para isso foi utilizada a coluna \textbf{nis\_favorecido}, por ser ela a responsável por identificar unicamente cada beneficiário do programa. Além disso, para complementar a chave primária foram escolhidos os campos \textbf{Valor Parcela e Mês Competência}, que identificam unicamente cada registro, considerando que um mesmo favorecido pelo programa(identificado pela coluna NIS Favorecido), pode receber mais de uma parcela em um mesmo mês, ou parcelas em meses distintos. A figura \ref{fig:modelocassandra} traz o modelo utilizado, onde são apresentadas as chaves primárias, separadas em chave de partição e de agrupamento, e as demais colunas que são definidas por elas.
 
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[width=1\textwidth]{figuras/modelocassandra.png}
-	\caption{Modelo de Dados}
-	\label{fig:modelocassandra}
-\end{figure}
+\figura[!htb]{modelocassandra.png}{Modelo de Dados}{fig:modelocassandra}{width=1\textwidth}
 
 A configuração do ambiente Cassandra foi feita por meio do cliente \emph{cqlsh}, que permite a realização de consultas e manipulações no banco por meio da linguagem \emph{CQL}(\emph{Cassandra Query Language}).
 
 \section{Arquitetura do Ambiente}
 O ambiente utilizado consiste em um \emph{cluster} composto por seis máquinas com Intel i5-4570 3.20GHz, 16GB de RAM, disco rígido de 500GB, com sistema operacional Ubuntu, como representado na figura~\ref{fig:ambiente}.
 
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[width=1\textwidth]{figuras/ambiente.jpg}
-	\caption{Ambiente utilizado}
-	\label{fig:ambiente}
-\end{figure}
+\figura[!htb]{ambiente.jpg}{Ambiente utilizado}{fig:ambiente}{width=1\textwidth}
 
 O cliente Cassandra, em sua versão 3.0.4, foi instalado em cada uma das seis máquinas utilizadas no teste.
 

@@ -1,5 +1,3 @@
-\chapter{Resultados}
-
 Neste capítulo são apresentados os resultados obtidos nos testes de carga e busca dos dados. Os testes foram realizados em três configurações de \emph{cluster}, com duas, quatro e seis máquinas, a fim de se analisar a melhora do desempenho de um banco de dados não relacional ao se aumentar o número de nós. Além disso, em cada configuração de \emph{cluster}, foram realizados testes com dois volumes distintos de dados.
 
 Em cada configuração de teste foram realizadas dez repetições, tanto na inserção quanto na busca, a fim de garantir resultados mais consistentes. 
@@ -63,12 +61,7 @@ Com o aumento do número de máquinas, foi observada uma melhora média de \emph
 	\end{tabular}
 \end{table}
 
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[width=1\textwidth]{figuras/graphinsert.png}
-	\caption{Inserção de dados}
-	\label{fig:graph_insert}
-\end{figure}
+\figura[!htb]{graphinsert.png}{Inserção de dados}{fig:graph_insert}{width=1\textwidth}
 
 \section{Extração de dados}
 Após cada inserção dos dados, nas três configurações de \emph{cluster} (duas, quatro e seis máquinas), e com os dois volumes distintos de dados, foram realizadas consultas para verificar o desempenho de um banco de dados Cassandra ao se realizar extração de dados.
@@ -96,9 +89,4 @@ O aumento do número de máquinas no \emph{cluster} apresentou uma melhora médi
 	\end{tabular}
 \end{table}
 
-\begin{figure}[!htb]
-	\centering
-	\includegraphics[width=1\textwidth]{figuras/graph_select_buscas.png}
-	\caption{Busca de dados}
-	\label{fig:graph_select_busca}
-\end{figure}
+\figura[!htb]{graph_select_buscas.png}{Busca de dados}{fig:graph_select_busca}{width=1\textwidth}
