@@ -1,10 +1,12 @@
-O rápido crescimento no volume de dados gerados pela sociedade nos últimos anos tem levado à uma necessidade cada vez maior de ferramentas e pessoas que consigam trabalhar com esses dados. Um estudo da \emph{IDC Digital Universe}, realizado em 2011, estimou que naquele ano o volume de dados criados, replicados e consumidos foi de 1,8 trilhão de \emph{gigabytes}~\cite{gantz2012digital}. Esses dados, entretanto, não estão disponíveis de forma aberta ao público. Também não estão estruturados de forma que possam ser lidos e analisados por máquinas daqueles que possam acessá-los e manipulá-los~\cite{seijiconectados}. 
+Este capítulo apresenta os conceitos e definições sobre dados abertos, em especial os governamentais e os disponibilizados pelo governo brasileiro. Na seção 2.1 é apresentada a contextualização dos dados abertos, com suas definições e características. A seção 2.2 expõe a classificação de cinco estrelas de dados abertos, descrevendo seus custos e benefícios. A seção 2.3 apresenta definições de dados abertos governamentais e seus oito princípios. Por fim, na seção 2.4 a situação dos dados abertos no contexto brasileiro é descrito.
+
+\section{Contextualização}
+
+O rápido crescimento no volume de dados gerados pela sociedade nos últimos anos tem levado a uma necessidade cada vez maior de ferramentas e pessoas que consigam trabalhar com esses dados. Um estudo da \emph{IDC Digital Universe}, realizado em 2011, estimou que naquele ano o volume de dados criados, replicados e consumidos foi de 1,8 trilhão de \emph{gigabytes}~\cite{gantz2012digital}. Esses dados, entretanto, não estão disponíveis de forma aberta ao público, nem estruturados de forma a facilitar a sua compreensão mesmo por aqueles que a eles tem acesso~\cite{seijiconectados}. 
 
 Nesse contexto, diversas empresas, governos e institutos vem trabalhando para uma maior abertura desses dados, objetivando os chamados dados abertos. O termo \enquote{Dados abertos} no conceito que conhecemos hoje surgiu em 1995 em um documento de uma agência científica americana no contexto da abertura de dados geofísicos e ambientais. Esse conceito vem sendo ampliado e estimulado nos últimos anos por diversos movimentos~\cite{seijiconectados}. 
 
-A \emph{Open Definition} define um dado como aberto \enquote{se qualquer pessoa está livre para acessa-lo, utiliza-lo, modifica-lo, e compartilha-lo — restrito, no maximo, a medidas que preservam a proveniência e abertura.}~\cite{opendefinition}. A abertura dos dados evita mecanismos de controle e restrições sobre os mesmos, o que permite seu uso de forma livre~\cite{seijiconectados}.
-
-A Open Knowledge Foundation, organização mundial que promove a abertura de dados~\cite{openknowledge}, resume esses pontos em:
+A \emph{Open Knowledge Foundation}, organização mundial que promove a abertura de dados~\cite{openknowledge}, define um dado como aberto \enquote{se qualquer pessoa está livre para acessa-lo, utiliza-lo, modifica-lo, e compartilha-lo — restrito, no máximo, a medidas que preservam a proveniência e abertura.}~\cite{opendefinition}. A abertura dos dados evita mecanismos de controle e restrições sobre os mesmos, o que permite seu uso de forma livre~\cite{seijiconectados}. Essas características podem ser resumidas nos seguintes pontos:
 
 \begin{itemize}
 \item \textbf{Disponibilidade e Acesso}: os dados devem estar disponíveis como um todo e sob custo não maior que um custo razoável de reprodução, preferencialmente possíveis de serem baixados pela internet. Os dados devem também estar disponíveis de uma forma conveniente e modificável.
@@ -15,15 +17,15 @@ A Open Knowledge Foundation, organização mundial que promove a abertura de dad
 \end{itemize}
 
 \section{Classificação de Dados Abertos}
-Tim Berners-Lee, o inventor da \emph{Web} e um defensor da abertura de dados, propõs, em 2010, princípios que definem um sistema de classicação de dados abertos por meio de estrelas. Quanto mais aberto é o dado, maior o número de estrelas que ele possui e mais fácil é para enriquece-lo~\cite{seijiconectados}.
+Tim Berners-Lee, o inventor da \emph{Web} e um defensor da abertura de dados, propõs, em 2010, princípios que definem um sistema de classificação de dados abertos por meio de estrelas. Quanto mais aberto é o dado, maior o número de estrelas que ele possui e mais fácil é para enriquece-lo~\cite{seijiconectados}.
 
 As cinco estrelas de Tim Berners-Lee são:
 \begin{itemize}
 \item \textbf{1 estrela}: O dado está disponível na Internet, em qualquer formato, acompanhado de licença aberta.
 \item \textbf{2 estrelas}: O dado está disponível na Internet de maneira estruturada, em um formato que permita sua leitura por máquinas (por exemplo, XML).
-\item \textbf{3 estrelas}: O dado está disponível na Internet, de maneira estruturada, e em formato não proprietário (por exemplo, CSV).
+\item \textbf{3 estrelas}: O dado está disponível na Internet, de maneira estruturada, e em formato não proprietário (por exemplo, \emph{CSV}).
 \item \textbf{4 estrelas}: O dado está disponível na Internet, de maneira estruturada e em formato proprietário. Além disso, deve estar dentro dos padrões estabelecidos pela W3C (RDF): utilização de URI para nomear relações entre coisas e propriedades.
-\item \textbf{5 estrelas}: Além das propriedades anteriores, ter no RDF conexões com com outros dados, por meio de \emph{links}, de forma a se obter um contexto de dados relevantes.
+\item \textbf{5 estrelas}: Além das propriedades anteriores, ter no RDF conexões com outros dados, por meio de \emph{links}, de forma a se obter um contexto de dados relevantes.
 \end{itemize}
 
 Dados publicados seguindo a classificação de estrelas de Berners-Lee conferem uma série de custos e benefícios, tanto para quem os publica quanto para quem os consome, sendo eles~\cite{seijiconectados}:
@@ -52,7 +54,7 @@ Dados publicados seguindo a classificação de estrelas de Berners-Lee conferem 
 	\item[] \textbf{Quem consome}
 		\begin{itemize}
 			\itemsep0em
-			\item É possível processa-los diretamente com\emph{softwares} proprietários 
+			\item É possível processá-los diretamente com aplicativos proprietários 
 			\item É possível exportar os dados para outro formato estruturado
 		\end{itemize}
 		
@@ -83,7 +85,7 @@ Dados publicados seguindo a classificação de estrelas de Berners-Lee conferem 
 			\item Você pode reusar partes dos dados
 			\item Você pode reusar ferramentas e bibliotecas existentes
 			\item Você pode combinar os dados com outros dados
-			\item O entendimento do formato RDF pode ser mais difício do que formatos tabulares (CSV) ou em árvore (XML).
+			\item O entendimento do formato RDF pode ser mais difícil do que formatos tabulares (CSV) ou em árvore (XML).
 			
 		\end{itemize}
 		
@@ -112,7 +114,7 @@ Dados publicados seguindo a classificação de estrelas de Berners-Lee conferem 
 		\end{itemize}
 \end{itemize}
 
-\section{Dados abertos governamentais}
+\section{Dados Abertos Governamentais}
 Dados governamentais, em específico, também podem ser fundamentados por três leis e oito princípios.
 
 Em 2009 o especialista em políticas públicas e dados abertos, David Eaves, propôs as seguintes três leis dos dados abertos governamentais, que também podem ser aplicadas a dados abertos em geral~\cite{eaveslaws}:
@@ -147,10 +149,10 @@ Em 2007, um grupo de trinta especialistas em governo aberto, reunidos em Sebasto
 
 \end{itemize}
 
-\section{Contexto brasileiro de dados abertos}
+\section{Contexto Brasileiro de Dados Abertos}
 A participação brasileira na área de dados abertos tem um marco em 2011 com a criação da \emph{Open Government Partnership}, uma aliança, contando inicialmente com a participação de 65 países, criada para fornecer uma plataforma internacional para reformadores nacionais comprometidos em fazer seus governos mais abertos, responsáveis e sensíveis aos cidadãos. Também foi criado o portal dados.gov.br, que disponibiliza dados governamentais de forma aberta~\cite{seijiconectados}.
 
-O poder público brasileiro vem nos últimos anos realizando outras ações que promovem a abertura de dados governamentais. Essas ações visam benefícios como melhoria da gestão pública, transparência, controle a participação social, geração de emprego e renda e estímulo à inovação tecnológica~\cite{tcu}. Para atingir esse fim, no ano de 2012 foi definido, em instrução normativa, a implantação da INDA, Infraestrutura Nacional de Dados Abertos, \enquote{um conjunto de padrões, tecnologias, procedimentos e mecanismos de controle necessarios para atender às condições de disseminação e compartilhamento de dados e informações públicas no modelo de Dados Abertos}~\cite{inda}.  
+O poder público brasileiro vem nos últimos anos realizando outras ações que promovem a abertura de dados governamentais. Essas ações visam benefícios como melhoria da gestão pública, transparência, controle a participação social, geração de emprego e renda e estímulo à inovação tecnológica~\cite{tcu}. Para atingir esse fim, no ano de 2012 foi definido, em instrução normativa, a implantação da INDA, Infraestrutura Nacional de Dados Abertos, \enquote{um conjunto de padrões, tecnologias, procedimentos e mecanismos de controle necessários para atender às condições de disseminação e compartilhamento de dados e informações públicas no modelo de Dados Abertos}~\cite{inda}.  
 
 O governo tem importância fundamental na questão de dados abertos, devido â grande quantidade de dados que coleta e por serem públicos, conforme a lei, podendo ser tornados abertos e disponíveis para a sociedade~\cite{openknowledge}.
 

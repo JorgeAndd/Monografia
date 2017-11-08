@@ -1,42 +1,40 @@
-Bancos de dados podem ser definidos como um conjunto de dados que se relacionam entre si e armazenados de forma que possam ser acessados posteriormente, quando necessário.
-Os bancos relacionais predominaram por pelo menos quatro décadas, mas seu desempenho em certas aplicações atuais, principalmente naquelas que trabalham com grande volumes de dados, denominado \emph{Big Data}, vem sendo questionado. 
+Bancos de dados podem ser definidos como um conjunto de dados que se relacionam entre si e armazenados de forma que possam ser acessados posteriormente, quando necessário~\cite{cjdate}.
+Os bancos de dados relacionais predominaram por pelo menos quatro décadas, mas seu desempenho em certas aplicações atuais, principalmente naquelas que trabalham com grande volumes de dados, denominado \emph{Big Data}, vem sendo questionado~\cite{pramod}. 
 
 Esse questionamento levou à criação do movimento NoSQL, um novo paradigma de armazenamento de dados que ignora certas restrições dos bancos relacionais tradicionais e tentam melhorar seu armazenamento e desempenho por meio de um sistema distribuído em \emph{clusters}, com características de escalabilidade, tolerância à falhas e um melhor desempenho ao se operar grandes volumes de dados~\cite{pramod}.
 
-O Cassandra é um banco de dados distribuído que armazena seus dados em forma de colunas e linhas com esquema flexível. Essa característica é importante para o armazenamento de dados governamentais abertos, devido à sua natureza extremamente variável de um período à outro. Foi originalmente proposto e utilizado pelo \emph{Facebook}, com base em trabalhos anteriores da \emph{Amazon} (\emph{Dynamo}) e do \emph{Google} (\emph{BigTable}), sendo atualmente um projeto da fundação \emph{Apache}.
+O Cassandra é um sistema gerenciador de bancos de dados NoSQL que armazena seus dados em forma de colunas e linhas com esquema flexível. Essa característica é importante para o armazenamento de dados governamentais abertos, devido à sua natureza variável. Foi originalmente proposto e utilizado pelo \emph{Facebook}, com base em trabalhos anteriores da \emph{Amazon} (\emph{Dynamo}) e do \emph{Google} (\emph{BigTable}), sendo atualmente um projeto da fundação \emph{Apache}~\cite{cassandraguide}.
 
 Dados abertos tem ganhado importância cada vez maior em nossa sociedade. O volume desses dados, que podem ser definidos como dados livres para acesso, utilização e modificação~\cite{opendefinition}, tem crescido cada vez mais, e vem sendo necessário encontrar novas formas para o seu armazenamento e análise, comumente realizados por meio de bancos de dados relacionais.
 
 O governo brasileiro vem, especialmente desde 2011, disponibilizando dados significativos a respeito da administração pública. Esses dados, apesar de estarem disponíveis para para livre acesso, em geral não seguem um formato que permita fácil análise. Além disso, devido ao grande volume desses dados, uma abordagem tradicional pode não ser a forma mais adequada para a sua manipulação. Esse trabalho visa analisar o desempenho de um banco de dados NoSQL no contexto dos dados abertos brasileiros, em especial os fornecidos do programa Bolsa Família pelo Portal da Transparência.
 
 \section{Problema e Hipótese}
-Vários órgãos da administração pública brasileira disponibilizam seus dados na \emph{web}. Entretanto, o grande espaço de armazenamento necessário para o armazenamento desses dados em sua totalidade pode gerar um desempenho não satisfatório ao se realizar sua inserção e posteriores consultas em um banco de dados relacional tradicional.
+Vários órgãos da administração pública brasileira disponibilizam seus dados de forma aberta na \emph{web}. Entretanto, o grande espaço de armazenamento necessário para o armazenamento desses dados em sua totalidade pode gerar um desempenho não satisfatório ao se realizar sua inserção e posteriores consultas em um banco de dados relacional tradicional.
 
-Temos como hipótese que a utilização de múltiplas máquinas em um ambiente Cassandra distribuído pode apresentar uma melhora do desempenho que justifique a sua utilização no contexto da análise de dados abertos.
+Desta forma, tem-se nesta monografia como hipótese que a utilização de múltiplas máquinas em um ambiente Cassandra distribuído pode apresentar uma melhora do desempenho que justifique a sua utilização no contexto da análise de dados abertos.
 
 \section{Justificativa}
-Apesar de recente, a utilização de bancos de dados não relacionais vem apresentando um bom desempenho em aplicações que exijam a utilização de grandes volumes de dados. Porém, poucos trabalhos realizaram a utilização de bancos NoSQL no contexto dos dados abertos da administração pública brasileira. Esse trabalho possui então como motivação a análise do desempenho de um banco Cassandra ao tratar de dados abertos brasileiros em um ambiente distribuído
+Apesar de recente, a utilização de bancos de dados não relacionais vem apresentando um bom desempenho em aplicações que exijam a utilização de grandes volumes de dados. Porém, poucos trabalhos realizaram a utilização de bancos NoSQL no contexto dos dados abertos da administração pública brasileira. Esse trabalho possui então como motivação a análise do desempenho de um banco Cassandra ao tratar de dados abertos brasileiros em um ambiente distribuído.
 
 \section{Objetivos}
 
-\subsection{Objetivo Geral}
-Esse trabalho tem como objetivo principal comparar o desempenho de um banco de dados Cassandra em diferentes tamanhos de \emph{cluster}, a fim de se analisar sua melhora em um ambiente distribuído para armazenamento e busca de grandes volumes de dados.
+Este trabalho tem como objetivo principal comparar o desempenho de um banco de dados Cassandra em diferentes tamanhos de \emph{cluster}, a fim de se analisar sua melhora em um ambiente distribuído para armazenamento e busca de grandes volumes de dados.
 
-\subsection{Objetivos Específicos}
 A fim de se alcançar o objetivo geral do trabalho, foram traçados os seguintes objetivos específicos:
 \begin{itemize}
 	\item Desenvolver uma aplicação para a inserção e busca dos dados do Bolsa Família em um banco de dados Cassandra.
 	
 	\item Realizar os testes de inserção e busca para diferentes volumes de dados e diferentes configurações do \emph{cluster}.
 	
-	\item Comparar o desempenho dos testes e verificar sua melhora ao se aumentar o número de máquinas no \emph{cluster}
+	\item Comparar o desempenho dos testes e verificar sua melhora ao se aumentar o número de máquinas no \emph{cluster}.
 \end{itemize}
 
 \section{Estrutura do Trabalho}
-Esse trabalho se estrutura em:
+Este trabalho está estruturado nos seguintes capítulos:
 \begin{itemize}
-\item \textbf{Capítulo 2}: São apresentadas definições e características de dados abertos segundo vários autores. Os dados abertos também são contextualizados no âmbito do governo brasileiro, mostrando ações que vem sendo tomadas nesse sentido.
-\item \textbf{Capítulo 3}: É feita uma exposição de conceitos relacionados a bancos de dados, realizando uma comparação entre os bancos de dados relacionais e os bancos NoSQL. São apresentados características de um banco relacional, propriedades ACID e normalização de dados. Também são apresentadas aspectos gerais dos bancos NoSQL, bem como os teoremas CAP e BASE. São apresentados também os principais modelos atuais de bancos NoSQL e suas características.
+\item \textbf{Capítulo 2}: São apresentadas definições e características de dados abertos, sendo feita também sua contextualização no âmbito do governo brasileiro, mostrando ações que vem sendo tomadas nesse sentido.
+\item \textbf{Capítulo 3}: É feita uma exposição de conceitos relacionados a bancos de dados, realizando uma comparação entre os bancos de dados relacionais e os bancos NoSQL. São apresentadas características de um banco relacional, propriedades ACID e normalização de dados. Também são apresentadas aspectos gerais dos bancos NoSQL, bem como os teoremas CAP e BASE. São apresentados também os principais modelos atuais de bancos NoSQL e suas características.
 \item \textbf{Capítulo 4}: Detalha o banco de dados Cassandra, demonstrando suas características e funcionamento. Seu modelo de dados é explicado, bem como sua arquitetura e configurações. A linguagem CQL, responsável pela realização de consultas em um banco Cassandra também é brevemente apresentada.
 \item \textbf{Capítulo 5}: O programa Bolsa Família é apresentado e o modelo Cassandra proposto é exposto. É explicado o desenvolvimento da aplicação desenvolvida nos testes realizados, assim como o ambiente utilizado no trabalho.
 \item \textbf{Capítulo 6}: Os resultados obtidos nos testes de inserção e busca com o \emph{driver} da \emph{Datastax} no banco Cassandra são apresentados. É feita também a comparação dos testes realizados nas diferentes configurações do \emph{cluster}.
