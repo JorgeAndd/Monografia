@@ -2,16 +2,16 @@ Neste capítulo são apresentados os resultados obtidos nos testes de carga e bu
 
 Em cada configuração de teste foram realizadas dez repetições, tanto na inserção quanto na busca, a fim de garantir resultados mais consistentes. 
 
-\section{Carga de dados}
+\section{Carga de Dados}
 A carga de dados foi realizada a partir da leitura dos arquivos \emph{.csv} de dados do Bolsa Família, com seleção das colunas a serem utilizadas e tratamento de alguns campos.
-Os dados foram carregados a partir de uma única máquina utilizando aplicação desenvolvida, sendo o \emph{Cassandra} responsável pela distribuição dos mesmos dentro do \emph{cluster} . Foi feita também uma comparação entre os tempos observados em cada uma das configurações utilizadas. Esta seção descreve em detalhes essas operações.
+Os dados foram carregados a partir de uma única máquina utilizando aplicação desenvolvida, sendo o \emph{Cassandra} responsável pela distribuição dos mesmos dentro do \emph{cluster}. Foi feita também uma comparação entre os tempos observados em cada uma das configurações utilizadas. Esta seção descreve em detalhes essas operações.
 
-\subsection{Preparação e carga}
+\subsection{Preparação e Carga}
 Foi desenvolvida uma aplicação Java responsável por toda a operação da inserção dos dados com uso do \emph{driver} da \emph{Datastax}. A aplicação realiza a leitura dos dados à partir dos arquivos .csv e utiliza apenas os campos que serão utilizados na família de colunas do banco de dados: \textbf{UF, Código SIAFI Município, Nome Município, NIS Favorecido, Nome Favorecido, Fonte-Finalidade, Valor Parcela, Mês Competência}. 
 
 Para a correta inserção no banco Cassandra alguns campos tiveram seus valores tratados pela aplicação. No campo Valor Parcela foi necessária a remoção do separador de milhares(',') para se adequar ao tipo \emph{double} do Cassandra. Para o campo Mês Competência, que originalmente segue o padrão MM/AAAA, não é suportado pelo Cassandra, foi necessária a inclusão de um dia para a correta utilização do tipo \emph{timestamp}, sendo então armazenado no formato DD/MM/AAAA.
 
-A carga foi realizada com dois volumes de dados, correspondentes a um dezoito meses, e trinta meses de informações do Bolsa Família, a fim de se analisar o desempenho do banco com diferentes números de nós ao se aumentar o volume de dados. A Tabela~\ref{tab:volume} apresenta o tamanho total dos dados inseridos em cada uma dessas cargas.
+A carga foi realizada com dois volumes de dados, correspondentes a dezoito meses e trinta meses de informações do Bolsa Família, a fim de se analisar o desempenho do banco com diferentes números de nós ao se aumentar o volume de dados. A Tabela~\ref{tab:volume} apresenta o tamanho total dos dados inseridos em cada uma dessas cargas.
 
 \begin{table}[]
 	\centering
@@ -24,7 +24,7 @@ A carga foi realizada com dois volumes de dados, correspondentes a um dezoito me
 	\end{tabular}
 \end{table}
 
-A inserção foi realizada de maneira assíncrona com uso de funções disponibilizadas pelo \emph{driver} da \emph{Datastax}. A \emph{query} em formato CQL~\ref{lst:cql_insert} é montada e tem seus parâmetros substituidos, e então ela é executada com o comando \emph{executeAsync} da classe \emph{Session} do \emph{driver}. São realizadas operações em seis \emph{threads} simultâneas, valor que apresentou o melhor resultado nos testes realizados.
+A inserção foi realizada de maneira assíncrona com uso de funções disponibilizadas pelo \emph{driver} da \emph{Datastax}. A \emph{query} em formato CQL, exibida no Código ~\ref{lst:cql_insert}, é montada e tem seus parâmetros substituidos, e é então executada com o comando \emph{executeAsync} da classe \emph{Session} do \emph{driver}. São realizadas operações em seis \emph{threads} simultâneas, valor que apresentou o melhor resultado nos testes realizados.
 
 Os testes foram realizados para as configurações de \emph{cluster} com duas, quatro e seis máquinas, com objetivo de analisar uma possível melhora no desempenho em \emph{clusters} maiores.
 
@@ -32,13 +32,13 @@ Os testes foram realizados para as configurações de \emph{cluster} com duas, q
 INSERT INTO bolsa_familia.dados (uf, cod_municipio, nome_municipio, nis_favorecido, nome_favorecido, fonte, valor, periodo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 \end{lstlisting}
 
-A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos diferentes ambientes e volumes de dados. O gráfico~\ref{fig:graph_insert} apresenta os mesmo dados para melhor visualização.
+A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos diferentes ambientes e volumes de dados. O Gráfico~\ref{fig:graph_insert} apresenta os mesmo dados para melhor visualização.
 
 
 \begin{table}[]
 	\centering
 	\caption{Inserção}
-	\label{tb_insert}
+	\label{tb:comparativo_insert}
 	\begin{tabular}{lllll}
 		\textbf{Tamanho}	& \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
 		\textbf{18 meses}   	& 1h         	 & 55m       	  & 52m            \\ \hline
@@ -46,7 +46,7 @@ A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos
 	\end{tabular}
 \end{table}
 
-Com o aumento do número de máquinas, foi observada uma melhora média de \emph{6,46\%} quando utilizado o volume de carga correspondente a 18 meses, e {8,54\%} nos dados de 30 meses, como exposto na tabela~\cite{tb:comparativo_insert}. Esse resultado demonstra a utilidade do Cassandra ao se trabalhar com um crescente volume de dados.
+Com o aumento do número de máquinas, foi observada uma melhora média de \emph{6,46\%} quando utilizado o volume de carga correspondente a 18 meses, e {8,54\%} nos dados de 30 meses, como exposto na tabela~\cite{tb:comparativo_insert}. Esse resultado demonstra que ao se utilizar um maior volume de dados nos testes realizados, obteve-se um desempenho proporcionalmente superior do Cassandra.
 
 \begin{table}[]
 	\centering
@@ -67,15 +67,15 @@ Com o aumento do número de máquinas, foi observada uma melhora média de \emph
 Após cada inserção dos dados, nas três configurações de \emph{cluster} (duas, quatro e seis máquinas), e com os dois volumes distintos de dados, foram realizadas consultas para verificar o desempenho de um banco de dados Cassandra ao se realizar extração de dados.
 
 \subsection{Consultas}
-Assim como para a carga de dados, foi desenvolvida uma aplicação Java para a realização das consultas no banco de dados, com uso do \emph{driver} da \emph{Datastax}. Cada teste de consulta envolveu a execução de trinta \emph{Selects} no banco, sendo que cada um realiza uma consulta com uso da linguagem CQL a um registro específico, selecionado de forma aleatória. Essa consulta, exemplificada em \ref{lst:cql_select}, contém toda a totalidade da chave primária da tabela, requisito imposto pelo banco de dados Cassandra. Cada teste foi repetido dez vezes a fim de se obter uma média dos resultados encontrados.
+Assim como para a carga de dados, foi desenvolvida uma aplicação Java para a realização das consultas no banco de dados, com uso do \emph{driver} da \emph{Datastax}. Cada teste de consulta envolveu a execução de trinta \emph{SELECT} no banco, sendo que cada um realiza uma consulta com uso da linguagem CQL a um registro específico, selecionado de forma aleatória. Essa consulta, exemplificada no Código \ref{lst:cql_select}, contém toda a totalidade da chave primária da tabela, requisito imposto pelo banco de dados Cassandra. Cada teste foi repetido dez vezes a fim de se obter uma média dos resultados encontrados.
 
 \begin{lstlisting}[caption={Consulta CQL},label={lst:cql_select},language=SQL]
 SELECT * FROM dados WHERE nis_favorecido = 00020915229557 AND periodo = '2014-07-01' AND valor = 147.00 
 \end{lstlisting}
 
-A tabela \ref{tab:select_busca} apresenta os tempos obtidos na consulta de registros nos diferentes ambientes e volumes de dados testados. O gráfico \ref{fig:graph_select_busca} apresenta os mesmos dados para melhor visualização.
+A Tabela \ref{tab:select_busca} apresenta os tempos obtidos na consulta de registros nos diferentes ambientes e volumes de dados testados. O Gráfico \ref{fig:graph_select_busca} apresenta os mesmos dados para melhor visualização.
 
-\subsection{Comparação dos ambientes}
+\subsection{Comparação dos Ambientes}
 O aumento do número de máquinas no \emph{cluster} apresentou uma melhora média de 46,20\% ao se trabalhar com dados de dezoito meses, e 66,85\% com 30 meses. Esse resultado, assim como o observado na inserção dos dados, também revela a melhoria do desempenho do Cassandra em um ambiente com um volume maior de dados.
 
 \begin{table}[]
