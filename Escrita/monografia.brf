@@ -53,8 +53,8 @@
 \backcite {pramod}{{16}{3.2.4}{section*.14}}
 \backcite {chrisnosql}{{16}{3.2.4}{section*.14}}
 \backcite {nosqleval}{{16}{3.2.4}{figure.caption.15}}
+\backcite {bigtable}{{16}{3.2.4}{section*.16}}
 \backcite {pramod}{{17}{3.2}{figure.caption.15}}
-\backcite {bigtable}{{17}{3.2.4}{section*.16}}
 \backcite {pramod}{{17}{3.2.4}{section*.16}}
 \backcite {nosqleval}{{17}{3.2.4}{section*.16}}
 \backcite {cassandradocs}{{18}{3.3}{figure.caption.17}}
@@ -117,5 +117,5 @@
 \backcite {gov-bolsafamilia1}{{32}{5.1}{section.5.1}}
 \backcite {gov-bolsafamilia2}{{32}{5.1}{section.5.1}}
 \backcite {sobreportaldatransparencia}{{32}{5.1}{section.5.1}}
-\backcite {cassandrapartitioners}{{35}{5.3}{figure.caption.36}}
+\backcite {cassandrapartitioners}{{36}{5.3}{figure.caption.36}}
 \backcite {cassandrasettings}{{36}{5.3}{lstnumber.5.3.13}}
