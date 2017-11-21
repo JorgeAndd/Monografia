@@ -1,7 +1,7 @@
 Neste capítulo será feita a abordagem dos bancos de dados relacionais e não relacionais. A Seção 3.1 apresenta o conceito de bancos de dados relacionais bem como suas principais características. Na Seção 3.2 são definidos os bancos de dados não relacionais, suas características e o que os distingue dos bancos relacionais. Também são apresentados os quatro principais modelos de bancos de dados não relacionais: chave-valor, modelo orientado documentos, modelo orientado a colunas e modelo orientado a grafo.
 
 \section{Bancos de Dados Relacionais}
-O armazenamento a a manipulação de dados tem sido um importante foco da computação desde o seu nascimento, tendo os bancos de dados suas raízes já na década de 60, principalmente em aplicações médicas e científicas~\cite{neufeld1986database}, e em 1970, Edgar Codd propôs uma nova forma de armazenamento de dados, que ficou conhecida como modelo de dados relacionais (\emph{relational model of data})~\cite{codd1970relational}. 
+O armazenamento e a manipulação de dados tem sido um importante foco da computação desde o seu nascimento, tendo os bancos de dados suas raízes já na década de 60, principalmente em aplicações médicas e científicas~\cite{neufeld1986database}, e em 1970, Edgar Codd propôs uma nova forma de armazenamento de dados, que ficou conhecida como modelo de dados relacionais (\emph{relational model of data})~\cite{codd1970relational}. 
 
 Um banco de dados relacional é composto por um conjunto de relações, sendo essas relações um conjunto não ordenado de tuplas. Cada tupla consiste em uma série de valores de atributos identificados por seu nome. O conjunto de atributos em uma tupla da relação é denominado coluna~\cite{heuser}. A popularização desse modelo em virtude de suas características de persistência, concorrência e integração entre múltiplas aplicações, o transformou no modelo padrão de armazenamento computacional, principalmente em ambientes empresarias~\cite{pramod}. Outra questão de importância em bancos de dados é a não necessidade que o usuário tem de conhecer como esses dados são armazenados, o que foi possível com o uso dos chamados Sistemas Gerenciadores de Bancos de Dados (SGBDs), programas que lidam com todo o acesso do usuário com o banco de dados~\cite{jan, cjdate}.
 
@@ -11,8 +11,8 @@ Outras opções surgiram ao longo dos anos, como os bancos orientados a objetos 
 \subsection{Propriedades ACID}
 Interações com bancos de dados relacionais tradicionais são feitas por meio de transações, que podem ser definidas como operações de leitura e escrita que devem ocorrer de forma independente umas das outras~\cite{dmsbook}. Para garantir que isso ocorra, um SGBD deve prover as seguintes propriedades, conhecidas como propriedades ACID~\cite{haerder}:
 \begin{itemize}
-	\item \textbf{Atomicidade}, onde uma determinada transação deve ser feita em sua totalidade, ou seja, todas as operações de que dela fazem parte devem ser bem sucedidas.
-	\item \textbf{Consistência} diz que após cada transação, o estado do banco permanece consistente ao seu modelo.
+	\item \textbf{Atomicidade}, onde uma determinada transação deve ser feita em sua totalidade, ou seja, todas as operações que dela fazem parte devem ser bem sucedidas.
+	\item \textbf{Consistência} diz que após cada transação o estado do banco permanece consistente ao seu modelo.
 	\item \textbf{Isolamento} garante que cada transação é executada independentemente de outras que estejam ocorrendo em concorrência.
 	\item \textbf{Durabilidade} que define que o resultado de uma transação bem sucedida é persistido no banco, mesmo na eventualidade de falhas no sistema.
 \end{itemize}
@@ -27,15 +27,15 @@ Um banco está na primeira forma normal (\textbf{1FN}) se cada tabela estiver or
 Além disso cada campo deve possuir apenas valores atômicos. Ou seja, cada coluna deve guardar apenas uma informação, não podendo existir listas ou conjuntos de valores dentro de uma mesma coluna de uma linha.
 
 \subsection*{Segunda Forma Normal}
-Umbanco está na segunda forma normal (\textbf{2FN}) quando, além de obedecer à primeira forma normal, possui todos atributos não-chave funcionalmente dependentes da chave primária. Dependência funcional é definida como uma relação entre dois atributos tal que para cada valor único do atributo A, existe apenas um valor do atributo B associado a ele~\cite{jan}. Em outras palavras, uma coluna não pode depender apenas de parte da chave primária, ou seja, se uma tabela não possui chave primária composta e esta na primeira forma normal, ela também esta na segunda forma normal.
+Um banco está na segunda forma normal (\textbf{2FN}) quando, além de obedecer à primeira forma normal, possui todos atributos não-chave funcionalmente dependentes da chave primária. Dependência funcional é definida como uma relação entre dois atributos tal que para cada valor único do atributo A, existe apenas um valor do atributo B associado a ele~\cite{jan}. Em outras palavras, uma coluna não pode depender apenas de parte da chave primária, ou seja, se uma tabela não possui chave primária composta e esta na primeira forma normal, ela também esta na segunda forma normal.
 
 \subsection*{Terceira Forma Normal}
 Uma tabela está na terceira forma normal (\textbf{3FN}) quando, além de obedecer à segunda forma normal, não apresenta dependências transitivas, ou seja, cada atributo não-chave não pode ser determinado, ou dependente, de outro atributo não-chave. 
 
 \section{Bancos de Dados NoSQL}
-O rápido crescimento no volume de dados nos últimos anos, principalmente após a bolha da Internet na década de 90, trouxe a necessidade de certa mudança em relação ao modelo relacional comumente utilizado até então~\cite{pramod}. Modelos relacionais possuem diversas vantagem já citadas, porém restrições como propriedades ACID e normalização, levam ao surgimento de problemas quando precisamos aplicá-los nesse domínio recente de expansão dos dados, por apresentarem problemas de escalabilidade, complexidade dos dados e rigidez em seus esquemas~\cite{leavitt2010nosql}. 
+O rápido crescimento no volume de dados nos últimos anos, principalmente após a bolha da Internet na década de 90, trouxe a necessidade de certa mudança em relação ao modelo relacional comumente utilizado até então~\cite{pramod}. Modelos relacionais possuem diversas vantagem já citadas, porém restrições como propriedades ACID e normalização levam ao surgimento de problemas quando precisamos aplicá-los nesse domínio recente de expansão dos dados, por apresentarem problemas de escalabilidade, complexidade dos dados e rigidez em seus esquemas~\cite{leavitt2010nosql}. 
 
-Isso levou ao surgimento de um movimento em direção ao novo paradigma denominado NoSQL. O termo foi utilizado pela primeira vez em 1998 para denominar um banco de dados que omitia o uso de SQL, o \emph{Strozzi NOSQL}. A definição atual, porém, tem suas bases em uma reunião, conhecida como \emph{NoSQL Meetup} realizada em 2009 em São Franscisco, Estados Unidos. Organizada por Johan Oskarsdon, criador do Last.fm, nela foram discutidas formas mais eficientes e baratas de organização dos dados, como as já sugeridas em publicações anteriores, como o Google Bigtable em 2006~\cite{bigtable}, e Amazon's Dynamo em 2007~\cite{dynamo, chrisnosql}.
+Isso levou ao surgimento de um movimento em direção ao novo paradigma denominado NoSQL. O termo foi utilizado pela primeira vez em 1998 para denominar um banco de dados que omitia o uso de SQL, o \emph{Strozzi NoSQL}. A definição atual, porém, tem suas bases em uma reunião, conhecida como \emph{NoSQL Meetup}, realizada em 2009 em São Franscisco, Estados Unidos. Organizada por Johan Oskarsdon, criador do Last.fm, nela foram discutidas formas mais eficientes e baratas de organização dos dados, como as já sugeridas em publicações anteriores, como o Google Bigtable em 2006~\cite{bigtable}, e Amazon's Dynamo em 2007~\cite{dynamo, chrisnosql}.
 \subsection{Definição e Características}
 Apesar de o termo não ter uma definição precisa e universalmente aceita, sendo geralmente descrito como \emph{Not Only SQL}, bancos NoSQL em geral são caracterizados, mas não definidos, como sendo não relacionais, sem esquema bem definido, distribuídos e tolerantes a falhas~\cite{pramod}. Buscam um processamento de dados rápido e de forma eficiente, apresentando maior flexibilidade em seu esquema do que os bancos relacionais.
 Entre as razões e vantagens dos bancos NoSQL pode-se citar~\cite{chrisnosql}:
@@ -44,7 +44,7 @@ Entre as razões e vantagens dos bancos NoSQL pode-se citar~\cite{chrisnosql}:
 	
 	\item \textbf{Alto rendimento}: Bancos NoSQL surgiram da necessidade de armazenamento e processamento de volume de dados cada vez maior, sendo por isso construídos objetivando um melhor desempenho, em aplicações específicas, do que de bancos tradicionais.
 	
-	\item \textbf{Alta escalabilidade}: Bancos relacionais podem ser escalados verticalmente com a utilização de equipamentos poderosos e caros, e uma operação distribuída costuma ser mais complexa devido à forma de armazenamento de seus dados~\cite{leavitt2010nosql}. Bancos NoSQL foram pensados para execução em um sistema de \emph{clusters}, o que facilita a sua escalabilidade horizontal e reduz a necessidade de um hardware mais caro e específico, podendo ser utilizado em \emph{hardwar} mais simples. 
+	\item \textbf{Alta escalabilidade}: Bancos relacionais podem ser escalados verticalmente com a utilização de equipamentos poderosos e caros, e uma operação distribuída costuma ser mais complexa devido à forma de armazenamento de seus dados~\cite{leavitt2010nosql}. Bancos NoSQL foram pensados para execução em um sistema de \emph{clusters}, o que facilita a sua escalabilidade horizontal e reduz a necessidade de um hardware mais caro e específico, podendo ser utilizado em \emph{hardware} mais simples. 
 	
 	\item \textbf{Alta disponibilidade}: Devido à possibilidade de escalabilidade horizontal, bancos NoSQL podem distribuir sua operação em diversos nós de um \emph{cluster}, o que possibilita acesso simultâneo por um grande número de usuários, mesmo que não seja possível acessar algum desses nós. 
 	
@@ -102,7 +102,7 @@ Bancos de dados NoSQL possuem padrões de modelos de dados, que compartilham cer
 \subsection*{Chave-Valor}
 Bancos de dados com armazenamento em chave-valor existem a muito tempo, como \emph{Berkeley DB}, mas ganharam importância no meio NoSQL a partir do Amazon DynamoDB~\cite{chrisnosql}.
 
-Consiste basicamente em uma tabela \emph{hash}, sendo o acesso aos dados realizado por meio de uma chave primária, assim como ocorre em \emph{maps} e dicionários.  Esses bancos são completamente livres de esquema e suas operações se resumem a consultar o valor a partir de uma chave, inserir um valor para uma chave ou deletar uma chave e seu valor do banco~\cite{nosqleval}. O valor armazenado em geral pode representar qualquer tipo de objeto, como uma \emph{string} ou um \emph{BLOB}, não sendo necessária que exista qualquer relação entre diferentes registros, ficando a aplicação responsável pelo seu tratamento. 
+Consiste basicamente em uma tabela \emph{hash}, sendo o acesso aos dados realizado por meio de uma chave primária, assim como ocorre em \emph{maps} e dicionários.  Esses bancos são completamente livres de esquema e suas operações se resumem a consultar o valor a partir de uma chave, inserir um valor para uma chave ou deletar uma chave e seu valor do banco~\cite{nosqleval}. O valor armazenado em geral pode representar qualquer tipo de objeto, como uma \emph{string} ou um \emph{BLOB}, não sendo necessário que exista qualquer relação entre diferentes registros, ficando a aplicação responsável pelo seu tratamento. 
 
 Bancos de chave-valor favorecem escalabilidade sobre consistência de dados, e por esse motivo não apresentam formas de consulta analíticas, como \emph{joins} e agregações~\cite{chrisnosql}.
 
@@ -111,13 +111,11 @@ Atualmente temos como exemplos de bancos chave-valor: \emph{Riak}, \emph{Redis},
 \subsection*{Documentos}
 Bancos de dados orientados a documentos armazenam seus dados em forma de documentos, podendo esses terem formato \emph{XML}, \emph{JSON}, \emph{BSON}, etc~\cite{pramod}. Podem ser vistos como a sequência natural do armazenamento por chave-valor, ainda fazendo o armazenamento por meio de um par chave-valor, mas utilizando uma estrutura mais rica para armazenamento dos dados ao armazenar um documento na parte do valor~\cite{chrisnosql}. Cada um desses documentos pode ter certa semelhança uns com os outros, mas não necessitam possuir a mesma estrutura, o que permite uma grande flexibilidade no esquema do banco.
 
-A seguir tem-se um exemplo de dois documentos. Apesar de parecidos, eles possuem certas diferenças, o que gera essa grande flexibilidade do modelo orientado a documentos.
-
 A Figura \ref{fig:document} apresenta um exemplo de registros armazenados em um banco de dados orientado a objetos. Apesar de semelhantes, os registros não apresentam os mesmos campos, como os campos \emph{endereco} e \emph{ultimaCompra}, o que permite grande flexibilidade no modelo orientado a documentos. 
 
 \figuraBib[!h]{document.png}{Exemplo de banco de dados orientado a documentos (Adaptado)}{pramod}{fig:document}{width=0.7\textwidth}
 
-Esses documentos não são opacos à aplicação, ou seja, seus conteúdo pode ser acessado diretamente, com consultas em atributos de seus registros. Isso permite a manipulação de estruturas mais complexas, que ainda assim não possuem nenhuma restrição de esquema, sendo fácil a inserção de novos documentos ou a modificação dos documentos já armazenados. Devido à essa flexibilidade, são recomendados para integração de dados e migração de esquemas~\cite{nosqleval}. 
+Os documentos armazenados não são opacos à aplicação, ou seja, seus conteúdo pode ser acessado diretamente, com consultas em atributos de seus registros. Isso permite a manipulação de estruturas mais complexas, e mesmo assim não ter restrições de esquema, sendo fácil a inserção de novos documentos ou a modificação dos documentos já armazenados. Devido à essa flexibilidade, são recomendados para integração de dados e migração de esquemas~\cite{nosqleval}. 
 
 Como exemplos de bancos orientados a documentos podemos citar o \emph{CouchDB}, \emph{MongoDB} e \emph{OrientDB}.
 
@@ -135,10 +133,10 @@ Nesse trabalho será utilizado o banco orientado a colunas Cassandra, e suas car
 \figuraBib[!h]{modelpb.jpg}{Modelo de dados orientado a colunas em banco Cassandra}{cassandradocs}{fig:modelcolunas}{width=0.7\textwidth}
 
 \subsection*{Grafos}
-Diferente dos bancos relacionais e dos já citados modelos NoSQL, um banco de dados em grafos é especializado em dados altamente conectados. São ideais para aplicações que realizam consultas baseadas em relacionamentos~\cite{nosqleval}.
-Esse modelo realiza o armazenamento por meio de entidades e os relacionamentos entre essas entidades. Entidades podem ser vistas como nós e os relacionamentos como as arestas de um grafo~\cite{pramod}. Esses nós podem possuir propriedades dos objetos que representam, assim como as arestas, que podem possuir atributos do relacionamento e além disso possuem significância em sua direção.
+Diferente dos bancos relacionais e dos já citados modelos NoSQL, um banco de dados em grafos é especializado em dados altamente conectados, sendo ideais para aplicações que realizam consultas baseadas em relacionamentos~\cite{nosqleval}.
+Esse modelo realiza o armazenamento por meio de entidades e os relacionamentos entre essas entidades. Entidades podem ser vistas como nós e os relacionamentos como as arestas de um grafo~\cite{pramod}. Esses nós podem possuir propriedades dos objetos que representam, assim como as arestas, que podem possuir atributos do relacionamento e possuindo, além disso, significância em sua direção.
 
-Consultas nesse tipo de modelo são realizadas percorrendo o grafo. Isso possui como vantagem a possibilidade de se modificar a forma que se caminha nesse grafo, não sendo necessárias mudanças em sua estrutura de nós e arestas~\cite{pramod}.
+Consultas nesse tipo de modelo são realizadas percorrendo-se o grafo, o que gera como vantagem a possibilidade de se modificar a forma que se caminha nesse grafo, não sendo necessárias mudanças em sua estrutura de nós e arestas~\cite{pramod}.
 
 Uma diferença importante dos bancos orientados a grafos em relação aos modelos anteriores é o seu suporte menor a sistemas distribuídos, não sendo geralmente possível a distribuição dos nós em diferentes servidores~\cite{pramod}.
 

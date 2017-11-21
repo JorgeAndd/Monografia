@@ -3,9 +3,9 @@ Este trabalho utiliza o Cassandra como sistema gerenciador de banco de dados par
 Como visto no Capítulo 3, o Apache Cassandra, é um sistema gerenciador de banco de dados orientado a colunas altamente disponível e distribuído em servidores constituídos de \emph{hardware} de \enquote{prateleira} para gerenciamento de grande volumes de dados~\cite{lakshmancassandra}. Este capítulo tem como objetivo descrever o NoSQL Cassandra, suas características, funcionamento, vantagens e desvantagens.
 
 \section{Definição}
-O Cassandra teve origem em 2007 como um projeto do \emph{Facebook} para resolver um problema na busca da caixa de mensagens. A companhia necessitava de um sistema com alta performance, confiabilidade, eficiência e que suportasse o contínuo crescimento da ferramenta~\cite{lakshmancassandra}. 
+O Cassandra teve origem em 2007 como um projeto do \emph{Facebook} para resolver problemas na busca da caixa de mensagens. A companhia necessitava de um sistema com alta performance, confiabilidade, eficiência e que suportasse o contínuo crescimento da ferramenta~\cite{lakshmancassandra}. 
 
-O projeto foi desenvolvido por Jeff Hammerbacher, Avinash Lakshman, Karthik Ranganathan e Prashant Malik, tendo seu modelo de dados sofrido grande inspiração nos trabalhos anteriores do \emph{Amazon Dynamo}~\cite{dynamo} e do \emph{Google Bigtable}~\cite{bigtable}, e tendo seu código aberto pelo \emph{Facebook} em 2008, sendo então adotado como um projeto incubado da Apache em 2009~\cite{cassandraguide}, sendo utilizado atualmente por companhias como \emph{Netflix}, \emph{Spotify} e até em agências governamentais, como a NASA~\cite{cassandracompanies}. 
+O projeto foi desenvolvido por Jeff Hammerbacher, Avinash Lakshman, Karthik Ranganathan e Prashant Malik, tendo seu modelo de dados sofrido grande inspiração nos trabalhos anteriores do \emph{Amazon Dynamo}~\cite{dynamo} e do \emph{Google Bigtable}~\cite{bigtable}, e tendo seu código aberto pelo \emph{Facebook} em 2008, sendo então adotado como um projeto incubado da Apache em 2009~\cite{cassandraguide}. Atualmente é utilizado por companhias como \emph{Netflix}, \emph{Spotify} e em agências governamentais, como a NASA~\cite{cassandracompanies}. 
 
 O Apache Cassandra pode ser definido como um sistema gerenciador de banco de dados orientado a colunas \emph{open source}, distribuído, descentralizado, elasticamente escalável, altamente disponível, tolerante a falhas e variavelmente consistente~\cite{cassandraguide}.
 
@@ -28,7 +28,7 @@ A disponibilidade de um sistema é medida de acordo com sua capacidade de respon
 Devido a replicação e redundância de dados e a sua capacidade de substituição de nós indisponíveis, o Cassandra pode ser definido como um sistema altamente disponível e tolerante à falhas em suas máquinas~\cite{cassandraguide}.
 
 \subsection*{Variavelmente Consistente}
-Como visto no Teorema CAP, em um sistema distribuído, não é possível garantir total disponibilidade e consistência, sendo consistência a capacidade do sistema de retornar o valor mais atual em uma requisição.
+Como visto no Teorema CAP, em um sistema distribuído não é possível garantir total disponibilidade e consistência, sendo consistência a capacidade do sistema de retornar o valor mais atual em uma requisição.
 
 O Cassandra é por vezes definido como \enquote{eventualmente consistente}, por trocar parte de sua consistência por alta disponibilidade. Essa definição, porém, não é totalmente correta, e um termo melhor para defini-lo é \enquote{variavelmente consistente} (\emph{tuneably consistent}), podendo essa sua consistência ser ajustada de acordo com o tipo de aplicação~\cite{cassandraguide}.
 
@@ -38,7 +38,7 @@ Um banco de dados Cassandra consiste em um \emph{keyspace} contendo famílias de
 
 A Figura \ref{fig:cassandradm} ilustra de forma resumida o modelo de dados do Cassandra, contendo um \emph{keyspace} e seus componentes. 
 
-\figuraBib[!h]{cassandradatamodel.png}{Modelo de dados do Cassandra}{fig:cassandradm}{ibmcassandra}{width=1\textwidth}
+\figuraBib[!h]{cassandradatamodel.png}{Modelo de dados do Cassandra}{ibmcassandra}{fig:cassandradm}{width=1\textwidth}
 
 \subsection*{\emph{Keyspace}}
 Um \emph{keyspace} define o agrupamento de dados mais externo no Cassandra, podendo ser correspondido a um banco de um SGBD relacional. Um \emph{keyspace} define um nome e uma série de atributos que descrevem o seu comportamento. 
