@@ -1,13 +1,13 @@
-Neste capítulo são apresentados os resultados obtidos nos testes de carga e busca dos dados. Os testes foram realizados em três configurações de \emph{cluster}, com duas, quatro e seis máquinas, a fim de se analisar a melhora do desempenho de um banco de dados não relacional ao se aumentar o número de nós. Além disso, em cada configuração de \emph{cluster}, foram realizados testes com dois volumes distintos de dados.
+Neste capítulo são apresentados os resultados obtidos nos testes de carga e busca dos dados. Os testes foram realizados em três configurações de \emph{cluster}, com duas, quatro e seis máquinas, a fim de se analisar a melhora do desempenho do SGBD Cassandra ao se aumentar o número de nós. Além disso, em cada configuração de \emph{cluster}, foram realizados testes com dois volumes distintos de dados.
 
 Em cada configuração de teste foram realizadas dez repetições, tanto na inserção quanto na busca, a fim de garantir resultados mais consistentes. 
 
 \section{Carga de Dados}
 A carga de dados foi realizada a partir da leitura dos arquivos \emph{.csv} de dados do Bolsa Família, com seleção das colunas a serem utilizadas e tratamento de alguns campos.
-Os dados foram carregados a partir de uma única máquina utilizando aplicação desenvolvida, sendo o \emph{Cassandra} responsável pela distribuição dos mesmos dentro do \emph{cluster}. Foi feita também uma comparação entre os tempos observados em cada uma das configurações utilizadas. Esta seção descreve em detalhes essas operações.
+Os dados foram carregados a partir de uma única máquina utilizando a aplicação desenvolvida, sendo o \emph{Cassandra} responsável pela distribuição dos mesmos dentro do \emph{cluster} por meio do particionador \emph{Murmur3Partitioner}. Foi feita também uma comparação entre os tempos observados em cada uma das configurações utilizadas. Esta seção descreve em detalhes essas operações.
 
 \subsection{Preparação e Carga}
-Foi desenvolvida uma aplicação Java responsável por toda a operação da inserção dos dados com uso do \emph{driver} da \emph{Datastax}. A aplicação realiza a leitura dos dados à partir dos arquivos .csv e utiliza apenas os campos que serão utilizados na família de colunas do banco de dados: \textbf{UF, Código SIAFI Município, Nome Município, NIS Favorecido, Nome Favorecido, Fonte-Finalidade, Valor Parcela, Mês Competência}. 
+Foi desenvolvida uma aplicação Java responsável por toda a operação da inserção dos dados com uso do \emph{driver} disponibilizado pela \emph{Datastax}. A aplicação realiza a leitura dos dados à partir dos arquivos .csv, filtrando apenas os campos que serão utilizados na família de colunas do banco de dados: UF, Código SIAFI Município, Nome Município, NIS Favorecido, Nome Favorecido, Fonte-Finalidade, Valor Parcela, Mês Competência. 
 
 Para a correta inserção no banco Cassandra alguns campos tiveram seus valores tratados pela aplicação. No campo Valor Parcela foi necessária a remoção do separador de milhares(',') para se adequar ao tipo \emph{double} do Cassandra. Para o campo Mês Competência, que originalmente segue o padrão MM/AAAA, não é suportado pelo Cassandra, foi necessária a inclusão de um dia para a correta utilização do tipo \emph{timestamp}, sendo então armazenado no formato DD/MM/AAAA.
 
@@ -15,7 +15,7 @@ A carga foi realizada com dois volumes de dados, correspondentes a dezoito meses
 
 \begin{table}[]
 	\centering
-	\caption{Volume da dados}
+	\caption{Volume de dados}
 	\label{tab:volume}
 	\begin{tabular}{ll}
 		\textbf{Carga} & \textbf{Tamanho} \\ \hline
@@ -32,32 +32,30 @@ Os testes foram realizados para as configurações de \emph{cluster} com duas, q
 INSERT INTO bolsa_familia.dados (uf, cod_municipio, nome_municipio, nis_favorecido, nome_favorecido, fonte, valor, periodo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 \end{lstlisting}
 
-A Tabela~\ref{tb_insert} apresenta os tempos obtidos na inserção dos dados nos diferentes ambientes e volumes de dados. O Gráfico~\ref{fig:graph_insert} apresenta os mesmo dados para melhor visualização.
+A Tabela~\ref{tb:comparativo_insert} apresenta os tempos obtidos na inserção dos dados nas três configurações de \emph{cluster} e com os dois volumes de dados. O Gráfico~\ref{fig:graph_insert} apresenta os mesmo dados para melhor visualização.
 
 
 \begin{table}[]
 	\centering
 	\caption{Inserção}
-	\label{tb:comparativo_insert}
+	\label{tb:tempo_insert}
 	\begin{tabular}{lllll}
-		\textbf{Tamanho}	& \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
-		\textbf{18 meses}   	& 1h         	 & 55m       	  & 52m            \\ \hline
-		\textbf{30 meses}     & 2h31m      	 & 2h19m          & 2h06m          \\ \hline
+		\textbf{Volume}		& \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
+		\textbf{18 meses}   & 1h         	 & 55m       	  & 52m            \\ \hline
+		\textbf{30 meses}   & 2h31m      	 & 2h19m          & 2h06m          \\ \hline
 	\end{tabular}
 \end{table}
 
-Com o aumento do número de máquinas, foi observada uma melhora média de \emph{6,46\%} quando utilizado o volume de carga correspondente a 18 meses, e {8,54\%} nos dados de 30 meses, como exposto na tabela~\cite{tb:comparativo_insert}. Esse resultado demonstra que ao se utilizar um maior volume de dados nos testes realizados, obteve-se um desempenho proporcionalmente superior do Cassandra.
+Com o aumento do número de máquinas, foi observada uma melhora média de \emph{6,46\%} quando utilizado o volume de carga correspondente a 18 meses, e de {8,54\%} nos dados de 30 meses, como exposto na tabela~\ref{tb:comparativo_insert}. Esse resultado demonstra que ao se utilizar um maior volume de dados nos testes realizados, obteve-se um desempenho proporcionalmente superior do Cassandra.
 
 \begin{table}[]
 	\centering
-	\caption{Comparativo dos tempos de Inserção}
+	\caption{Comparativo dos tempos de inserção}
 	\label{tb:comparativo_insert}
-	\begin{tabular}{|l|c|c|l}
-		\cline{1-3}
-		\textbf{2 para 4 máquinas} & \textbf{4 para 6 máquinas} & \textbf{Média}  &  \\ \cline{1-3}
-		8,70\%                     & 4,22\%                     & \textbf{6,46\%} &  \\ \cline{1-3}
-		8,94\%                     & 6,30\%                     & \textbf{7,62\%} &  \\ \cline{1-3}
-		8,13\%                     & 8,94\%                     & \textbf{8,54\%} &  \\ \cline{1-3}
+	\begin{tabular}{lllll}
+		\textbf{Volume} 	& \textbf{2 para 4 máquinas} & \textbf{4 para 6 máquinas} & \textbf{Média}  &  \\ \hline
+		\textbf{18 meses} 	& 8,70\%                     & 4,22\%                     & \textbf{6,46\%} &  \\ \hline
+		\textbf{30 meses}	& 8,13\%                     & 8,94\%                     & \textbf{8,54\%} &  \\ \hline
 	\end{tabular}
 \end{table}
 
@@ -75,8 +73,29 @@ SELECT * FROM dados WHERE nis_favorecido = 00020915229557 AND periodo = '2014-07
 
 A Tabela \ref{tab:select_busca} apresenta os tempos obtidos na consulta de registros nos diferentes ambientes e volumes de dados testados. O Gráfico \ref{fig:graph_select_busca} apresenta os mesmos dados para melhor visualização.
 
+Com o aumento no número de máquinas, observou-se uma melhora média de 46,20\% no volume de dados correspondente a 18 meses e de 66,85\% no volume de dados correspondente a 30 meses. Nota-se, ainda, uma significativa melhora no tempo de busca ao se aumentar o número de máquinas de duas para quatro, tendo-se obtido uma melhora de 81\% no primeiro volume de dados.
+
+\begin{table}[]
+	\centering
+	\caption{Comparativo dos tempos de busca}
+	\label{tb:comparativo_select}
+	\begin{tabular}{lllll}
+		\textbf{Volume} 	& \textbf{2 para 4 máquinas} & \textbf{4 para 6 máquinas}  & \textbf{Média}   &  \\ \hline
+		\textbf{18 meses} 	& 81,00\%                    & 11,41\%                     & \textbf{46,20\%} &  \\ \hline
+		\textbf{30 meses}	& 66,21\%                    & 67,48\%                     & \textbf{66,85\%} &  \\ \hline
+	\end{tabular}
+\end{table}
+
+O Gráfico \ref{fig:graph_select_18} apresenta os resultados das dez consultas efetuadas para cada configuração do \emph{cluster} com volume de dados de 18 meses. Pode-se observar, principalmente na configuração com duas máquinas, que algumas execuções das consultas apresentam tempos bem distintos da média encontrada. Esse resultado pode ser explicado por variações da rede no ambiente utilizado, justificando a execução de múltiplos testes para cada configuração de \emph{cluster} e volume de dados. 
+
+\figura[!htb]{graph_select_detail.png}{Busca de dados}{fig:graph_select_18}{width=1\textwidth}
+
 \subsection{Comparação dos Ambientes}
-O aumento do número de máquinas no \emph{cluster} apresentou uma melhora média de 46,20\% ao se trabalhar com dados de dezoito meses, e 66,85\% com 30 meses. Esse resultado, assim como o observado na inserção dos dados, também revela a melhoria do desempenho do Cassandra em um ambiente com um volume maior de dados.
+Nos testes com volume de dados de dezoito meses do programa observou-se uma melhora de 81\% ao se aumentar o número de máquinas no \emph{cluster} de duas para quatro, e de 11,41\% ao se aumentar o número de máquinas de quatro para seis, uma média de 46,20\%. 
+
+Para o volume de dados correspondente a 30 meses, obteve-se uma melhora no tempo da busca de dados de 66,21\% ao se aumentar o número de máquinas de dois para quatro, e de 67,48\% de quatro para seis máquinas, uma média de 66,85\%. 
+
+Os resultados obtidos demonstram a tendência de melhora no desempenho de um banco Cassandra ao se aumentar o número de nós em um \emph{cluster}, observando-se um resultado proporcionalmente superior ao se trabalhar com um volume crescente de dados.
 
 \begin{table}[]
 	\centering
