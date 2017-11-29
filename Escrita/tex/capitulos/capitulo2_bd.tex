@@ -1,11 +1,11 @@
 Neste capítulo será feita a abordagem dos bancos de dados relacionais e não relacionais. A Seção 3.1 apresenta o conceito de bancos de dados relacionais bem como suas principais características. Na Seção 3.2 são definidos os bancos de dados não relacionais, suas características e o que os distingue dos bancos relacionais. Também são apresentados os quatro principais modelos de bancos de dados não relacionais: chave-valor, modelo orientado documentos, modelo orientado a colunas e modelo orientado a grafo.
 
 \section{Bancos de Dados Relacionais}
-O armazenamento e a manipulação de dados tem sido um importante foco da computação desde o seu nascimento, tendo os bancos de dados suas raízes já na década de 60, principalmente em aplicações médicas e científicas~\cite{neufeld1986database}, e em 1970, Edgar Codd propôs uma nova forma de armazenamento de dados, que ficou conhecida como modelo de dados relacionais (\emph{relational model of data})~\cite{codd1970relational}. 
+O armazenamento e a manipulação de dados tem sido um importante foco da computação desde o seu nascimento, tendo os bancos de dados suas raízes já na década de 60, principalmente em aplicações médicas e científicas~\cite{neufeld1986database}. Em 1970 foi proposto por Edgar Codd uma nova forma de armazenamento de dados, que ficou conhecida como modelo de dados relacionais (\emph{relational model of data})~\cite{codd1970relational}. 
 
 Um banco de dados relacional é composto por um conjunto de relações, sendo essas relações um conjunto não ordenado de tuplas. Cada tupla consiste em uma série de valores de atributos identificados por seu nome. O conjunto de atributos em uma tupla da relação é denominado coluna~\cite{heuser}. A popularização desse modelo em virtude de suas características de persistência, concorrência e integração entre múltiplas aplicações, o transformou no modelo padrão de armazenamento computacional, principalmente em ambientes empresarias~\cite{pramod}. Outra questão de importância em bancos de dados é a não necessidade que o usuário tem de conhecer como esses dados são armazenados, o que foi possível com o uso dos chamados Sistemas Gerenciadores de Bancos de Dados (SGBDs), programas que lidam com todo o acesso do usuário com o banco de dados~\cite{jan, cjdate}.
 
-Outras opções surgiram ao longo dos anos, como os bancos orientados a objetos ou bancos \emph{XML}. Nenhum deles, entretanto, conseguiu competir com o modelo já tradicional de dados relacionais~\cite{pramod}. Nos últimos anos, entretanto, o modelo conhecido como NoSQL vem surgindo como essa alternativa.
+Outras opções surgiram ao longo dos anos, como os bancos orientados a objetos ou bancos \emph{XML}. Nenhum deles, entretanto, conseguiu competir com o modelo já tradicional de dados relacionais~\cite{pramod}. Contudo, nos últimos anos, o modelo conhecido como NoSQL vem surgindo como essa alternativa.
 
 
 \subsection{Propriedades ACID}
@@ -37,7 +37,7 @@ O rápido crescimento no volume de dados nos últimos anos, principalmente após
 
 Isso levou ao surgimento de um movimento em direção ao novo paradigma denominado NoSQL. O termo foi utilizado pela primeira vez em 1998 para denominar um banco de dados que omitia o uso de SQL, o \emph{Strozzi NoSQL}. A definição atual, porém, tem suas bases em uma reunião, conhecida como \emph{NoSQL Meetup}, realizada em 2009 em São Franscisco, Estados Unidos. Organizada por Johan Oskarsdon, criador do Last.fm, nela foram discutidas formas mais eficientes e baratas de organização dos dados, como as já sugeridas em publicações anteriores, como o Google Bigtable em 2006~\cite{bigtable}, e Amazon's Dynamo em 2007~\cite{dynamo, chrisnosql}.
 \subsection{Definição e Características}
-Apesar de o termo não ter uma definição precisa e universalmente aceita, sendo geralmente descrito como \emph{Not Only SQL}, bancos NoSQL em geral são caracterizados, mas não definidos, como sendo não relacionais, sem esquema bem definido, distribuídos e tolerantes a falhas~\cite{pramod}. Buscam um processamento de dados rápido e de forma eficiente, apresentando maior flexibilidade em seu esquema do que os bancos relacionais.
+Apesar de o termo não possuir uma definição precisa e universalmente aceita, sendo geralmente descrito como \emph{Not Only SQL}, bancos NoSQL em geral são caracterizados, mas não definidos, como sendo não relacionais, com esquema flexível, distribuídos e tolerantes a falhas~\cite{pramod}. Buscam um processamento de dados rápido e de forma eficiente, apresentando maior flexibilidade em seu esquema do que os bancos relacionais.
 Entre as razões e vantagens dos bancos NoSQL pode-se citar~\cite{chrisnosql}:
 \begin{itemize}
 	\item \textbf{Evitar complexidade desnecessária}: Bancos relacionais costumam aderir às já citadas propriedades ACID, além de serem restritos em seu esquema de dados. Bancos NoSQL costumam ignorar ou relaxar essas restrições a fim de obter um melhor desempenho.
@@ -100,7 +100,7 @@ Bancos de dados NoSQL possuem padrões de modelos de dados, que compartilham cer
 \end{table}
 
 \subsection*{Chave-Valor}
-Bancos de dados com armazenamento em chave-valor existem a muito tempo, como \emph{Berkeley DB}, mas ganharam importância no meio NoSQL a partir do Amazon DynamoDB~\cite{chrisnosql}.
+Bancos de dados com armazenamento em chave-valor existem a muito tempo, como \emph{Berkeley DB}, criado em 1994. Ganharam maior importância no meio NoSQL a partir do Amazon DynamoDB~\cite{chrisnosql}.
 
 Consiste basicamente em uma tabela \emph{hash}, sendo o acesso aos dados realizado por meio de uma chave primária, assim como ocorre em \emph{maps} e dicionários.  Esses bancos são completamente livres de esquema e suas operações se resumem a consultar o valor a partir de uma chave, inserir um valor para uma chave ou deletar uma chave e seu valor do banco~\cite{nosqleval}. O valor armazenado em geral pode representar qualquer tipo de objeto, como uma \emph{string} ou um \emph{BLOB}, não sendo necessário que exista qualquer relação entre diferentes registros, ficando a aplicação responsável pelo seu tratamento. 
 
@@ -115,7 +115,7 @@ A Figura \ref{fig:document} apresenta um exemplo de registros armazenados em um 
 
 \figuraBib[!h]{document.png}{Exemplo de banco de dados orientado a documentos (Adaptado)}{pramod}{fig:document}{width=0.7\textwidth}
 
-Os documentos armazenados não são opacos à aplicação, ou seja, seus conteúdo pode ser acessado diretamente, com consultas em atributos de seus registros. Isso permite a manipulação de estruturas mais complexas, e mesmo assim não ter restrições de esquema, sendo fácil a inserção de novos documentos ou a modificação dos documentos já armazenados. Devido à essa flexibilidade, são recomendados para integração de dados e migração de esquemas~\cite{nosqleval}. 
+Os documentos armazenados não são opacos à aplicação, ou seja, seus conteúdos podem ser acessados diretamente, com consultas em atributos de seus registros. Isso permite a manipulação de estruturas mais complexas, e mesmo assim não ter restrições de esquema, sendo fácil a inserção de novos documentos ou a modificação dos documentos já armazenados. Devido à essa flexibilidade, são recomendados para integração de dados e migração de esquemas~\cite{nosqleval}. 
 
 Como exemplos de bancos orientados a documentos podemos citar o \emph{CouchDB}, \emph{MongoDB} e \emph{OrientDB}.
 

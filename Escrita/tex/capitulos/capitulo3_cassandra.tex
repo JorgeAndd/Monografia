@@ -7,7 +7,7 @@ O Cassandra teve origem em 2007 como um projeto do \emph{Facebook} para resolver
 
 O projeto foi desenvolvido por Jeff Hammerbacher, Avinash Lakshman, Karthik Ranganathan e Prashant Malik, sendo seu modelo de dados fortemente inspirado nos trabalhos anteriores do \emph{Amazon Dynamo}~\cite{dynamo} e do \emph{Google Bigtable}~\cite{bigtable}. Seu código foi aberto pelo \emph{Facebook} em 2008, e adotado em 2009 como um projeto incubado da Apache~\cite{cassandraguide}. Atualmente é utilizado por companhias como \emph{Netflix}, \emph{Spotify} e em agências governamentais, como a NASA~\cite{cassandracompanies}. 
 
-O Apache Cassandra pode ser definido como um sistema gerenciador de banco de dados orientado a colunas \emph{open source}, distribuído, descentralizado, elasticamente escalável, altamente disponível, tolerante a falhas e variavelmente consistente~\cite{cassandraguide}.
+O Apache Cassandra pode ser definido como um sistema gerenciador de banco de dados orientado a colunas, \emph{open source}, distribuído, descentralizado, elasticamente escalável, altamente disponível, tolerante a falhas e variavelmente consistente~\cite{cassandraguide}.
 
 
 \section{Características}
@@ -95,7 +95,7 @@ O conceito da \emph{SSTable} surgiu com o \emph{Google Bigtable}. Assim que os d
 
 Os arquivos \emph{SSTable} são então particionados e replicados no cluster, o que garante a redundância dos dados. Periodicamente, as \emph{SSTables} são compactadas e dados obsoletos são descartados, além disso a consistencia do \emph{cluster} é mantida por meio de mecanismos de reparo~\cite{cassandraguide, cassandradocs}. As operações descritas estão esquematizadas na Figura \ref{fig:cassandrawriteop}.
 
-\figuraBib[!h]{cassandrawriteop.png}{Modelo de dados orientado a colunas (Cassandra)}{fig:cassandrawriteop}{cassandradocs}{width=1\textwidth}
+\figuraBib[!h]{cassandrawriteop.png}{Modelo de dados orientado a colunas (Cassandra)}{cassandradocs}{fig:cassandrawriteop}{width=1\textwidth}
 
 Ao se realizar uma operação de leitura o Cassandra inicialmente busca a informação solicitada na \emph{memtable}. Caso não seja encontrada, é realizada uma busca na \emph{cache} de linha, uma estrutura em memória que armazena em memória um subconjunto da partição de dados armazenado nas \emph{SSTable}. Se a \emph{cache} de linha não possuir o dado em específico, é realizada uma consulta no \emph{Bloom Filter} associado à \emph{SSTable} em questão~\cite{cassandradocs}. 
 
