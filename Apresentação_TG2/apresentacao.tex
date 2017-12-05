@@ -1,0 +1,291 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+
+\documentclass[brazil]{beamer}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{subfig}
+\usepackage{xcolor,graphicx,tikz,url}
+\usepackage{pbox}
+\usepackage[export]{adjustbox}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{bjeldbak}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Bolsa Família e Cassandra]{Armazenamento de Dados Abertos com NoSQL: Um estudo de caso com Dados do Bolsa Família e NoSQL Cassandra} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Jorge Luiz Andrade} % Your name
+\institute[UnB] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Universidade de Brasília \\ % Your institution for the title page
+\medskip
+\textit{jorgeluizandrade@outlook.com} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+% \begin{frame}
+% \frametitle{Sumário} % Table of contents slide, comment this block out to remove it
+% \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+% \end{frame}
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+\section{Introdução} 
+%------------------------------------------------
+\begin{frame}
+
+\frametitle{Introdução}
+\end{frame}
+
+\begin{frame}
+\frametitle{Introdução}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Introdução}
+\vfill
+
+
+\begin{block}{Problema}
+	Banco de Dados Relacionais podem não apresentar um desempenho satisfatório ao operar grandes volumes de dados
+\end{block}
+\vfill
+
+\onslide<2->{%
+\begin{block}{Hipótese}
+	O uso de múltiplas máquinas em um ambiente Cassandra distribuído pode oferecer um melhora do desempenho que justifique sua utilização na análise de dados abertos.	
+\end{block}}
+\vfill
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Introdução}
+
+\begin{block}{Objetivos}
+	Comparar o desempenho de um banco Cassandra para inserções e consultas em diferentes tamanhos de \emph{cluster} e de volumes de dados;
+	
+	\begin{itemize}
+		\item Desenvolver uma aplicação para inserção e busca dos dados do Bolsa Família;
+		\item Realizar testes de inserção e busca com diferentes configurações;
+		\item Comparar o desempenho do Cassandra nas diferentes situações;
+	\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\section{Fundamentação Teórica}
+%------------------------------------------------
+
+% \subsection{Dados Abertos}
+
+% \begin{frame}
+% \end{frame}
+
+%------------------------------------------------
+
+\subsection{Bancos de Dados}
+
+\begin{frame}
+\frametitle{Bancos Relacionais}
+	\begin{itemize}
+		\item Proposto em 1970 por Edgar Codd;
+		\item Conjunto de relações entre tuplas;
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Propriedades ACID}
+	\begin{itemize}
+		\item Atomicidade;
+		\item Consistência;
+		\item Isolamento;
+		\item Durabilidade;
+	\end{itemize}
+	Garantem a validade do esquema, mas sacrificam desempenho e disponibilidade.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Normalização}
+	\begin{itemize}
+		\item \textbf{1ª Forma Normal}: Cada campo possui apenas valores atômicos;
+		\item \textbf{2ª Forma Normal}: Cada atributo não-chave é dependente da totalidade da chave primária;
+		\item \textbf{3ª Forma Normal}: Cada atributo não-chave não depente de um outro atributo não-chave;
+	\end{itemize}
+\end{frame}
+
+\subsection{NoSQL}
+
+\begin{frame}
+\frametitle{NoSQL}
+	\begin{itemize}
+		\item Termo utilizado pela primeira vez em 1998(Strozzi NoSQL)
+		\item Google Bigtable(2006) e Amazon's Dynamo(2007)
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Teorema CAP}
+	\begin{itemize}
+		\item Proposto em 2000 por Eric Brewer, define limitações em sistemas distribuídos;
+		\item Revisado em 2012;
+		\item Consistência;
+		\item Disponibilidade;
+		\item Tolerância a partições
+	\end{itemize}
+\end{frame}
+
+\subsection{Modelos NoSQL}
+\begin{frame}
+	\frametitle{Chave-Valor}
+		Consiste em uma tabela \emph{hash}, com consultas a um valor a partir de uma chave;
+		\begin{itemize}
+			\item Berkeley DB;
+			\item Amazon DynamoDB;
+		\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Documentos}
+		Acesso à um documento de esquema flexível a partir de uma chave;
+		\begin{itemize}
+			\item CouchDB;
+			\item MongoDB;
+		\end{itemize}
+	
+\end{frame}
+
+%------------------------------------------------
+\section{Resultados}
+
+
+%------------------------------------------------
+\section{Conclusão}
+\begin{frame}
+\frametitle{Resultados}
+	Comparação do aumento do número de máquinas:
+\begin{itemize}
+	\item Melhora média de 7,5\% na inserção dos dados;
+	\item Melhora média de 56,53\% na busca dos dados;
+\end{itemize}
+\end{frame}
+
+\subsection{Trabalhos futuros}
+\begin{frame}
+\frametitle{Trabalhos futuros}
+\begin{itemize}
+	\item Isolamento da rede no ambiente utilizado;
+	\item Comparação com outros bancos;
+	\item Implementar diferentes modelagens no banco Cassandra;
+\end{itemize}
+
+
+\end{frame}
+%------------------------------------------------
+
+%------------------------------------------------
+\subsection{Bibliografia}
+\begin{frame}
+\frametitle{Bibliografia}\footnotesize
+  \nocite{}
+  \bibliography{bibliografia}
+  \bibliographystyle{plain}
+\end{frame}
+
+
+%----------------------------------------------------------------------------------------
+
+\end{document} 
