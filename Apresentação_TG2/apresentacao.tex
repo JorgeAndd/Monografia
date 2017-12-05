@@ -200,14 +200,14 @@ Universidade de Brasília \\ % Your institution for the title page
 \begin{frame}
 \frametitle{Normalização}
 	\begin{itemize}
-		\item \textbf{1ª Forma Normal}: Cada campo possui apenas valores atômicos;
-		\item \textbf{2ª Forma Normal}: Cada atributo não-chave é dependente da totalidade da chave primária;
-		\item \textbf{3ª Forma Normal}: Cada atributo não-chave não depente de um outro atributo não-chave;
+		\item \textbf{1FN}: Cada coluna deve guardar apenas uma informação(valores atômicos);
+		\item \textbf{2FN}: Atributos não-chave devem depender integralmente da chave primária da tabela;
+		\item \textbf{3FN}: Atributos não-chave não podem ser determinados por outros atributos não-chave; 
 	\end{itemize}
 \end{frame}
 
 \subsection{NoSQL}
-
+Modelos relacionais possuem restrições, como as propriedades ACID e Normalização, gerando problemas de escalabilidade e rigidez de esquema.
 \begin{frame}
 \frametitle{NoSQL}
 	\begin{itemize}
@@ -231,7 +231,7 @@ Universidade de Brasília \\ % Your institution for the title page
 \subsection{Modelos NoSQL}
 \begin{frame}
 	\frametitle{Chave-Valor}
-		Consiste em uma tabela \emph{hash}, com consultas a um valor a partir de uma chave;
+		Consiste em uma tabela \emph{hash}, com consultas a um valor a partir de uma chave.
 		\begin{itemize}
 			\item Berkeley DB;
 			\item Amazon DynamoDB;
@@ -240,13 +240,34 @@ Universidade de Brasília \\ % Your institution for the title page
 
 \begin{frame}
 	\frametitle{Documentos}
-		Acesso à um documento de esquema flexível a partir de uma chave;
+		Acesso à um documento de esquema flexível a partir de uma chave.
 		\begin{itemize}
 			\item CouchDB;
 			\item MongoDB;
 		\end{itemize}
-	
 \end{frame}
+
+\begin{frame}
+	\frametitle{Grafos}
+		Dados altamente conectados, com consultas baseadas em relacionamentos.
+		\begin{itemize}
+			\item Neo4j
+			\item OrientDB
+		\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Colunas}
+		Dados armazenados em famílias de colunas. Possui esquema flexível, permitindo a modificação de colunas a qualquer momento.
+		\begin{itemize}
+			\item HBase
+			\item \textbf{Cassandra}
+		\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\section{Cassandra}
+
 
 %------------------------------------------------
 \section{Resultados}
