@@ -26,7 +26,17 @@
 \usepackage{subfig}
 \usepackage{xcolor,graphicx,tikz,url}
 \usepackage{pbox}
-\usepackage[export]{adjustbox}
+\usepackage{adjustbox}
+\usepackage{listings, lstautogobble}
+
+\renewcommand{\lstlistingname}{Código}
+
+\lstset{
+	frame=single,
+	breaklines=true,
+	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}},
+	autogobble=true
+}
 
 \mode<presentation> {
 
@@ -270,8 +280,247 @@ Modelos relacionais possuem restrições, como as propriedades ACID e Normaliza�
 
 
 %------------------------------------------------
+\section{Metodologia}
+\begin{frame}
+	\frametitle{Programa Bolsa Família}
+	Programa de transferência de renda criado em 2003. 
+	
+	Em 2016, atendia 13,9 milhões de famílias, que recebiam uma média de R\$ cada, totalizando R\$27,4 bilhões.
+	
+	\begin{itemize}
+		\item Dados disponibilizados no Portal da Transparência;
+		\item Arquivos mensais em formato .csv;
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Dados Utilizados}
+	Foram utilizados um total de trinta arquivos, referentes aos meses de Julho de 2014 a Dezembro de 2016. Os arquivos totalizam 16Gib de tamanho e cerca de 14 mil registros.
+	
+	\begin{table}
+		\centering
+		\adjustbox{max height=\dimexpr\textheight-7cm\relax,
+			max width=\textwidth}{
+		\begin{tabular}{|l|c|c|}
+			\hline
+			\textbf{Campo}         & \textbf{Tipo} & \textbf{Utilizado} \\ \hline
+			UF                     & Text          & Sim                \\ \hline
+			Código SIAFI Município & Int           & Sim                \\ \hline
+			Nome Município         & Text          & Sim                \\ \hline
+			Código Função          & -             & Não                \\ \hline
+			Código Subfunção       & -             & Não                \\ \hline
+			Código Programa        & -             & Não                \\ \hline
+			Código Ação            & -             & Não                \\ \hline
+			NIS Favorecido         & Bigint        & Sim                \\ \hline
+			Nome Favorecido        & Text          & Sim                \\ \hline
+			Fonte-Finalidade       & Text          & Sim                \\ \hline
+			Valor Parcela          & Double        & Sim                \\ \hline
+			Mês Competência        & Timestamp     & Sim                \\ \hline
+		\end{tabular}
+		}
+	\end{table}
+	
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Modelo de Dados}
+	\begin{itemize}
+		\item Fator de replicação de 1 (sem tolerância a falhas);
+		\item \emph{SimpleStrategy} (\emph{datacenter} único);
+		\item Criação do ambiente com uso de CQL;
+	\end{itemize}
+
+	\begin{tabular}{c}
+	\begin{lstlisting}[caption={Código CQL para criação do keyspace},label={lst:cql_create_table},language=SQL]
+	CREATE KEYSPACE bolsa_familia WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+	\end{lstlisting}
+	\end{tabular}
+
+	\begin{tabular}{c}
+	\begin{lstlisting}[caption={Código CQL para criação da tabela},label={lst:cql_create_table},language=SQL]
+		CREATE TABLE bolsa_familia.dados (uf TEXT, periodo TIMESTAMP, valor DOUBLE, nis_favorecido BIGINT, cod_municipio INT, fonte TEXT, nome_favorecido TEXT, nome_municipio TEXT, PRIMARY KEY(nis_favorecido, periodo, valor));
+	\end{lstlisting}
+	\end{tabular}
+
+\end{frame}
+
+\begin{frame}[fragile]
+		\frametitle{Arquitetura do Ambiente}
+		\begin{itemize}
+			\item \emph{Cluster} composto por seis máquinas Intel i5-4570 3.20GHz, 16GB de RAM, disco rígido de 500GB, com sistema operacional Ubuntu;
+			\item Cliente Cassandra versão 3.0.4;
+			\item Configuração do arquivo \emph{cassandra.yaml};
+		\end{itemize}
+	
+		\begin{tabular}{c}
+			\begin{lstlisting}[caption={Configuração cassandra.yaml},language=python]
+			cluster_name: 'BolsaFamilia Cluster C2M FR1'
+			
+			num_tokens: 256
+			
+			partitioner: org.apache.cassandra.dht.Murmur3Partitioner
+			
+			seed_provider:
+			- class_name: org.apache.cassandra.locator.SimpleSeedProvider
+			parameters:
+			- seeds: "164.41.40.35"
+			
+			endpoint_snitch: SimpleSnitch
+			\end{lstlisting}
+		\end{tabular}
+	
+		Configurações do Linux:
+		\begin{itemize}
+			\item Remoção do limite de memória;
+			\item Aumento do limite do número de arquivos abertos;
+			\item Desativação do \emph{swap};
+		\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Desenvolvimento da Aplicação}
+	
+	Foi desenvolvida uma aplicação em Java responsável pela leitura dos arquivos de entrada, inserção no banco e busca de dados:
+	\begin{itemize}
+		\item \emph{Driver} \emph{Datastax};
+		\item Tratamento e filtragem dos campos;
+		\item Interações com o banco por meio de CQL;
+	\end{itemize}
+
+	 \begin{figure}
+		\includegraphics[width=0.7\linewidth]{figuras/aplicacao.png}
+		\caption{Esquema da aplicação desenvolvida}
+	\end{figure}
+\end{frame}
+
+%------------------------------------------------
 \section{Resultados}
 
+\subsection{Carga de Dados}
+\begin{frame}
+	\frametitle{Carga dos Dados}
+	A aplicação desenvolvida realiza a filtragem dos campos e tratamento dos valores:
+	\begin{itemize}
+		\item Remoção do separador de milhares(,) em Valor Parcela;
+		\item Alteração do padrão de data de MM/AAAA para DD/MM/AAAA;		
+	\end{itemize}
+
+	Foi realizada a carga com dois volumes de dados, correspondentes a dezoito e trinta meses do programa Bolsa Família.
+	\begin{table}
+		\centering
+		\caption{Volume de dados}
+		\adjustbox{max height=\dimexpr\textheight-7cm\relax,
+			max width=\textwidth}{
+			\begin{tabular}{ll}
+			\textbf{Carga} & \textbf{Tamanho} \\ \hline
+			18 meses       &  8,79 GB         \\ \hline
+			30 meses       &  14,69 GB        \\ \hline
+			\end{tabular}
+		}
+	\end{table}	
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Carga dos Dados}
+	Inserção realizada com uso do \emph{driver} da \emph{Datastax}, por meio de query CQL, tendo seus parâmetros substituídos.
+	
+	\begin{tabular}{c}
+		\begin{lstlisting}[caption={Código CQL para inserção},language=SQL]
+			INSERT INTO bolsa_familia.dados (uf, cod_municipio, nome_municipio, nis_favorecido, nome_favorecido, fonte, valor, periodo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+		\end{lstlisting}
+	\end{tabular}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tempos de Inserção}
+	
+		\begin{table}
+		\centering
+		\caption{Tempos de Inserção}
+		\adjustbox{max height=\dimexpr\textheight-7cm\relax,
+			max width=\textwidth}{
+			\begin{tabular}{lllll}
+			\textbf{Volume}		& \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
+			\textbf{18 meses}   & 1h         	 & 55m       	  & 52m            \\ \hline
+			\textbf{30 meses}   & 2h31m      	 & 2h19m          & 2h06m          \\ \hline
+			\end{tabular}
+		}
+		\end{table}	
+	
+		\begin{table}
+			\centering
+			\caption{Comparativo}
+			\adjustbox{max height=\dimexpr\textheight-7cm\relax,
+				max width=0.8\textwidth}{
+				\begin{tabular}{lllll}
+				\textbf{Volume} 	& \textbf{2 para 4 máquinas} & \textbf{4 para 6 máquinas} & \textbf{Média}  &  \\ \hline
+				\textbf{18 meses} 	& 8,70\%                     & 4,22\%                     & \textbf{6,46\%} &  \\ \hline
+				\textbf{30 meses}	& 8,13\%                     & 8,94\%                     & \textbf{8,54\%} &  \\ \hline
+				\end{tabular}
+			}
+		\end{table}	
+	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tempos de Inserção}
+	
+	\begin{figure}
+		\includegraphics[width=0.7\linewidth]{figuras/graphinsert.png}
+		\caption{Tempos de Inserção}
+	\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Consultas}
+	
+	As consultas também foram realizadas por meio do \emph{driver} da \emph{Datastax}. Foram realizadas 30 consultas, buscando um registro específico por chave primária de forma aleatória.
+	
+	\begin{tabular}{c}
+		\begin{lstlisting}[caption={Código CQL para consulta},language=SQL]
+		SELECT * FROM dados WHERE nis_favorecido = 00020915229557 AND periodo = '2014-07-01' AND valor = 147.00 
+		\end{lstlisting}
+	\end{tabular}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tempos de Consulta}
+	
+	\begin{table}
+		\centering
+		\caption{Tempos de Consulta}
+		\adjustbox{max height=\dimexpr\textheight-7cm\relax,
+			max width=\textwidth}{
+			\begin{tabular}{lllll}
+				\textbf{Volume}		& \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
+				18 meses         & 10,26 s        & 1,95 s        & 1,73 s        \\ \hline
+				30 meses         & 12,98 s        & 4,38 s        & 1,43 s         \\ \hline
+			\end{tabular}
+		}
+	\end{table}	
+	
+	\begin{table}
+		\centering
+		\caption{Comparativo}
+		\adjustbox{max height=\dimexpr\textheight-7cm\relax,
+			max width=0.8\textwidth}{
+			\begin{tabular}{lllll}
+				\textbf{Volume} 	& \textbf{2 para 4 máquinas} & \textbf{4 para 6 máquinas}  & \textbf{Média}   &  \\ \hline
+				\textbf{18 meses} 	& 81,00\%                    & 11,41\%                     & \textbf{46,20\%} &  \\ \hline
+				\textbf{30 meses}	& 66,21\%                    & 67,48\%                     & \textbf{66,85\%} &  \\ \hline
+			\end{tabular}
+		}
+	\end{table}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tempos de Consulta}
+	
+	\begin{figure}
+		\includegraphics[width=0.7\linewidth]{figuras/graphselect.png}
+		\caption{Tempos de Consulta}
+	\end{figure}
+\end{frame}
 
 %------------------------------------------------
 \section{Conclusão}
