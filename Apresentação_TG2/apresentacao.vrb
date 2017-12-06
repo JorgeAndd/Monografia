@@ -1,4 +1,5 @@
-\frametitle{Consultas}
+\frametitle{Resultados}
+	\begin{block}{Consultas}
 	
 	As consultas também foram realizadas por meio do \emph{driver} da \emph{Datastax}. Foram realizadas 30 consultas, buscando um registro específico por chave primária de forma aleatória.
 	
@@ -7,3 +8,4 @@
 		SELECT * FROM dados WHERE nis_favorecido = 00020915229557 AND periodo = '2014-07-01' AND valor = 147.00
 		\end{lstlisting}
 	\end{tabular}
+	\end{block}

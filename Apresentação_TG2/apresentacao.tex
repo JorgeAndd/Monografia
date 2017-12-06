@@ -45,6 +45,7 @@
 % of all the themes, uncomment each in turn to see what they look like.
 
 \usetheme{default}
+%\usetheme{beamertheme-bjeldbak/bjeldbak}
 %\usetheme{AnnArbor}
 %\usetheme{Antibes}
 %\usetheme{Bergen}
@@ -132,31 +133,17 @@ Universidade de Brasília \\ % Your institution for the title page
 %------------------------------------------------
 \section{Introdução} 
 %------------------------------------------------
-\begin{frame}
-
-\frametitle{Introdução}
-\end{frame}
 
 \begin{frame}
-\frametitle{Introdução}
-
-\end{frame}
-
-\begin{frame}
-\frametitle{Introdução}
-\vfill
-
-
+Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa para o armazenamento de grandes volumes de dados.
+	
 \begin{block}{Problema}
-	Banco de Dados Relacionais podem não apresentar um desempenho satisfatório ao operar grandes volumes de dados
+	Banco de Dados Relacionais podem não apresentar um desempenho satisfatório ao operar grandes volumes de dados.
 \end{block}
-\vfill
 
-\onslide<2->{%
 \begin{block}{Hipótese}
 	O uso de múltiplas máquinas em um ambiente Cassandra distribuído pode oferecer um melhora do desempenho que justifique sua utilização na análise de dados abertos.	
-\end{block}}
-\vfill
+\end{block}
 
 \end{frame}
 
@@ -178,10 +165,50 @@ Universidade de Brasília \\ % Your institution for the title page
 \section{Fundamentação Teórica}
 %------------------------------------------------
 
-% \subsection{Dados Abertos}
+\subsection{Dados Abertos}
 
-% \begin{frame}
-% \end{frame}
+\begin{frame}
+	\frametitle{Dados Abertos}
+	\begin{block}{Contextualização e Características}
+		\begin{itemize}
+			\item Conceito de dados abertos surgiu em 1995, no contexto de abertura de dados geofísicos e ambientais;
+			\item \emph{Open Knowledge Foundation} define um dado como aberto se qualquer pessoa está livre para acessa-lo, utiliza-lo, modifica-lo e compartilha-lo;
+		\end{itemize}
+	\end{block}
+\end{frame}
+	
+\begin{frame}
+	\frametitle{Dados Abertos}
+
+	\begin{block}{Classificação}
+		Tim Berners-Lee propõs em 2010 o princípio de cinco estrelas para classificação de dados abertos:
+		\begin{itemize}
+			\item \textbf{1 estrela}: O dado está disponível na Internet, em qualquer formato, acompanhado de licença aberta.
+			\item \textbf{2 estrelas}: O dado está disponível de maneira estruturada, em um formato que permita sua leitura por máquinas (por exemplo, XML).
+			\item \textbf{3 estrelas}: Deve estar em formato não proprietário (por exemplo, \emph{CSV}).
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Dados Abertos}
+	
+	\begin{itemize}
+		\item \textbf{4 estrelas}: Deve estar dentro dos padrões estabelecidos pela W3C (RDF): utilização de URI para nomear relações entre coisas e propriedades.
+		\item \textbf{5 estrelas}: Ter no RDF conexões com outros dados, por meio de \emph{links}, de forma a se obter um contexto de dados relevantes.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Dados Abertos}
+	\begin{block}{Contexto Brasileiro}
+		\begin{itemize}
+			\item \emph{Open Government Partnership}, 2011;
+			\item Portal dados.gov.br;
+			\item INDA(Infraestrutura Nacional de Dados Abertos), 2012;			
+		\end{itemize}
+	\end{block}
+\end{frame}
 
 %------------------------------------------------
 
@@ -189,10 +216,13 @@ Universidade de Brasília \\ % Your institution for the title page
 
 \begin{frame}
 \frametitle{Bancos Relacionais}
-	\begin{itemize}
-		\item Proposto em 1970 por Edgar Codd;
-		\item Conjunto de relações entre tuplas;
-	\end{itemize}
+	\begin{block}{Definição}
+		\begin{itemize}
+			\item Proposto em 1970 por Edgar Codd;
+			\item Composto por um conjunto de relações, sendo essas relações um conjunto não ordernado de tuplas;
+			\item SGBDs;
+		\end{itemize}
+	\end{block}
 \end{frame}
 
 \begin{frame}
@@ -217,141 +247,208 @@ Universidade de Brasília \\ % Your institution for the title page
 \end{frame}
 
 \subsection{NoSQL}
-Modelos relacionais possuem restrições, como as propriedades ACID e Normalização, gerando problemas de escalabilidade e rigidez de esquema.
+
 \begin{frame}
 \frametitle{NoSQL}
+	Modelos relacionais possuem restrições, como as propriedades ACID e Normalização, gerando problemas de escalabilidade e rigidez de esquema.
 	\begin{itemize}
 		\item Termo utilizado pela primeira vez em 1998(Strozzi NoSQL)
 		\item Google Bigtable(2006) e Amazon's Dynamo(2007)
-	\end{itemize}
+		\item Evitam complexidade desnecessária;
+		\item Buscam alto rendimento, escalabilidade e disponibilidade;
+		\item \emph{Open Source};
+	\end{itemize}	
 \end{frame}
 
 
 \begin{frame}
-	\frametitle{Teorema CAP}
+	\frametitle{NoSQL}
+	\begin{block}{Teorema CAP}
 	\begin{itemize}
 		\item Proposto em 2000 por Eric Brewer, define limitações em sistemas distribuídos;
-		\item Revisado em 2012;
 		\item Consistência;
 		\item Disponibilidade;
-		\item Tolerância a partições
+		\item Tolerância a partições;
+		\bigskip
+		\item Revisado em 2012;
 	\end{itemize}
+	\end{block}
 \end{frame}
 
 \subsection{Modelos NoSQL}
 \begin{frame}
-	\frametitle{Chave-Valor}
+	\frametitle{Modelos NoSQL}
+	
+	\begin{block}{Chave-Valor}
 		Consiste em uma tabela \emph{hash}, com consultas a um valor a partir de uma chave.
 		\begin{itemize}
 			\item Berkeley DB;
 			\item Amazon DynamoDB;
 		\end{itemize}
-\end{frame}
+	\end{block}
 
-\begin{frame}
-	\frametitle{Documentos}
+	\begin{block}{Documentos}
 		Acesso à um documento de esquema flexível a partir de uma chave.
+	
 		\begin{itemize}
 			\item CouchDB;
 			\item MongoDB;
 		\end{itemize}
+	\end{block}
+
 \end{frame}
 
+
 \begin{frame}
-	\frametitle{Grafos}
+	\frametitle{Modelos NoSQL}
+	
+	\begin{block}{Grafos}
 		Dados altamente conectados, com consultas baseadas em relacionamentos.
 		\begin{itemize}
 			\item Neo4j
 			\item OrientDB
 		\end{itemize}
-\end{frame}
+	\end{block}
 
-\begin{frame}
-	\frametitle{Colunas}
+	\begin{block}{Colunas}
 		Dados armazenados em famílias de colunas. Possui esquema flexível, permitindo a modificação de colunas a qualquer momento.
 		\begin{itemize}
 			\item HBase
 			\item \textbf{Cassandra}
 		\end{itemize}
+	\end{block}
+
 \end{frame}
 
+
 %------------------------------------------------
-\section{Cassandra}
+\subsection{Cassandra}
+\begin{frame}
+	\frametitle{Cassandra}
+	\begin{itemize}
+		\item Criado em 2007 pelo \emph{Facebook}, buscando alta performance, confiabilidade, eficiência e que suportasse  contínuo crescimento;
+		\item Aberto em 2008 e adotado pela Apache em 2009;
+	\end{itemize}
+\end{frame}
 
+\begin{frame}
+	\frametitle{Cassandra}
+	\begin{block}{Características}
+		\begin{itemize}
+			\item \textbf{Distribuído e Descentralizado}: Execução em múltiplas máquinas, utilizando protocolos \emph{peer-to-peer};
+			
+			\item \textbf{Elasticamente Escalável}: Suporta adição e remoção de máquinas de forma transparente;
+			
+			\item \textbf{Altamente disponível e Tolerante a falhas}: Replicação e redundância de dados;
+			
+			\item \textbf{Variavelmente consistente}: Consistência ajustada por aplicação;
+		\end{itemize} 
+	\end{block}
+\end{frame}
 
+\begin{frame}
+	\frametitle{Cassandra}
+	\begin{block}{Características}
+		\begin{itemize}
+			\item \emph{Keyspace} contendo famílias de colunas, que definem um conjunto de linhas englobando várias colunas;
+			\item Linguagem CQL, introduzida na versão 0.8;
+		\end{itemize}
+	\end{block}
+\end{frame}
 %------------------------------------------------
 \section{Metodologia}
 \begin{frame}
-	\frametitle{Programa Bolsa Família}
-	Programa de transferência de renda criado em 2003. 
-	
-	Em 2016, atendia 13,9 milhões de famílias, que recebiam uma média de R\$ cada, totalizando R\$27,4 bilhões.
-	
-	\begin{itemize}
-		\item Dados disponibilizados no Portal da Transparência;
-		\item Arquivos mensais em formato .csv;
-	\end{itemize}
+	\frametitle{Metodologia}
+	\begin{block}{Programa Bolsa Família}
+		Programa de transferência de renda criado em 2003. 
+		
+		Em 2016, atendia 13,9 milhões de famílias, que recebiam uma média de R\$ cada, totalizando R\$27,4 bilhões.
+		
+		\begin{itemize}
+			\item Dados disponibilizados no Portal da Transparência;
+			\item Arquivos mensais em formato .csv;
+		\end{itemize}
+	\end{block}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Dados Utilizados}
-	Foram utilizados um total de trinta arquivos, referentes aos meses de Julho de 2014 a Dezembro de 2016. Os arquivos totalizam 16Gib de tamanho e cerca de 14 mil registros.
+	\frametitle{Metodologia}
+	\begin{block}{Dados Utilizados}
+		Foram utilizados um total de trinta arquivos, referentes aos meses de Julho de 2014 a Dezembro de 2016. Os arquivos totalizam 16Gib de tamanho e cerca de 14 mil registros.
+		
+		\begin{table}
+			\centering
+			\adjustbox{max height=\dimexpr\textheight-7cm\relax,
+				max width=\textwidth}{
+			\begin{tabular}{|l|c|c|}
+				\hline
+				\textbf{Campo}         & \textbf{Tipo} & \textbf{Utilizado} \\ \hline
+				UF                     & Text          & Sim                \\ \hline
+				Código SIAFI Município & Int           & Sim                \\ \hline
+				Nome Município         & Text          & Sim                \\ \hline
+				Código Função          & -             & Não                \\ \hline
+				Código Subfunção       & -             & Não                \\ \hline
+				Código Programa        & -             & Não                \\ \hline
+				Código Ação            & -             & Não                \\ \hline
+				NIS Favorecido         & Bigint        & Sim                \\ \hline
+				Nome Favorecido        & Text          & Sim                \\ \hline
+				Fonte-Finalidade       & Text          & Sim                \\ \hline
+				Valor Parcela          & Double        & Sim                \\ \hline
+				Mês Competência        & Timestamp     & Sim                \\ \hline
+			\end{tabular}
+			}
+		\end{table}
+	\end{block}
 	
-	\begin{table}
-		\centering
-		\adjustbox{max height=\dimexpr\textheight-7cm\relax,
-			max width=\textwidth}{
-		\begin{tabular}{|l|c|c|}
-			\hline
-			\textbf{Campo}         & \textbf{Tipo} & \textbf{Utilizado} \\ \hline
-			UF                     & Text          & Sim                \\ \hline
-			Código SIAFI Município & Int           & Sim                \\ \hline
-			Nome Município         & Text          & Sim                \\ \hline
-			Código Função          & -             & Não                \\ \hline
-			Código Subfunção       & -             & Não                \\ \hline
-			Código Programa        & -             & Não                \\ \hline
-			Código Ação            & -             & Não                \\ \hline
-			NIS Favorecido         & Bigint        & Sim                \\ \hline
-			Nome Favorecido        & Text          & Sim                \\ \hline
-			Fonte-Finalidade       & Text          & Sim                \\ \hline
-			Valor Parcela          & Double        & Sim                \\ \hline
-			Mês Competência        & Timestamp     & Sim                \\ \hline
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Metodologia}
+	\begin{block}{Modelo de Dados}
+		\begin{itemize}
+			\item Fator de replicação de 1 (sem tolerância a falhas);
+			\item \emph{SimpleStrategy} (\emph{datacenter} único);
+			\item Criação do ambiente com uso de CQL;
+		\end{itemize}
+	
+		\begin{tabular}{c}
+		\begin{lstlisting}[caption={Código CQL para criação do keyspace},label={lst:cql_create_table},language=SQL]
+		CREATE KEYSPACE bolsa_familia WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+		\end{lstlisting}
 		\end{tabular}
-		}
-	\end{table}
-	
+	\end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{Modelo de Dados}
-	\begin{itemize}
-		\item Fator de replicação de 1 (sem tolerância a falhas);
-		\item \emph{SimpleStrategy} (\emph{datacenter} único);
-		\item Criação do ambiente com uso de CQL;
-	\end{itemize}
-
-	\begin{tabular}{c}
-	\begin{lstlisting}[caption={Código CQL para criação do keyspace},label={lst:cql_create_table},language=SQL]
-	CREATE KEYSPACE bolsa_familia WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
-	\end{lstlisting}
-	\end{tabular}
-
-	\begin{tabular}{c}
-	\begin{lstlisting}[caption={Código CQL para criação da tabela},label={lst:cql_create_table},language=SQL]
-		CREATE TABLE bolsa_familia.dados (uf TEXT, periodo TIMESTAMP, valor DOUBLE, nis_favorecido BIGINT, cod_municipio INT, fonte TEXT, nome_favorecido TEXT, nome_municipio TEXT, PRIMARY KEY(nis_favorecido, periodo, valor));
-	\end{lstlisting}
-	\end{tabular}
-
+	\frametitle{Metodologia}
+		\begin{tabular}{c}
+		\begin{lstlisting}[caption={Código CQL para criação da tabela},label={lst:cql_create_table},language=SQL]
+			CREATE TABLE bolsa_familia.dados (uf TEXT, periodo TIMESTAMP, valor DOUBLE, nis_favorecido BIGINT, cod_municipio INT, fonte TEXT, nome_favorecido TEXT, nome_municipio TEXT, PRIMARY KEY(nis_favorecido, periodo, valor));
+		\end{lstlisting}
+		\end{tabular}
 \end{frame}
 
-\begin{frame}[fragile]
-		\frametitle{Arquitetura do Ambiente}
+\begin{frame}
+	\frametitle{Metodologia}
+
+	\begin{block}{Arquitetura do Ambiente}
 		\begin{itemize}
 			\item \emph{Cluster} composto por seis máquinas Intel i5-4570 3.20GHz, 16GB de RAM, disco rígido de 500GB, com sistema operacional Ubuntu;
 			\item Cliente Cassandra versão 3.0.4;
 			\item Configuração do arquivo \emph{cassandra.yaml};
 		\end{itemize}
 	
+		Configurações do Linux:
+		\begin{itemize}
+			\item Remoção do limite de memória;
+			\item Aumento do limite do número de arquivos abertos;
+			\item Desativação do \emph{swap};
+		\end{itemize}
+	\end{block}
+\end{frame}	
+
+\begin{frame}[fragile]
+	\frametitle{Metodologia}
 		\begin{tabular}{c}
 			\begin{lstlisting}[caption={Configuração cassandra.yaml},language=python]
 			cluster_name: 'BolsaFamilia Cluster C2M FR1'
@@ -368,29 +465,24 @@ Modelos relacionais possuem restrições, como as propriedades ACID e Normaliza�
 			endpoint_snitch: SimpleSnitch
 			\end{lstlisting}
 		\end{tabular}
-	
-		Configurações do Linux:
-		\begin{itemize}
-			\item Remoção do limite de memória;
-			\item Aumento do limite do número de arquivos abertos;
-			\item Desativação do \emph{swap};
-		\end{itemize}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Desenvolvimento da Aplicação}
+	\frametitle{Metodologia}
 	
-	Foi desenvolvida uma aplicação em Java responsável pela leitura dos arquivos de entrada, inserção no banco e busca de dados:
-	\begin{itemize}
-		\item \emph{Driver} \emph{Datastax};
-		\item Tratamento e filtragem dos campos;
-		\item Interações com o banco por meio de CQL;
-	\end{itemize}
-
-	 \begin{figure}
-		\includegraphics[width=0.7\linewidth]{figuras/aplicacao.png}
-		\caption{Esquema da aplicação desenvolvida}
-	\end{figure}
+	\begin{block}{Desenvolvimento da Aplicação}
+		Foi desenvolvida uma aplicação em Java responsável pela leitura dos arquivos de entrada, inserção no banco e busca de dados:
+		\begin{itemize}
+			\item \emph{Driver} \emph{Datastax};
+			\item Tratamento e filtragem dos campos;
+			\item Interações com o banco por meio de CQL;
+		\end{itemize}
+	
+		 \begin{figure}
+			\includegraphics[width=0.7\linewidth]{figuras/aplicacao.png}
+			\caption{Esquema da aplicação desenvolvida}
+		\end{figure}
+	\end{block}
 \end{frame}
 
 %------------------------------------------------
@@ -398,30 +490,33 @@ Modelos relacionais possuem restrições, como as propriedades ACID e Normaliza�
 
 \subsection{Carga de Dados}
 \begin{frame}
-	\frametitle{Carga dos Dados}
-	A aplicação desenvolvida realiza a filtragem dos campos e tratamento dos valores:
-	\begin{itemize}
-		\item Remoção do separador de milhares(,) em Valor Parcela;
-		\item Alteração do padrão de data de MM/AAAA para DD/MM/AAAA;		
-	\end{itemize}
-
-	Foi realizada a carga com dois volumes de dados, correspondentes a dezoito e trinta meses do programa Bolsa Família.
-	\begin{table}
-		\centering
-		\caption{Volume de dados}
-		\adjustbox{max height=\dimexpr\textheight-7cm\relax,
-			max width=\textwidth}{
-			\begin{tabular}{ll}
-			\textbf{Carga} & \textbf{Tamanho} \\ \hline
-			18 meses       &  8,79 GB         \\ \hline
-			30 meses       &  14,69 GB        \\ \hline
-			\end{tabular}
-		}
-	\end{table}	
+	\frametitle{Resultados}
+	\begin{block}{Carga dos Dados}
+		A aplicação desenvolvida realiza a filtragem dos campos e tratamento dos valores:
+		\begin{itemize}
+			\item Remoção do separador de milhares(,) em Valor Parcela;
+			\item Alteração do padrão de data de MM/AAAA para DD/MM/AAAA;		
+		\end{itemize}
+	
+		Foi realizada a carga com dois volumes de dados, correspondentes a dezoito e trinta meses do programa Bolsa Família.
+		\begin{table}
+			\centering
+			\caption{Volume de dados}
+			\adjustbox{max height=\dimexpr\textheight-7cm\relax,
+				max width=\textwidth}{
+				\begin{tabular}{ll}
+				\textbf{Carga} & \textbf{Tamanho} \\ \hline
+				18 meses       &  8,79 GB         \\ \hline
+				30 meses       &  14,69 GB        \\ \hline
+				\end{tabular}
+			}
+		\end{table}	
+	\end{block}
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{Carga dos Dados}
+	\frametitle{Resultados}
+	\begin{block}{Carga dos Dados}
 	Inserção realizada com uso do \emph{driver} da \emph{Datastax}, por meio de query CQL, tendo seus parâmetros substituídos.
 	
 	\begin{tabular}{c}
@@ -429,10 +524,12 @@ Modelos relacionais possuem restrições, como as propriedades ACID e Normaliza�
 			INSERT INTO bolsa_familia.dados (uf, cod_municipio, nome_municipio, nis_favorecido, nome_favorecido, fonte, valor, periodo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
 		\end{lstlisting}
 	\end{tabular}
+	\end{block}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Tempos de Inserção}
+	\frametitle{Resultados}
+	\begin{block}{Tempos de Inserção}
 	
 		\begin{table}
 		\centering
@@ -459,11 +556,11 @@ Modelos relacionais possuem restrições, como as propriedades ACID e Normaliza�
 				\end{tabular}
 			}
 		\end{table}	
-	
+	\end{block}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Tempos de Inserção}
+	\frametitle{Resultados}
 	
 	\begin{figure}
 		\includegraphics[width=0.7\linewidth]{figuras/graphinsert.png}
@@ -471,8 +568,10 @@ Modelos relacionais possuem restrições, como as propriedades ACID e Normaliza�
 	\end{figure}
 \end{frame}
 
+\subsection{Consultas}
 \begin{frame}[fragile]
-	\frametitle{Consultas}
+	\frametitle{Resultados}
+	\begin{block}{Consultas}
 	
 	As consultas também foram realizadas por meio do \emph{driver} da \emph{Datastax}. Foram realizadas 30 consultas, buscando um registro específico por chave primária de forma aleatória.
 	
@@ -481,11 +580,13 @@ Modelos relacionais possuem restrições, como as propriedades ACID e Normaliza�
 		SELECT * FROM dados WHERE nis_favorecido = 00020915229557 AND periodo = '2014-07-01' AND valor = 147.00 
 		\end{lstlisting}
 	\end{tabular}
+	\end{block}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Tempos de Consulta}
+	\frametitle{Resultados}
 	
+	\begin{block}{Tempos de Consulta}
 	\begin{table}
 		\centering
 		\caption{Tempos de Consulta}
@@ -510,11 +611,12 @@ Modelos relacionais possuem restrições, como as propriedades ACID e Normaliza�
 				\textbf{30 meses}	& 66,21\%                    & 67,48\%                     & \textbf{66,85\%} &  \\ \hline
 			\end{tabular}
 		}
-	\end{table}	
+	\end{table}
+	\end{block}	
 \end{frame}
 
 \begin{frame}
-	\frametitle{Tempos de Consulta}
+	\frametitle{Resultados}
 	
 	\begin{figure}
 		\includegraphics[width=0.7\linewidth]{figuras/graphselect.png}
@@ -522,27 +624,43 @@ Modelos relacionais possuem restrições, como as propriedades ACID e Normaliza�
 	\end{figure}
 \end{frame}
 
+\begin{frame}
+	\frametitle{Resultados}
+	
+	\begin{block}{Tempos de Consulta}
+	O gráfico a seguir apresenta os resultados das dez consultas efetuadas em cada configuração do \emph{cluster} com volume de dados de 18 meses.
+	
+	\begin{figure}
+		\includegraphics[width=0.7\linewidth]{figuras/graphselect_detail.png}
+		\caption{Detalhamento dos tempos de consulta}
+	\end{figure}
+	\end{block}
+\end{frame}
+
 %------------------------------------------------
 \section{Conclusão}
+\subsection{Resultados}
 \begin{frame}
-\frametitle{Resultados}
-	Comparação do aumento do número de máquinas:
-\begin{itemize}
-	\item Melhora média de 7,5\% na inserção dos dados;
-	\item Melhora média de 56,53\% na busca dos dados;
-\end{itemize}
+\frametitle{Conclusão}
+	\begin{block}{Resultados}
+		Comparação do aumento do número de máquinas:
+		\begin{itemize}
+			\item Melhora média de 7,5\% na inserção dos dados;
+			\item Melhora média de 56,53\% na busca dos dados;
+		\end{itemize}
+	\end{block}
 \end{frame}
 
 \subsection{Trabalhos futuros}
 \begin{frame}
-\frametitle{Trabalhos futuros}
-\begin{itemize}
-	\item Isolamento da rede no ambiente utilizado;
-	\item Comparação com outros bancos;
-	\item Implementar diferentes modelagens no banco Cassandra;
-\end{itemize}
-
-
+\frametitle{Conclusão}
+	\begin{block}{Trabalhos Futuros}
+		\begin{itemize}
+			\item Isolamento da rede no ambiente utilizado;
+			\item Comparação com outros bancos;
+			\item Implementar diferentes modelagens no banco Cassandra;
+		\end{itemize}
+\end{block}
 \end{frame}
 %------------------------------------------------
 
@@ -550,7 +668,7 @@ Modelos relacionais possuem restrições, como as propriedades ACID e Normaliza�
 \subsection{Bibliografia}
 \begin{frame}
 \frametitle{Bibliografia}\footnotesize
-  \nocite{}
+  \nocite{seijiconectados, cjdate, pramod, cassandraguide}
   \bibliography{bibliografia}
   \bibliographystyle{plain}
 \end{frame}
