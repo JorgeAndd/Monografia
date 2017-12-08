@@ -100,18 +100,30 @@
 }
 
 
+\AtBeginSection[]{
+	\begin{frame}
+		\vfill
+		\centering
+		\begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+			\usebeamerfont{title}\insertsectionhead\par%
+		\end{beamercolorbox}
+		\vfill
+	\end{frame}
+}
+
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
 %----------------------------------------------------------------------------------------
+
 
 \title[Bolsa Família e Cassandra]{Armazenamento de Dados Abertos com NoSQL: Um estudo de caso com Dados do Bolsa Família e NoSQL Cassandra} % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \author{Jorge Luiz Andrade} % Your name
 \institute[UnB] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {
-Universidade de Brasília \\ % Your institution for the title page
+Defesa de Trabalho de Conclusão de Curso \\
 \medskip
-\textit{jorgeluizandrade@outlook.com} % Your email address
+Universidade de Brasília \\ % Your institution for the title page
 }
 \date{\today} % Date, can be changed to a custom date
 
@@ -123,7 +135,7 @@ Universidade de Brasília \\ % Your institution for the title page
 
 % \begin{frame}
 % \frametitle{Sumário} % Table of contents slide, comment this block out to remove it
-% \tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
+\tableofcontents % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
 % \end{frame}
 
 %----------------------------------------------------------------------------------------
@@ -135,14 +147,16 @@ Universidade de Brasília \\ % Your institution for the title page
 %------------------------------------------------
 
 \begin{frame}
-Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa para o armazenamento de grandes volumes de dados.
+\frametitle{Introdução}	
+	
+Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa para o armazenamento de grandes volumes de dados em ambientes distribuídos.
 	
 \begin{block}{Problema}
-	Banco de Dados Relacionais podem não apresentar um desempenho satisfatório ao operar grandes volumes de dados.
+	Órgãos da administração pública brasileira disponibilizam seus dados de forma aberta na \emph{web}. Entretanto, o grande volume desses dados pode gerar um desempenho não satisfatório ao se realizar inserções e consultas em um banco de dados relacional.
 \end{block}
 
 \begin{block}{Hipótese}
-	O uso de múltiplas máquinas em um ambiente Cassandra distribuído pode oferecer um melhora do desempenho que justifique sua utilização na análise de dados abertos.	
+	O uso de múltiplas máquinas em um ambiente Cassandra distribuído pode oferecer uma melhora do desempenho que justifique sua utilização na análise de dados abertos.	
 \end{block}
 
 \end{frame}
@@ -156,7 +170,7 @@ Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa p
 	\begin{itemize}
 		\item Desenvolver uma aplicação para inserção e busca dos dados do Bolsa Família;
 		\item Realizar testes de inserção e busca com diferentes configurações;
-		\item Comparar o desempenho do Cassandra nas diferentes situações;
+		\item Comparar o desempenho do Cassandra nas diferentes configurações;
 	\end{itemize}
 \end{block}
 \end{frame}
@@ -184,93 +198,96 @@ Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa p
 		Tim Berners-Lee propõs em 2010 o princípio de cinco estrelas para classificação de dados abertos:
 		\begin{itemize}
 			\item \textbf{1 estrela}: O dado está disponível na Internet, em qualquer formato, acompanhado de licença aberta.
-			\item \textbf{2 estrelas}: O dado está disponível de maneira estruturada, em um formato que permita sua leitura por máquinas (por exemplo, XML).
-			\item \textbf{3 estrelas}: Deve estar em formato não proprietário (por exemplo, \emph{CSV}).
+			\item \textbf{2 estrelas}: O dado está disponível de maneira estruturada, em um formato que permita sua leitura por máquinas.
+			\item \textbf{3 estrelas}: Deve estar em formato não proprietário.
+			\item \textbf{4 estrelas}: Deve estar dentro dos padrões estabelecidos pela W3C para identificar recursos, que podem ser apontados por outras pessoas. 
+			\item \textbf{5 estrelas}: Ter conexão com outros dados para fornecer contexto.
 		\end{itemize}
 	\end{block}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Dados Abertos}
+	\begin{block}{Dados Governamentais}
+		Governo tem papel fundamental devido à grande quantidade de dados que coleta.
+		\begin{itemize}
+			\item Transparência;
+			\item Vida Pessoal;
+			\item Econômica;
+			\item Eficiência governamental;
+		\end{itemize}
+	\end{block}
 	
-	\begin{itemize}
-		\item \textbf{4 estrelas}: Deve estar dentro dos padrões estabelecidos pela W3C (RDF): utilização de URI para nomear relações entre coisas e propriedades.
-		\item \textbf{5 estrelas}: Ter no RDF conexões com outros dados, por meio de \emph{links}, de forma a se obter um contexto de dados relevantes.
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Dados Abertos}
 	\begin{block}{Contexto Brasileiro}
 		\begin{itemize}
-			\item \emph{Open Government Partnership}, 2011;
+			\item \emph{Open Government Partnership}, aliança de 65 países firmada em 2011;
 			\item Portal dados.gov.br;
-			\item INDA(Infraestrutura Nacional de Dados Abertos), 2012;			
+			\item INDA(Infraestrutura Nacional de Dados Abertos), conjunto de padrões, tecnologias, procedimentos e mecanismos de controle, criada em 2012;			
 		\end{itemize}
 	\end{block}
 \end{frame}
 
 %------------------------------------------------
 
-\subsection{Bancos de Dados}
+%\subsection{Bancos de Dados}
+%
+%\begin{frame}
+%\frametitle{Bancos Relacionais}
+%	\begin{block}{Definição}
+%		\begin{itemize}
+%			\item Proposto em 1970 por Edgar Codd;
+%			\item Composto por um conjunto de relações, sendo essas relações um conjunto não ordernado de tuplas;
+%			\item SGBDs;
+%		\end{itemize}
+%	\end{block}
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Propriedades ACID}
+%	\begin{itemize}
+%		\item Atomicidade;
+%		\item Consistência;
+%		\item Isolamento;
+%		\item Durabilidade;
+%	\end{itemize}
+%	Garantem a validade do esquema, mas sacrificam desempenho e disponibilidade.
+%\end{frame}
+%
+%
+%\begin{frame}
+%\frametitle{Normalização}
+%	\begin{itemize}
+%		\item \textbf{1FN}: Cada coluna deve guardar apenas uma informação(valores atômicos);
+%		\item \textbf{2FN}: Atributos não-chave devem depender integralmente da chave primária da tabela;
+%		\item \textbf{3FN}: Atributos não-chave não podem ser determinados por outros atributos não-chave; 
+%	\end{itemize}
+%\end{frame}
 
-\begin{frame}
-\frametitle{Bancos Relacionais}
-	\begin{block}{Definição}
-		\begin{itemize}
-			\item Proposto em 1970 por Edgar Codd;
-			\item Composto por um conjunto de relações, sendo essas relações um conjunto não ordernado de tuplas;
-			\item SGBDs;
-		\end{itemize}
-	\end{block}
-\end{frame}
-
-\begin{frame}
-\frametitle{Propriedades ACID}
-	\begin{itemize}
-		\item Atomicidade;
-		\item Consistência;
-		\item Isolamento;
-		\item Durabilidade;
-	\end{itemize}
-	Garantem a validade do esquema, mas sacrificam desempenho e disponibilidade.
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Normalização}
-	\begin{itemize}
-		\item \textbf{1FN}: Cada coluna deve guardar apenas uma informação(valores atômicos);
-		\item \textbf{2FN}: Atributos não-chave devem depender integralmente da chave primária da tabela;
-		\item \textbf{3FN}: Atributos não-chave não podem ser determinados por outros atributos não-chave; 
-	\end{itemize}
-\end{frame}
 
 \subsection{NoSQL}
 
 \begin{frame}
-\frametitle{NoSQL}
+\frametitle{Bancos de Dados}
+\begin{block}{NoSQL}
 	Modelos relacionais possuem restrições, como as propriedades ACID e Normalização, gerando problemas de escalabilidade e rigidez de esquema.
 	\begin{itemize}
 		\item Termo utilizado pela primeira vez em 1998(Strozzi NoSQL)
-		\item Google Bigtable(2006) e Amazon's Dynamo(2007)
 		\item Evitam complexidade desnecessária;
 		\item Buscam alto rendimento, escalabilidade e disponibilidade;
-		\item \emph{Open Source};
 	\end{itemize}	
+\end{block}
 \end{frame}
-
 
 \begin{frame}
 	\frametitle{NoSQL}
 	\begin{block}{Teorema CAP}
+	Proposto em 2000 por Eric Brewer, define limitações em sistemas distribuídos;
 	\begin{itemize}
-		\item Proposto em 2000 por Eric Brewer, define limitações em sistemas distribuídos;
 		\item Consistência;
 		\item Disponibilidade;
 		\item Tolerância a partições;
 		\bigskip
-		\item Revisado em 2012;
+		\item Revisado em 2012 também por Eric Brewer;
 	\end{itemize}
 	\end{block}
 \end{frame}
@@ -287,7 +304,7 @@ Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa p
 		\end{itemize}
 	\end{block}
 
-	\begin{block}{Documentos}
+	\begin{block}{Modelo Orientado a Documentos}
 		Acesso à um documento de esquema flexível a partir de uma chave.
 	
 		\begin{itemize}
@@ -302,7 +319,7 @@ Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa p
 \begin{frame}
 	\frametitle{Modelos NoSQL}
 	
-	\begin{block}{Grafos}
+	\begin{block}{Modelo Orientado a Grafos}
 		Dados altamente conectados, com consultas baseadas em relacionamentos.
 		\begin{itemize}
 			\item Neo4j
@@ -310,7 +327,7 @@ Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa p
 		\end{itemize}
 	\end{block}
 
-	\begin{block}{Colunas}
+	\begin{block}{Modelo Orientado a Colunas}
 		Dados armazenados em famílias de colunas. Possui esquema flexível, permitindo a modificação de colunas a qualquer momento.
 		\begin{itemize}
 			\item HBase
@@ -325,10 +342,13 @@ Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa p
 \subsection{Cassandra}
 \begin{frame}
 	\frametitle{Cassandra}
+	\begin{block}{Histórico}
 	\begin{itemize}
 		\item Criado em 2007 pelo \emph{Facebook}, buscando alta performance, confiabilidade, eficiência e que suportasse  contínuo crescimento;
 		\item Aberto em 2008 e adotado pela Apache em 2009;
+		\item Utilizado por companhias como \emph{Netflix} e \emph{Spotify};
 	\end{itemize}
+	\end{block}
 \end{frame}
 
 \begin{frame}
@@ -350,19 +370,23 @@ Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa p
 	\frametitle{Cassandra}
 	\begin{block}{Características}
 		\begin{itemize}
-			\item \emph{Keyspace} contendo famílias de colunas, que definem um conjunto de linhas englobando várias colunas;
+			\item \emph{Keyspace} contendo famílias de colunas, ou tabelas;
+			\item Tabelas são agrupamentos de colunas;
+			\item Colunas são compostas por um nome, valor e um \emph{timestamp}; 
 			\item Linguagem CQL, introduzida na versão 0.8;
 		\end{itemize}
 	\end{block}
 \end{frame}
 %------------------------------------------------
 \section{Metodologia}
+
+\subsection{Bolsa Família}
 \begin{frame}
 	\frametitle{Metodologia}
 	\begin{block}{Programa Bolsa Família}
 		Programa de transferência de renda criado em 2003. 
 		
-		Em 2016, atendia 13,9 milhões de famílias, que recebiam uma média de R\$ cada, totalizando R\$27,4 bilhões.
+		Em 2016, atendia 13,9 milhões de famílias, que recebiam uma média de R\$182,00 cada, totalizando R\$27,4 bilhões.
 		
 		\begin{itemize}
 			\item Dados disponibilizados no Portal da Transparência;
@@ -371,6 +395,7 @@ Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa p
 	\end{block}
 \end{frame}
 
+\subsection{Modelo de Dados}
 \begin{frame}
 	\frametitle{Metodologia}
 	\begin{block}{Dados Utilizados}
@@ -382,19 +407,19 @@ Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa p
 				max width=\textwidth}{
 			\begin{tabular}{|l|c|c|}
 				\hline
-				\textbf{Campo}         & \textbf{Tipo} & \textbf{Utilizado} \\ \hline
-				UF                     & Text          & Sim                \\ \hline
-				Código SIAFI Município & Int           & Sim                \\ \hline
-				Nome Município         & Text          & Sim                \\ \hline
-				Código Função          & -             & Não                \\ \hline
-				Código Subfunção       & -             & Não                \\ \hline
-				Código Programa        & -             & Não                \\ \hline
-				Código Ação            & -             & Não                \\ \hline
-				NIS Favorecido         & Bigint        & Sim                \\ \hline
-				Nome Favorecido        & Text          & Sim                \\ \hline
-				Fonte-Finalidade       & Text          & Sim                \\ \hline
-				Valor Parcela          & Double        & Sim                \\ \hline
-				Mês Competência        & Timestamp     & Sim                \\ \hline
+				\textbf{Campo}         & \textbf{Utilizado} & \textbf{Tipo} \\ \hline
+				UF                     & \textbf{Sim} 		& Text          \\ \hline
+				Código SIAFI Município & \textbf{Sim} 		& Int           \\ \hline
+				Nome Município         & \textbf{Sim} 		& Text          \\ \hline
+				Código Função          & Não				& -             \\ \hline
+				Código Subfunção       & Não 				& -             \\ \hline
+				Código Programa        & Não			 	& -             \\ \hline
+				Código Ação            & Não			 	& -             \\ \hline
+				NIS Favorecido         & \textbf{Sim}		& Bigint        \\ \hline
+				Nome Favorecido        & \textbf{Sim}		& Text          \\ \hline
+				Fonte-Finalidade       & \textbf{Sim}		& Text          \\ \hline
+				Valor Parcela          & \textbf{Sim} 		& Double        \\ \hline
+				Mês Competência        & \textbf{Sim} 		& Timestamp     \\ \hline
 			\end{tabular}
 			}
 		\end{table}
@@ -421,19 +446,26 @@ Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa p
 
 \begin{frame}[fragile]
 	\frametitle{Metodologia}
+	\begin{block}{Modelo de Dados}
+		\begin{itemize}
+			\item nis\_favorecido, periodo e valor identificam unicamente cada registro;
+		\end{itemize}
+	
 		\begin{tabular}{c}
 		\begin{lstlisting}[caption={Código CQL para criação da tabela},label={lst:cql_create_table},language=SQL]
 			CREATE TABLE bolsa_familia.dados (uf TEXT, periodo TIMESTAMP, valor DOUBLE, nis_favorecido BIGINT, cod_municipio INT, fonte TEXT, nome_favorecido TEXT, nome_municipio TEXT, PRIMARY KEY(nis_favorecido, periodo, valor));
 		\end{lstlisting}
 		\end{tabular}
+	\end{block}
 \end{frame}
 
+\subsection{Arquitetura do Ambiente}
 \begin{frame}
 	\frametitle{Metodologia}
 
 	\begin{block}{Arquitetura do Ambiente}
 		\begin{itemize}
-			\item \emph{Cluster} composto por seis máquinas Intel i5-4570 3.20GHz, 16GB de RAM, disco rígido de 500GB, com sistema operacional Ubuntu;
+			\item \emph{Cluster} composto por seis máquinas Intel i5-4570 3.20GHz, 16GB de RAM, com sistema operacional Ubuntu;
 			\item Cliente Cassandra versão 3.0.4;
 			\item Configuração do arquivo \emph{cassandra.yaml};
 		\end{itemize}
@@ -467,6 +499,7 @@ Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa p
 		\end{tabular}
 \end{frame}
 
+\subsection{Aplicação}
 \begin{frame}
 	\frametitle{Metodologia}
 	
@@ -517,7 +550,11 @@ Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa p
 \begin{frame}[fragile]
 	\frametitle{Resultados}
 	\begin{block}{Carga dos Dados}
-	Inserção realizada com uso do \emph{driver} da \emph{Datastax}, por meio de query CQL, tendo seus parâmetros substituídos.
+	\begin{itemize}
+		\item Inserção realizada com uso do \emph{driver} da 	\emph{Datastax}, por meio de query CQL, tendo seus parâmetros substituídos;
+		\item Em cada configuração de \emph{cluster} foram realizadas 10 repetições das operações de inserção;		
+	\end{itemize}
+
 	
 	\begin{tabular}{c}
 		\begin{lstlisting}[caption={Código CQL para inserção},language=SQL]
@@ -572,8 +609,10 @@ Bancos não relacionais, conhecidos como NoSQL, tem se tornado uma alternativa p
 \begin{frame}[fragile]
 	\frametitle{Resultados}
 	\begin{block}{Consultas}
-	
-	As consultas também foram realizadas por meio do \emph{driver} da \emph{Datastax}. Foram realizadas 30 consultas, buscando um registro específico por chave primária de forma aleatória.
+	\begin{itemize}
+		\item As consultas também foram realizadas por meio do \emph{driver} da \emph{Datastax}. Foram realizadas 30 consultas, buscando um registro específico por chave primária, escolhido de forma aleatória.
+		\item Em cada configuração de \emph{cluster} foram realizadas 10 repetições das operações de busca;	
+	\end{itemize}
 	
 	\begin{tabular}{c}
 		\begin{lstlisting}[caption={Código CQL para consulta},language=SQL]
