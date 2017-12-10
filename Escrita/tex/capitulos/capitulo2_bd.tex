@@ -1,9 +1,9 @@
 Neste capítulo será feita a abordagem dos bancos de dados relacionais e não relacionais. A Seção 3.1 apresenta o conceito de bancos de dados relacionais bem como suas principais características. Na Seção 3.2 são definidos os bancos de dados não relacionais, suas características e o que os distingue dos bancos relacionais. Também são apresentados os quatro principais modelos de bancos de dados não relacionais: chave-valor, modelo orientado documentos, modelo orientado a colunas e modelo orientado a grafo.
 
 \section{Bancos de Dados Relacionais}
-O armazenamento e a manipulação de dados tem sido um importante foco da computação desde o seu nascimento, tendo os bancos de dados suas raízes já na década de 60, principalmente em aplicações médicas e científicas~\cite{neufeld1986database}. Em 1970 foi proposto por Edgar Codd uma nova forma de armazenamento de dados, que ficou conhecida como modelo de dados relacionais (\emph{relational model of data})~\cite{codd1970relational}. 
+O armazenamento e a manipulação de dados tem sido um importante foco da computação desde o seu nascimento, tendo os bancos de dados suas raízes já na década de 60, principalmente em aplicações médicas e científicas~\cite{neufeld1986database}. Em 1970, foi proposto por Edgar Codd uma nova forma de armazenamento de dados, que ficou conhecida como modelo de dados relacionais (\emph{relational model of data})~\cite{codd1970relational}. 
 
-Um banco de dados relacional é composto por um conjunto de relações, sendo essas relações um conjunto não ordenado de tuplas. Cada tupla consiste em uma série de valores de atributos identificados por seu nome. O conjunto de atributos em uma tupla da relação é denominado coluna~\cite{heuser}. A popularização desse modelo em virtude de suas características de persistência, concorrência e integração entre múltiplas aplicações, o transformou no modelo padrão de armazenamento computacional, principalmente em ambientes empresarias~\cite{pramod}. Outra questão de importância em bancos de dados é a não necessidade que o usuário tem de conhecer como esses dados são armazenados, o que foi possível com o uso dos chamados Sistemas Gerenciadores de Bancos de Dados (SGBDs), programas que lidam com todo o acesso do usuário com o banco de dados~\cite{jan, cjdate}.
+Um banco de dados relacional é composto por um conjunto de relações, sendo essas relações um conjunto não ordenado de tuplas. Cada tupla consiste em uma série de valores de atributos identificados por seus nomes. O conjunto de atributos em uma tupla da relação é denominado coluna~\cite{heuser}. A popularização desse modelo em virtude de suas características de persistência, concorrência e integração entre múltiplas aplicações, o transformou no modelo padrão de armazenamento computacional, principalmente em ambientes empresarias~\cite{pramod}. Outra questão de importância em bancos de dados é a não necessidade que o usuário tem de conhecer como esses dados são armazenados, o que foi possível com o uso dos chamados Sistemas Gerenciadores de Bancos de Dados (SGBDs), programas que lidam com todo o acesso do usuário com o banco de dados~\cite{jan, cjdate}.
 
 Outras opções surgiram ao longo dos anos, como os bancos orientados a objetos ou bancos \emph{XML}. Nenhum deles, entretanto, conseguiu competir com o modelo já tradicional de dados relacionais~\cite{pramod}. Contudo, nos últimos anos, o modelo conhecido como NoSQL vem surgindo como essa alternativa.
 
@@ -40,9 +40,9 @@ Isso levou ao surgimento de um movimento em direção ao novo paradigma denomina
 Apesar de o termo não possuir uma definição precisa e universalmente aceita, sendo geralmente descrito como \emph{Not Only SQL}, bancos NoSQL em geral são caracterizados, mas não definidos, como sendo não relacionais, com esquema flexível, distribuídos e tolerantes a falhas~\cite{pramod}. Buscam um processamento de dados rápido e de forma eficiente, apresentando maior flexibilidade em seu esquema do que os bancos relacionais.
 Entre as razões e vantagens dos bancos NoSQL pode-se citar~\cite{chrisnosql}:
 \begin{itemize}
-	\item \textbf{Evitar complexidade desnecessária}: Bancos relacionais costumam aderir às já citadas propriedades ACID, além de serem restritos em seu esquema de dados. Bancos NoSQL costumam ignorar ou relaxar essas restrições a fim de obter um melhor desempenho.
+	\item \textbf{Evitar complexidade desnecessária}: Bancos relacionais costumam aderir às já citadas propriedades ACID, além de serem restritos em seu esquema de dados. Bancos NoSQL costumam ignorar ou relaxar essas restrições a fim de se obter um melhor desempenho.
 	
-	\item \textbf{Alto rendimento}: Bancos NoSQL surgiram da necessidade de armazenamento e processamento de volume de dados cada vez maior, sendo por isso construídos objetivando um melhor desempenho, em aplicações específicas, do que de bancos tradicionais.
+	\item \textbf{Alto rendimento}: Bancos NoSQL surgiram da necessidade de armazenamento e processamento de volumes de dados cada vez maiores, sendo por isso construídos objetivando um melhor desempenho, em aplicações específicas, do que de bancos tradicionais.
 	
 	\item \textbf{Alta escalabilidade}: Bancos relacionais podem ser escalados verticalmente com a utilização de equipamentos poderosos e caros, e uma operação distribuída costuma ser mais complexa devido à forma de armazenamento de seus dados~\cite{leavitt2010nosql}. Bancos NoSQL foram pensados para execução em um sistema de \emph{clusters}, o que facilita a sua escalabilidade horizontal e reduz a necessidade de um hardware mais caro e específico, podendo ser utilizado em \emph{hardware} mais simples. 
 	
@@ -53,7 +53,7 @@ Entre as razões e vantagens dos bancos NoSQL pode-se citar~\cite{chrisnosql}:
 
 \subsection{Teorema CAP}
 \label{sec:cap}
-Em 2000 Eric Brewer, pesquisador na \emph{University of California}, propõs o teorema CAP, que define limitações em sistemas distribuidos. O teorema define que pode-se garantir somente duas das seguintes três propriedades em um determinado sistema: Consistência (\emph{Consistency}) , Disponibilidade (\emph{Availability}) e Tolerância a partições (\emph{Partition-resilience})~\cite{brewer}. Essas propriedades podem ser definidas como:
+Em 2000, Eric Brewer, pesquisador na \emph{University of California}, propõs o teorema CAP, que define limitações em sistemas distribuidos. O teorema define que pode-se garantir somente duas das seguintes três propriedades em um determinado sistema: Consistência (\emph{Consistency}) , Disponibilidade (\emph{Availability}) e Tolerância a partições (\emph{Partition-resilience})~\cite{brewer}. Essas propriedades podem ser definidas como:
 \begin{itemize}
 	\item \textbf{Consistência} define que todos os nós devem possuir os mesmos dados em determinado instante, e um pedido de leitura em qualquer desses nós garante o dado mais atual possível do sistema.
 	\item \textbf{Disponibilidade} garante que todas as requisições feitas a um nó disponível resultem em uma resposta do sistema.
@@ -70,7 +70,7 @@ Entretanto, dado que sistemas distribuídos estão sempre sujeitos à falhas de 
 \subsection{BASE}
 Em um ambiente distribuído, escalabilidade, resiliência e velocidade são mais importantes do que consistência imediata e segurança quanto à veracidade dos  dados, não sendo necessária a aderência total às propriedades ACID já citadas~\cite{neo4j_acidbase}. Além disso, de acordo com o \textbf{Teorema CAP}, um banco que aceite particionamento não pode possuir alta disponibilidade e consistência simultaneamente. Essa necessidade, tanto de desempenho quanto de disponibilidade, levou à criação do acrônimo \textbf{BASE}, \emph{\textbf{B}asically \textbf{A}vailable} (Basicamente Disponível), \emph{\textbf{S}oft State} (Estado Leve) e \emph{\textbf{E}ventual Consistency} (Consistência Eventual)~\cite{foxcluster}. 
 
-Enquanto um banco \textbf{ACID} é pessimista, requerendo que cada operação mantenha a consistência do banco como um todo, \textbf{BASE} segue uma visão otimista, entendendo que dados serão eventualmente consistentes~\cite{pritchett2008}.
+Enquanto um banco \textbf{ACID} é pessimista, requerendo que cada operação mantenha a consistência do banco como um todo, \textbf{BASE} segue uma visão otimista, entendendo que seus dados serão eventualmente consistentes~\cite{pritchett2008}.
 
 Sistemas distribuídos costumam manter cópias de dados em várias máquinas em um \emph{cluster} para aumentar a sua disponibilidade, e quando um desses dados é atualizado em uma dessas maquinas é natural que haja um intervalo de tempo até que todas essas cópias sejam atualizadas.
 
@@ -100,9 +100,9 @@ Bancos de dados NoSQL possuem padrões de modelos de dados, que compartilham cer
 \end{table}
 
 \subsection*{Chave-Valor}
-Bancos de dados com armazenamento em chave-valor existem a muito tempo, como \emph{Berkeley DB}, criado em 1994. Ganharam maior importância no meio NoSQL a partir do Amazon DynamoDB~\cite{chrisnosql}.
+Bancos de dados com armazenamento em chave-valor existem a muito tempo, como o \emph{Berkeley DB}, criado em 1994, ganhando maior importância no meio NoSQL a partir do Amazon DynamoDB~\cite{chrisnosql}.
 
-Consiste basicamente em uma tabela \emph{hash}, sendo o acesso aos dados realizado por meio de uma chave primária, assim como ocorre em \emph{maps} e dicionários.  Esses bancos são completamente livres de esquema e suas operações se resumem a consultar o valor a partir de uma chave, inserir um valor para uma chave ou deletar uma chave e seu valor do banco~\cite{nosqleval}. O valor armazenado em geral pode representar qualquer tipo de objeto, como uma \emph{string} ou um \emph{BLOB}, não sendo necessário que exista qualquer relação entre diferentes registros, ficando a aplicação responsável pelo seu tratamento. 
+Consistem basicamente em uma tabela \emph{hash}, sendo o acesso aos dados realizado por meio de uma chave primária, assim como ocorre em \emph{maps} e dicionários.  Esses bancos são completamente livres de esquema e suas operações se resumem a consultar o valor a partir de uma chave, inserir um valor para uma chave ou deletar uma chave e seu valor do banco~\cite{nosqleval}. O valor armazenado em geral pode representar qualquer tipo de objeto, como uma \emph{string} ou um \emph{BLOB}, não sendo necessário que exista qualquer relação entre diferentes registros, ficando a aplicação responsável pelo seu tratamento. 
 
 Bancos de chave-valor favorecem escalabilidade sobre consistência de dados, e por esse motivo não apresentam formas de consulta analíticas, como \emph{joins} e agregações~\cite{chrisnosql}.
 

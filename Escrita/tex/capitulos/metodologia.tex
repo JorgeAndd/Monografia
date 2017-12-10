@@ -1,4 +1,4 @@
-Neste capítulo é apresentado o estudo de caso, onde os dados públicos do programa Bolsa Família são inseridos e extraídos de um banco de dados não relacional Cassandra, com \emph{clusters} de um, dois, quatro e seis máquinas, além das descrições das etapas e programas utilizados. O programa é exposto brevemente e o modelo de dados e o ambiente utilizado são descritos.
+Neste capítulo será apresentado o estudo de caso utilizado neste trabalho, sendo ele o programa Bolsa Família. A Seção 5.1 apresenta informações sobre o programa bem como as características dos dados disponibilizados pelo governo brasileiro e os dados efetivamente utilizados no trabalho. Na Seção 5.2 o modelo de dados utilizado no Cassandra é definido, e as decisões de escolha das características do \emph{keyspace} e da tabela criada são explicadas. A Seção 5.3 apresenta a arquitetura do ambiente utilizado nos testes e suas configurações. Por fim, a Seção 5.4 expõe a aplicação desenvolvida responsável pelo tratamento, inserção e consulta dos dados no banco Cassandra.
 
 \section{O Programa Bolsa Família}
 O Bolsa Família é um programa federal em operação desde 2003, quando foi instituído pelo então presidente Luiz Inácio Lula da Silva, com objetivo de "combater a fome e promover a segurança alimentar e nutricional, combater a pobreza e outras formas de privação das famílias e promover o acesso à rede de serviços públicos, em especial, saúde, educação, segurança alimentar e assistência social"~\cite{caixa-bolsafamilia}. 
@@ -10,7 +10,7 @@ Esses dados são disponibilizados em formato aberto \emph{.csv}, e agrupados men
 
 \subsection{Dados Utilizados}
 
-Para os testes de desempenho foram utilizados um total de trinta arquivos, correspondentes a trinta meses do programa, compreendidos entre Julho de 2014 e Dezembro de 2016. O total de arquivos foi determinado considerando-se a capacidade de armazenamento das máquinas do ambiente utilizado, especialmente nos testes de \emph{cluster} com apenas duas máquinas. Cada arquivo utilizado possui em média 16GiB de tamanho e 13.968.749 registros.
+Para os testes de desempenho foram utilizados um total de 30 arquivos, correspondentes a trinta meses do programa, compreendidos entre Julho de 2014 e Dezembro de 2016. O total de arquivos foi determinado considerando-se a capacidade de armazenamento das máquinas do ambiente utilizado, especialmente nos testes de \emph{cluster} com apenas duas máquinas. Cada arquivo utilizado possui em média 16GiB de tamanho e 13.968.749 registros.
 
 Cada arquivo apresenta como campos: UF, Código SIAFI Município, Nome Município, Código Função, Código Subfunção, Código Programa, Código Ação, NIS Favorecido, Nome Favorecido, Fonte-Finalidade, Valor Parcela e Mês Competência. Como os testes realizados não buscam uma análise interpretativa dos dados armazenados, e sim a verificação de uma possível melhora de desempenho, um subconjunto dessas colunas foi escolhido para a realização desse trabalho. A Tabela \ref{tab:colunas} apresenta os campos presentes nos arquivos, bem como seus tipos e quais campos foram utilizados na modelagem dos dados. Os campos Código Função, Código Subfunção, Código Programa, Código Ação se repetem em todos os registros e por isso não foram utilizados.
 
@@ -37,7 +37,7 @@ Cada arquivo apresenta como campos: UF, Código SIAFI Município, Nome Municípi
 \end{table}
 
 \section{Modelo de dados Cassandra}
-O modelo de dados do Cassandra foi criado utilizando-se um \emph{keyspace} com fator de replicação de apenas um. O Código ~\ref{lst:cql_create_keyspace} apresenta o comando CQL utilizado para sua criação. O fator de replicação foi definido considerando que a tolerância a falhas não é um fator relevante nos testes a serem realizados, devido ao ambiente controlado em que eles são feitos.
+O modelo de dados do Cassandra foi criado utilizando-se um \emph{keyspace} com fator de replicação de apenas um. O fator de replicação foi definido considerando que a tolerância a falhas não é um fator relevante nos testes a serem realizados, devido ao ambiente controlado em que eles são feitos, considerando também um possível impacto nos tempos de inserção e consulta. O Código ~\ref{lst:cql_create_keyspace} apresenta o comando CQL utilizado para sua criação. 
 
 O Cassandra apresenta duas estratégias de replicações de dados, a \emph{SimpleStrategy} e a \emph{NetworkTopologyStrategy}, sendo a primeira utilizada em \emph{datacenters} únicos e com apenas um \emph{rack}, e a segunda para uso em múltiplos \emph{datacenters}. Devido ao ambiente restrito do laboratório utilizado, foi escolhida a \emph{SimpleStrategy} como estratégia de replicação dos dados.
 
@@ -61,7 +61,7 @@ Ao se definir uma chave primária no Cassandra é necessária a escolha de uma \
 
 Para determinar a localização de um registro dentro do \emph{cluster}, o particionador utilizado realiza um processo de \emph{hash} na chave de partição, sendo recomendável, então, a escolha de uma chave de partição que apresente boa distribuição dos dados dentro do \emph{cluster}. 
 
-Para isso foi utilizada a coluna \textbf{nis\_favorecido}, por ser ela a responsável por identificar unicamente cada beneficiário do programa. Além disso, para complementar a chave primária foram escolhidos os campos \textbf{Valor Parcela} e \textbf{Mês Competência}, que identificam unicamente cada registro, considerando que um mesmo favorecido pelo programa(identificado pela coluna NIS Favorecido), pode receber mais de uma parcela em um mesmo mês, ou parcelas em meses distintos. A Figura \ref{fig:modelocassandra} traz o modelo utilizado, onde são apresentadas as chaves primárias, separadas em chave de partição e de agrupamento, e as demais colunas que são definidas por elas.
+Para isso foi utilizada a coluna \textbf{nis\_favorecido}, por ser ela a responsável por identificar unicamente cada beneficiário do programa. Além disso, para complementar a chave primária foram escolhidos os campos \textbf{periodo} e \textbf{valor}, que identificam unicamente cada registro, considerando que um mesmo favorecido pelo programa(identificado pela coluna nis\_favorecido) pode receber mais de uma parcela em um mesmo mês, ou parcelas em meses distintos. Essa escolha poderia mesmo assim resultar em colisão entre chaves na ocasião do recebimento de benefícios de valores iguais em um mesmo mês, essa situação, entretanto, não foi verificada durante os testes com os arquivos utilizados. A Figura \ref{fig:modelocassandra} traz o modelo utilizado, onde são apresentadas as chaves primárias, separadas em chave de partição e de agrupamento, e as demais colunas que são definidas por elas.
 
 \figura[!htb]{modelocassandra.png}{Modelo de Dados}{fig:modelocassandra}{width=1\textwidth}
 
@@ -74,7 +74,7 @@ O ambiente utilizado consiste em um \emph{cluster} composto por seis máquinas c
 
 O cliente Cassandra, em sua versão 3.0.4, foi instalado em cada uma das seis máquinas utilizadas no teste. Em cada máquina foi necessária a modificação do arquivo de configuração \emph{cassandra.yaml} para possibilitar correta configuração e detecção do \emph{cluster}. O número de nós virtuais foi mantido em 256, valor recomendado para manter um balanceamento correto dos nós, o particionador padrão \emph{Murmur3Partitioner} foi mantido por ser o recomendado para novos \emph{clusters}~\cite{cassandrapartitioners}, e como \emph{snitch} foi utilizado o \emph{SimpleSnitch}, pois a implementação desenvolvida faz uso de apenas um \emph{datacenter}. 
 
-O arquivo \emph{cassandra.yaml} também define os IPs dos nós \emph{seed}, responsáveis por manter informações sobre os outros nós, bem como o nome do \emph{cluster} utilizado. Esses dados devem ser configurados de forma idêntica em todos as máquinas para permitir a sua detecção dentro do mesmo \emph{cluster}. A configurações definidas no arquivo são apresentadas no Código ~\ref{lst:yaml}.
+O arquivo \emph{cassandra.yaml} também define os IPs dos nós \emph{seed}, responsáveis por manter informações sobre os outros nós, bem como o nome do \emph{cluster} utilizado. Esses dados devem ser configurados de forma idêntica em todas as máquinas para permitir a sua detecção dentro do mesmo \emph{cluster}. A configurações definidas no arquivo são apresentadas no Código ~\ref{lst:yaml}.
 
 \begin{lstlisting}[caption={Configuração cassandra.yaml},label={lst:yaml},language=python]
 cluster_name: 'BolsaFamilia Cluster C2M FR1'
@@ -99,16 +99,17 @@ Além disso, seguindo as orientações em ~\cite{cassandrasettings}, e guardadas
 	\item Desativação do \emph{swap}
 \end{itemize}
 
-A duas primeiras configurações buscam evitar erros de recursos insuficientes no Linux, já a desativação do \emph{swap} evita que os nós utilizem o \emph{swap} do sistema, o que causaria piora no desempenho da aplicação.
+A duas primeiras configurações buscam evitar erros de recursos insuficientes no Linux, já a desativação do \emph{swap} evita que os nós utilizem o \emph{swap} do sistema, o que causaria piora no desempenho da aplicação, sendo por isso preferível a reinicialização do nó.
 
 \section{Desenvolvimento da Aplicação}
 Para inserção e busca dos dados no ambiente, foi desenvolvida uma aplicação em Java utilizando o \emph{driver} oferecido pela \emph{Datastax}, empresa que disponibiliza um distribuição gratuita do Apache Cassandra. Essa aplicação é responsável pela leitura de todos os arquivos de entrada e inserção dos campos utilizados no banco de dados Cassandra, assim como a posterior busca desses dados.
 
-A inserção dos dados é feita de forma assíncrona utilizando os métodos do \emph{driver}. O tratamento dos campos utilizados é feita no momento da inserção pelo próprio programa desenvolvido. Essa filtragem é responsável pela separação dos campos das linhas do arquivo .csv utilizado, bem como a seleção dos campos que serão utilizados na análise. 
+A figura \ref{fig:aplicacao} apresenta um esquema simplificado do processo de inserção de dados realizado pela aplicação. 
+
+Os dados são lidos diretamente dos arquivos .csv baixados do Portal da Transparência. A aplicação realiza o tratamento dos campos, com a separação das linhas, a seleção dos campos utilizados e a conversão de valores incompatíveis com o banco. A inserção dos dados é feita de forma assíncrona utilizando os métodos do \emph{driver}. 
 
 A leitura dos dados é feita no mesmo programa, após a inserção de todos os dados, também utilizando o driver da \emph{Datastax}.
 
 Todas as interações com o banco, seja na inserção quanto na leitura, foram realizadas por meio da linguagem CQL, que se assemelha a consultas padrões SQL.
 
-
-
+\figura[!htb]{aplicacao.png}{Esquema da Aplicação}{fig:aplicacao}{width=1\textwidth}

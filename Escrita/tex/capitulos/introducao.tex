@@ -1,9 +1,9 @@
-Bancos de dados podem ser definidos como um conjunto de dados que se relacionam entre si e armazenados de forma que possam ser acessados posteriormente, quando necessário~\cite{cjdate}.
-Os bancos de dados relacionais predominaram por pelo menos quatro décadas, mas seu desempenho em certas aplicações atuais, principalmente naquelas que trabalham com grande volumes de dados, denominadas \emph{Big Data}, vem sendo questionado~\cite{pramod}. 
+Os bancos de dados podem ser definidos como um conjunto de dados que se relacionam entre si e armazenados de forma que possam ser acessados posteriormente, quando necessário~\cite{cjdate}.
+Os bancos de dados relacionais vem predominando por pelo menos quatro décadas, mas seu desempenho em certas aplicações atuais, principalmente naquelas que trabalham com grande volumes de dados, denominadas \emph{Big Data}, vem sendo questionado~\cite{pramod}. 
 
-Esse questionamento levou à criação do movimento NoSQL, um novo paradigma de armazenamento de dados que ignora certas restrições dos bancos relacionais tradicionais, tentando melhorar seu armazenamento e desempenho por meio de um sistema distribuído em \emph{clusters}, com características de escalabilidade, tolerância à falhas e um melhor desempenho ao se operar grandes volumes de dados~\cite{pramod}.
+Esse questionamento levou à criação do movimento NoSQL, um novo paradigma de armazenamento de dados que ignora certas restrições dos bancos relacionais tradicionais, tentando melhorar seu armazenamento e desempenho por meio de um sistema distribuído em \emph{clusters}, com características de escalabilidade, tolerância à falhas e um melhor desempenho ao se operar com grandes volumes de dados~\cite{pramod}.
 
-O Cassandra é um sistema gerenciador de bancos de dados NoSQL que armazena seus dados em forma de colunas e linhas com esquema flexível. Essa característica é importante para o armazenamento de dados governamentais abertos, devido à sua natureza variável. Foi originalmente proposto e utilizado pelo \emph{Facebook}, com base em trabalhos anteriores da \emph{Amazon} (\emph{Dynamo}) e do \emph{Google} (\emph{BigTable}), sendo atualmente um projeto da fundação \emph{Apache}~\cite{cassandraguide}.
+O Cassandra é um sistema gerenciador de bancos de dados NoSQL, originalmente proposto e utilizado pelo \emph{Facebook}, que armazena seus dados em forma de colunas e linhas com esquema flexível. Essa característica é importante para o armazenamento de dados governamentais abertos, devido à sua natureza variável.
 
 Dados abertos tem ganhado importância cada vez maior em nossa sociedade. O volume desses dados, que podem ser definidos como dados livres para acesso, utilização e modificação~\cite{opendefinition}, tem crescido cada vez mais, e vem sendo necessário encontrar novas formas para o seu armazenamento e análise, comumente realizados por meio de bancos de dados relacionais.
 
@@ -15,7 +15,9 @@ Vários órgãos da administração pública brasileira disponibilizam seus dado
 Desta forma, tem-se nesta monografia como hipótese que a utilização de múltiplas máquinas em um ambiente Cassandra distribuído pode apresentar uma melhora do desempenho que justifique a sua utilização no contexto da análise de dados abertos.
 
 \section{Justificativa}
-Apesar de recente, a utilização de bancos de dados não relacionais vem apresentando um bom desempenho em aplicações que exijam a utilização de grandes volumes de dados. Porém, poucos trabalhos realizaram a utilização de bancos NoSQL no contexto dos dados abertos da administração pública brasileira. Esse trabalho possui então como motivação a análise do desempenho de um banco Cassandra ao tratar de dados abertos brasileiros em um ambiente distribuído.
+Apesar de recente, a utilização de bancos de dados não relacionais vem apresentando um bom desempenho em aplicações que exijam a utilização de grandes volumes de dados. Porém, poucos trabalhos realizaram a utilização de bancos NoSQL no contexto dos dados abertos da administração pública brasileira. 
+
+Este trabalho possui então como motivação a análise do desempenho de um banco Cassandra ao tratar de dados abertos brasileiros em um ambiente distribuído, comparando seus tempos de execução para inserção e busca de dados com o aumento do número de máquinas em um \emph{cluster}, além de verificar o seu desempenho com diferentes volumes de dados.
 
 \section{Objetivos}
 
@@ -23,12 +25,13 @@ Este trabalho tem como objetivo principal comparar o desempenho de um banco de d
 
 A fim de se alcançar o objetivo geral do trabalho, foram traçados os seguintes objetivos específicos:
 \begin{itemize}
-	\item Desenvolver uma aplicação para a inserção e busca dos dados do Bolsa Família em um banco de dados Cassandra.
-	
-	\item Realizar os testes de inserção e busca para diferentes volumes de dados e diferentes configurações do \emph{cluster}.
+	\item Desenvolver uma aplicação para a inserção e busca dos dados do Bolsa Família em um banco de dados Cassandra, permitindo a realização de testes para as diferentes configuarações.
 	
 	\item Comparar o desempenho dos testes e verificar sua melhora ao se aumentar o número de máquinas no \emph{cluster}.
 \end{itemize}
+
+\section{Metodologia}
+Neste trabalho foi utilizado como estudo de caso os dados públicos do programa Bolsa Família. Esses dados foram inseridos e extraídos de um banco de dados não relacional Cassandra, com \emph{clusters} de dois, quatro e seis máquinas e dois volumes distintos de dados. Os tempos dos testes foram analisados e seu desempenho comparado para verificar a viabilidade do uso de um banco de dados Cassandra no tratamento de dados abertos.
 
 \section{Estrutura do Trabalho}
 Este trabalho está estruturado nos seguintes capítulos:

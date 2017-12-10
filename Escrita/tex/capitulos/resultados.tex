@@ -1,4 +1,4 @@
-Neste capítulo são apresentados os resultados obtidos nos testes de carga e busca dos dados. Os testes foram realizados em três configurações de \emph{cluster}, com duas, quatro e seis máquinas, a fim de se analisar a melhora do desempenho do SGBD Cassandra ao se aumentar o número de nós. Além disso, em cada configuração de \emph{cluster}, foram realizados testes com dois volumes distintos de dados.
+Neste capítulo são apresentados os resultados obtidos nos testes de carga e busca dos dados. Os testes foram realizados em três configurações do \emph{cluster}, com duas, quatro e seis máquinas, a fim de se analisar a melhora do desempenho do SGBD Cassandra ao se aumentar o número de nós. Além disso, em cada configuração de \emph{cluster}, foram realizados testes com dois volumes distintos de dados.
 
 Em cada configuração de teste foram realizadas dez repetições, tanto na inserção quanto na busca, a fim de garantir resultados mais consistentes. 
 
@@ -24,7 +24,7 @@ A carga foi realizada com dois volumes de dados, correspondentes a dezoito meses
 	\end{tabular}
 \end{table}
 
-A inserção foi realizada de maneira assíncrona com uso de funções disponibilizadas pelo \emph{driver} da \emph{Datastax}. A \emph{query} em formato CQL, exibida no Código ~\ref{lst:cql_insert}, é montada e tem seus parâmetros substituidos, e é então executada com o comando \emph{executeAsync} da classe \emph{Session} do \emph{driver}. São realizadas operações em seis \emph{threads} simultâneas, valor que apresentou o melhor resultado nos testes realizados.
+A inserção foi realizada de maneira assíncrona com uso de funções disponibilizadas pelo \emph{driver} da \emph{Datastax}. A \emph{query} em formato CQL, exibida no Código ~\ref{lst:cql_insert}, é montada e tem seus parâmetros substituidos, e é então executada com o comando \emph{executeAsync} da classe \emph{Session} do \emph{driver}. Essa forma de inserção foi a que apresentou os resultados mais consistentes durante os testes realizados. São feitas operações em seis \emph{threads} simultâneas, valor que apresentou o melhor resultado nos testes realizados.
 
 Os testes foram realizados para as configurações de \emph{cluster} com duas, quatro e seis máquinas, com objetivo de analisar uma possível melhora no desempenho em \emph{clusters} maiores.
 
@@ -37,7 +37,7 @@ A Tabela~\ref{tb:comparativo_insert} apresenta os tempos obtidos na inserção d
 
 \begin{table}[]
 	\centering
-	\caption{Inserção}
+	\caption{Tempos de inserção}
 	\label{tb:tempo_insert}
 	\begin{tabular}{lllll}
 		\textbf{Volume}		& \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
@@ -46,7 +46,7 @@ A Tabela~\ref{tb:comparativo_insert} apresenta os tempos obtidos na inserção d
 	\end{tabular}
 \end{table}
 
-Com o aumento do número de máquinas, foi observada uma melhora média de \emph{6,46\%} quando utilizado o volume de carga correspondente a 18 meses, e de {8,54\%} nos dados de 30 meses, como exposto na tabela~\ref{tb:comparativo_insert}. Esse resultado demonstra que ao se utilizar um maior volume de dados nos testes realizados, obteve-se um desempenho proporcionalmente superior do Cassandra.
+Com o aumento do número de máquinas, foi observada uma melhora média de \emph{6,46\%} quando utilizado o volume de carga correspondente a 18 meses, e de {8,54\%} nos dados de 30 meses, como exposto na Tabela~\ref{tb:comparativo_insert}. Esse resultado demonstra que ao se utilizar um maior volume de dados nos testes realizados, obteve-se um desempenho proporcionalmente superior do Cassandra.
 
 \begin{table}[]
 	\centering
@@ -59,13 +59,13 @@ Com o aumento do número de máquinas, foi observada uma melhora média de \emph
 	\end{tabular}
 \end{table}
 
-\figura[!htb]{graphinsert.png}{Inserção de dados}{fig:graph_insert}{width=1\textwidth}
+\figura[!htb]{graphinsert.png}{Tempos de inserção}{fig:graph_insert}{width=1\textwidth}
 
 \section{Extração de dados}
 Após cada inserção dos dados, nas três configurações de \emph{cluster} (duas, quatro e seis máquinas), e com os dois volumes distintos de dados, foram realizadas consultas para verificar o desempenho de um banco de dados Cassandra ao se realizar extração de dados.
 
 \subsection{Consultas}
-Assim como para a carga de dados, foi desenvolvida uma aplicação Java para a realização das consultas no banco de dados, com uso do \emph{driver} da \emph{Datastax}. Cada teste de consulta envolveu a execução de trinta \emph{SELECT} no banco, sendo que cada um realiza uma consulta com uso da linguagem CQL a um registro específico, selecionado de forma aleatória. Essa consulta, exemplificada no Código \ref{lst:cql_select}, contém toda a totalidade da chave primária da tabela, requisito imposto pelo banco de dados Cassandra. Cada teste foi repetido dez vezes a fim de se obter uma média dos resultados encontrados.
+Assim como para a carga de dados, foi desenvolvida uma aplicação Java para a realização das consultas no banco de dados, com uso do \emph{driver} da \emph{Datastax}. Cada teste de consulta envolveu a execução \emph{SELECTs} no banco, sendo realizas consultas com uso da linguagem CQL a trinta registros específicos, selecionados de forma aleatória. Essa consulta, exemplificada no Código \ref{lst:cql_select}, contém toda a totalidade da chave primária da tabela, requisito imposto pelo banco de dados Cassandra. Cada teste foi repetido dez vezes a fim de se obter uma média dos resultados encontrados.
 
 \begin{lstlisting}[caption={Consulta CQL},label={lst:cql_select},language=SQL]
 SELECT * FROM dados WHERE nis_favorecido = 00020915229557 AND periodo = '2014-07-01' AND valor = 147.00 
@@ -73,7 +73,7 @@ SELECT * FROM dados WHERE nis_favorecido = 00020915229557 AND periodo = '2014-07
 
 A Tabela \ref{tab:select_busca} apresenta os tempos obtidos na consulta de registros nos diferentes ambientes e volumes de dados testados. O Gráfico \ref{fig:graph_select_busca} apresenta os mesmos dados para melhor visualização.
 
-Com o aumento no número de máquinas, observou-se uma melhora média de 46,20\% no volume de dados correspondente a 18 meses e de 66,85\% no volume de dados correspondente a 30 meses. Nota-se, ainda, uma significativa melhora no tempo de busca ao se aumentar o número de máquinas de duas para quatro, tendo-se obtido uma melhora de 81\% no primeiro volume de dados.
+Com o aumento no número de máquinas, observou-se uma melhora média de 46,20\% no tempo de busca utilizando-se o volume de dados correspondente a 18 meses, e de 66,85\% utilizando-se o volume de dados correspondente a 30 meses. Nota-se, ainda, uma significativa melhora no tempo de busca ao se aumentar o número de máquinas de duas para quatro, tendo-se obtido uma melhora de 81\% no primeiro volume de dados.
 
 \begin{table}[]
 	\centering
@@ -88,10 +88,10 @@ Com o aumento no número de máquinas, observou-se uma melhora média de 46,20\%
 
 O Gráfico \ref{fig:graph_select_18} apresenta os resultados das dez consultas efetuadas para cada configuração do \emph{cluster} com volume de dados de 18 meses. Pode-se observar, principalmente na configuração com duas máquinas, que algumas execuções das consultas apresentam tempos bem distintos da média encontrada. Esse resultado pode ser explicado por variações da rede no ambiente utilizado, justificando a execução de múltiplos testes para cada configuração de \emph{cluster} e volume de dados. 
 
-\figura[!htb]{graph_select_detail.png}{Busca de dados}{fig:graph_select_18}{width=1\textwidth}
+\figura[!htb]{graph_select_detail.png}{Detalhamento dos tempos de busca}{fig:graph_select_18}{width=1\textwidth}
 
 \subsection{Comparação dos Ambientes}
-Nos testes com volume de dados de dezoito meses do programa observou-se uma melhora de 81\% ao se aumentar o número de máquinas no \emph{cluster} de duas para quatro, e de 11,41\% ao se aumentar o número de máquinas de quatro para seis, uma média de 46,20\%. 
+Nos testes com volume de dados de 18 meses do programa observou-se uma melhora de 81\% ao se aumentar o número de máquinas no \emph{cluster} de duas para quatro, e de 11,41\% ao se aumentar o número de máquinas de quatro para seis, uma média de 46,20\%. 
 
 Para o volume de dados correspondente a 30 meses, obteve-se uma melhora no tempo da busca de dados de 66,21\% ao se aumentar o número de máquinas de dois para quatro, e de 67,48\% de quatro para seis máquinas, uma média de 66,85\%. 
 
@@ -99,7 +99,7 @@ Os resultados obtidos demonstram a tendência de melhora no desempenho de um ban
 
 \begin{table}[]
 	\centering
-	\caption{Busca de dados}
+	\caption{Tempos de busca}
 	\label{tab:select_busca}
 	\begin{tabular}{lllll}
 		\textbf{Tamanho} & \textbf{2 nós} & \textbf{4 nós} & \textbf{6 nós} \\ \hline
@@ -108,4 +108,4 @@ Os resultados obtidos demonstram a tendência de melhora no desempenho de um ban
 	\end{tabular}
 \end{table}
 
-\figura[!htb]{graph_select_buscas.png}{Busca de dados}{fig:graph_select_busca}{width=1\textwidth}
+\figura[!htb]{graph_select_buscas.png}{Tempos de busca}{fig:graph_select_busca}{width=1\textwidth}
